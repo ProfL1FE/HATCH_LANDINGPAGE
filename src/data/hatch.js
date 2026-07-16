@@ -1,29 +1,62 @@
 export const NAV_LINKS = [
-  { to: '/', label: 'Home' },
-  { to: '/about', label: 'About' },
-  { to: '/challenge', label: 'Challenge' },
+  { to: '/', label: 'Discover' },
   { to: '/journey', label: 'Journey' },
-  { to: '/awards', label: 'Awards' },
-  { to: '/partners', label: 'Partners' },
+  { to: '/opportunities', label: 'Opportunities' },
+  { to: '/ecosystem', label: 'Ecosystem' },
   { to: '/resources', label: 'Resources' },
+  { to: '/partners', label: 'Partners' },
 ]
 
-export const HERO_STATS = [
-  { icon: '👥', value: '10K+', label: 'Students' },
-  { icon: '🏛️', value: '120+', label: 'Universities' },
-  { icon: '💡', value: '2K+', label: 'Ideas Submitted' },
-  { icon: '🌍', value: '1', label: 'Mission' },
+export const HOME_SECTIONS = [
+  { id: 'discover', label: 'Discover' },
+  { id: 'what-is-hatch', label: 'What is HATCH' },
+  { id: 'journey-preview', label: 'The Journey' },
+  { id: 'built-for-everyone', label: 'Built for Everyone' },
+  { id: 'why-join', label: 'Why Join' },
+  { id: 'recognition', label: 'Recognition' },
+  { id: 'success-stories', label: 'Success Stories' },
+  { id: 'partners', label: 'Partners' },
+  { id: 'cta', label: 'Join' },
 ]
 
-export const ECOSYSTEM_NODES = [
-  { icon: '💼', label: 'CareerBank™', sub: 'Your Professional Home', pos: 'left-[-8%] top-[4%]' },
-  { icon: '🪪', label: 'Jo1nID™', sub: 'Your Digital Identity', pos: 'left-[-14%] top-[36%]' },
-  { icon: '✅', label: 'Veri5™', sub: 'Verified Achievements', pos: 'left-[-10%] top-[68%]' },
-  { icon: '📋', label: 'Jo1nBiz™', sub: 'Build. Manage. Grow.', pos: 'right-[-8%] top-[2%]' },
-  { icon: '🎓', label: 'Jo1nUni™', sub: 'University Partners', pos: 'right-[-16%] top-[32%]' },
-  { icon: '🐝', label: 'HIVE™', sub: 'Founder Community', pos: 'right-[-12%] top-[56%]' },
-  { icon: '🏆', label: 'Launchpad™', sub: 'Turn Ideas Into Ventures', pos: 'right-[-6%] top-[80%]' },
+export const WHAT_IS_HATCH = [
+  { icon: 'bulb', title: 'Idea', desc: 'Every breakthrough starts with a single idea.' },
+  { icon: 'brain', title: 'AI', desc: 'Use AI to accelerate innovation.' },
+  { icon: 'mic', title: 'Pitch', desc: 'Present your vision to industry experts.' },
+  { icon: 'rocket', title: 'Launch', desc: 'Turn your idea into a real venture.' },
 ]
+
+export const AUDIENCES = [
+  {
+    icon: 'graduationCap',
+    title: 'University Students',
+    desc: 'Turn your academic journey into real-world impact and recognition.',
+    to: '/join',
+  },
+  {
+    icon: 'briefcase',
+    title: 'Professionals & Adults',
+    desc: 'Bring your experience and ideas to the next level.',
+    to: '/join',
+  },
+  {
+    icon: 'bank',
+    title: 'Schools & TVET',
+    desc: 'Empowering the next generation of innovators nationwide.',
+    to: '/join',
+  },
+]
+
+export const WHY_JOIN = [
+  { icon: 'star', label: 'National Recognition' },
+  { icon: 'brain', label: 'AI Masterclasses' },
+  { icon: 'graduationCap', label: 'Founder Bootcamps' },
+  { icon: 'users', label: 'Industry Mentorship' },
+  { icon: 'briefcase', label: 'Professional Portfolio' },
+  { icon: 'rocket', label: 'Launchpad Access' },
+]
+
+export const PARTNER_LOGOS = ['UTM', 'UPM', 'MMU', 'SUNWAY', 'PETRONAS', 'MDEC', 'Cradle', 'Maybank']
 
 export const STAGES = [
   {
@@ -212,6 +245,7 @@ export const FAQ = [
   { q: 'Can I use AI?', a: 'Yes. AI is encouraged when used responsibly. Significant AI tools used in developing your solution should be disclosed.' },
   { q: 'Is there a cash prize?', a: 'The main reward is the 12-Month HATCH Launchpad™, valued at approximately USD30,000 in venture development support. It is not positioned as a cash prize.' },
   { q: 'Can students from different universities form a team?', a: 'Yes. Teams can register together and can later be supported through team matching via JO1NID.' },
+  { q: 'What do winners receive?', a: 'The Champion enters the 12-Month HATCH Launchpad™, valued at approximately USD30,000 in venture development support. National Finalists and Top 100 teams also receive certificates, mentorship, and CareerBank recognition.' },
 ]
 
 export const TIMELINE = [
@@ -258,8 +292,9 @@ export const PARTNER_TYPES = [
 ]
 
 export const RECOGNITION = [
-  { stat: 'Top 100', label: 'Development Sprint' },
-  { stat: 'Top 20', label: 'National Finalists' },
-  { stat: 'USD30k', label: 'Launchpad value' },
-  { stat: '12 Months', label: 'Founder support' },
+  { stat: '100+', label: 'Ideas Selected' },
+  { stat: '20', label: 'National Finalists' },
+  { stat: '1', label: 'Champion' },
+  { stat: '12', label: 'Months Launchpad' },
+  { stat: '∞', label: 'Lifetime Ecosystem' },
 ]

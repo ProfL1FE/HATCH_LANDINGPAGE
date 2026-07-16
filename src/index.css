@@ -1,7 +1,13 @@
 @import "tailwindcss";
 
+/* Compact spacing on vertically short viewports (small laptops) — 840px catches the very
+   common 1366x768 / 1280x800 laptop resolutions after browser chrome is subtracted. */
+@custom-variant short (@media (max-height: 840px));
+@custom-variant xshort (@media (max-height: 670px));
+
 @theme {
   --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
 
   --color-bg: #060912;
   --color-panel: #0d1524;
@@ -22,36 +28,48 @@
   --shadow-hatch: 0 26px 90px rgba(0, 0, 0, 0.42);
 }
 
-html {
-  scroll-behavior: smooth;
-}
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
 
-body {
-  margin: 0;
-  font-family: var(--font-sans);
-  color: var(--color-ink);
-  background-color: var(--color-bg);
-  background-image:
-    radial-gradient(circle at 0 0, rgba(110, 231, 255, 0.17), transparent 34%),
-    radial-gradient(circle at 84% 8%, rgba(167, 139, 250, 0.2), transparent 31%),
-    radial-gradient(circle at 45% 100%, rgba(255, 209, 102, 0.08), transparent 32%);
-  background-attachment: fixed;
-  line-height: 1.5;
-}
+  body {
+    margin: 0;
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    background-color: var(--color-bg);
+    background-image:
+      radial-gradient(circle at 0 0, rgba(110, 231, 255, 0.17), transparent 34%),
+      radial-gradient(circle at 84% 8%, rgba(167, 139, 250, 0.2), transparent 31%),
+      radial-gradient(circle at 45% 100%, rgba(255, 209, 102, 0.08), transparent 32%);
+    background-attachment: fixed;
+    line-height: 1.5;
+  }
 
-#root {
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-}
+  #root {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+  }
 
-a {
-  color: inherit;
+  a {
+    color: inherit;
+  }
+
+  section[id] {
+    scroll-margin-top: 84px;
+  }
 }
 
 /* Reusable HATCH design-system utilities */
 @utility hatch-wrap {
   width: min(1200px, 92vw);
+  margin-inline: auto;
+}
+
+/* Edge-to-edge shell for the header + hero, matching the reference's ~3% side margins */
+@utility hatch-wrap-wide {
+  width: min(1460px, 95vw);
   margin-inline: auto;
 }
 
@@ -82,4 +100,43 @@ a {
 
 .details-marker-hidden::-webkit-details-marker {
   display: none;
+}
+
+/* ── Premium motion system ─────────────────────────────── */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(26px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes fade-down {
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes floaty {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+@keyframes line-glow {
+  0%, 100% { opacity: 0.55; }
+  50%      { opacity: 1; }
+}
+@keyframes arrow-drop {
+  0%, 100% { transform: translateY(0); opacity: 0.9; }
+  50%      { transform: translateY(6px); opacity: 0.35; }
+}
+
+.anim-rise      { animation: rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.anim-fade      { animation: fade-in 0.7s ease-out both; }
+.anim-fade-down { animation: fade-down 0.5s ease-out both; }
+.anim-float     { animation: floaty 7s ease-in-out infinite; }
+.anim-line      { animation: line-glow 4s ease-in-out infinite; }
+.anim-arrow     { animation: arrow-drop 1.8s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-rise, .anim-fade, .anim-fade-down, .anim-float, .anim-line, .anim-arrow {
+    animation: none;
+  }
 }

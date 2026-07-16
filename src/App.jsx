@@ -1,14 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout'
+import ComingSoon from './components/ComingSoon'
 import Home from './pages/Home'
-import About from './pages/About'
-import Challenge from './pages/Challenge'
-import Journey from './pages/Journey'
-import Awards from './pages/Awards'
-import Partners from './pages/Partners'
-import Resources from './pages/Resources'
-import Register from './pages/Register'
-import SignIn from './pages/SignIn'
 
 function App() {
   return (
@@ -16,14 +9,17 @@ function App() {
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/challenge" element={<Challenge />} />
-          <Route path="/journey" element={<Journey />} />
-          <Route path="/awards" element={<Awards />} />
-          <Route path="/partners" element={<Partners />} />
-          <Route path="/resources" element={<Resources />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/signin" element={<SignIn />} />
+          <Route path="/journey" element={<ComingSoon title="Journey" />} />
+          <Route path="/opportunities" element={<ComingSoon title="Opportunities" />} />
+          <Route path="/ecosystem" element={<ComingSoon title="Ecosystem" />} />
+          <Route path="/resources" element={<ComingSoon title="Resources" />} />
+          <Route path="/partners" element={<ComingSoon title="Partners" />} />
+          <Route path="/login" element={<ComingSoon title="Login" />} />
+          <Route path="/join" element={<ComingSoon title="Join HATCH" />} />
+          <Route path="/privacy" element={<ComingSoon title="Privacy Policy" />} />
+          <Route path="/terms" element={<ComingSoon title="Terms of Use" />} />
+          <Route path="/cookies" element={<ComingSoon title="Cookie Policy" />} />
+          <Route path="*" element={<ComingSoon title="Page Not Found" />} />
         </Route>
       </Routes>
     </BrowserRouter>

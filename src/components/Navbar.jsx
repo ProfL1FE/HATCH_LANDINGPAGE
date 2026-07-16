@@ -2,43 +2,76 @@ import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { NAV_LINKS } from '../data/hatch'
 import Button from './Button'
+import { HatchLogo } from './Icon'
+
+function NavItem({ to, label, onClick, mobile = false }) {
+  return (
+    <NavLink
+      to={to}
+      end={to === '/'}
+      onClick={onClick}
+      className={({ isActive }) =>
+        mobile
+          ? `rounded-lg px-3 py-2.5 text-[13px] font-semibold uppercase tracking-[2px] ${
+              isActive ? 'bg-white/8 text-gold' : 'text-muted hover:text-white'
+            }`
+          : `group relative py-2 text-[12px] font-semibold uppercase tracking-[2.2px] transition duration-300 ${
+              isActive ? 'text-white' : 'text-muted hover:text-white hover:[text-shadow:0_0_14px_rgba(255,209,102,0.45)]'
+            }`
+      }
+    >
+      {({ isActive }) => (
+        <>
+          {label}
+          {!mobile && (
+            <span
+              className={`absolute -bottom-2 left-1/2 h-px w-7 -translate-x-1/2 bg-gradient-to-r from-transparent via-[#b98a2e] to-transparent transition-opacity duration-500 ease-out ${
+                isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-45'
+              }`}
+            >
+              <span
+                className={`absolute left-1/2 top-1/2 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold shadow-[0_0_10px_3px_rgba(255,209,102,0.85)] transition-transform duration-500 ease-out ${
+                  isActive ? 'scale-100' : 'scale-0'
+                }`}
+              />
+            </span>
+          )}
+        </>
+      )}
+    </NavLink>
+  )
+}
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-50 border-b border-line bg-bg/76 backdrop-blur-xl">
-      <div className="hatch-wrap flex h-[74px] items-center justify-between">
-        <Link to="/" className="flex items-center gap-3 font-black tracking-tight">
-          <span className="grid h-11 w-11 place-items-center rounded-2xl bg-gradient-to-br from-cyan to-violet font-black text-[#06101c]">
-            H
-          </span>
-          <span>
-            HATCH™ 2027
-            <br />
-            <small className="text-[13px] font-semibold text-muted">AI for Humanity</small>
+    <header className="anim-fade-down sticky top-0 z-50 border-b border-white/10 bg-[#04060c]/94 shadow-[0_10px_40px_rgba(0,0,0,0.55)] backdrop-blur-md">
+      <div className="hatch-wrap-wide flex h-[74px] items-center justify-between gap-6">
+        <Link to="/" className="flex shrink-0 items-center gap-2.5">
+          <HatchLogo size={38} />
+          <span className="leading-tight">
+            <span className="block text-[17px] font-black tracking-[1px] text-white">
+              HATCH<sup className="text-[9px] font-bold">™</sup> <span className="text-gold">2027</span>
+            </span>
+            <span className="block text-[9px] font-semibold uppercase tracking-[3.5px] text-muted">
+              AI for Humanity
+            </span>
           </span>
         </Link>
 
-        <nav className="hidden gap-[17px] text-sm text-muted lg:flex">
+        <nav className="hidden items-center gap-8 lg:flex">
           {NAV_LINKS.map((link) => (
-            <NavLink
-              key={link.to}
-              to={link.to}
-              end={link.to === '/'}
-              className={({ isActive }) => (isActive ? 'text-white' : 'hover:text-white transition')}
-            >
-              {link.label}
-            </NavLink>
+            <NavItem key={link.to} to={link.to} label={link.label} />
           ))}
         </nav>
 
-        <div className="hidden items-center gap-2.5 sm:flex">
-          <Button to="/signin" variant="secondary" size="sm">
-            Sign In
+        <div className="hidden shrink-0 items-center gap-3 sm:flex">
+          <Button to="/login" variant="outline" size="sm" className="uppercase tracking-[1.5px]">
+            Login
           </Button>
-          <Button to="/register" size="sm">
-            Register
+          <Button to="/join" variant="gradient" size="sm" className="uppercase tracking-[1.5px]">
+            Join HATCH
           </Button>
         </div>
 
@@ -52,25 +85,17 @@ export default function Navbar() {
       </div>
 
       {open && (
-        <div className="border-t border-line bg-panel lg:hidden">
-          <nav className="hatch-wrap flex flex-col gap-1 py-4 text-muted">
+        <div className="border-t border-line bg-[#04060c] lg:hidden">
+          <nav className="hatch-wrap flex flex-col gap-1 py-4">
             {NAV_LINKS.map((link) => (
-              <NavLink
-                key={link.to}
-                to={link.to}
-                end={link.to === '/'}
-                onClick={() => setOpen(false)}
-                className={({ isActive }) => `rounded-lg px-3 py-2.5 ${isActive ? 'bg-white/8 text-white' : 'hover:text-white'}`}
-              >
-                {link.label}
-              </NavLink>
+              <NavItem key={link.to} to={link.to} label={link.label} mobile onClick={() => setOpen(false)} />
             ))}
             <div className="mt-2 flex gap-2.5">
-              <Button to="/signin" variant="secondary" size="sm" className="flex-1" onClick={() => setOpen(false)}>
-                Sign In
+              <Button to="/login" variant="outline" size="sm" className="flex-1 uppercase tracking-[1.5px]" onClick={() => setOpen(false)}>
+                Login
               </Button>
-              <Button to="/register" size="sm" className="flex-1" onClick={() => setOpen(false)}>
-                Register
+              <Button to="/join" variant="gradient" size="sm" className="flex-1 uppercase tracking-[1.5px]" onClick={() => setOpen(false)}>
+                Join HATCH
               </Button>
             </div>
           </nav>
