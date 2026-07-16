@@ -1,27 +1,61 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 import Layout from './components/Layout'
 import ComingSoon from './components/ComingSoon'
 import Home from './pages/Home'
+import Resources from './pages/Resources'
+import Login from './pages/Login'
+import Join from './pages/Join'
+
+/**
+ * Routes live in their own component so they can use router hooks
+ * (useNavigate / useLocation) while still sitting inside <BrowserRouter>.
+ * This is what wires the Resources → Login → Resources access loop:
+ * an unauthenticated download sends the user to /login carrying the
+ * resource title, and a successful sign-in returns them to /resources
+ * with that resource surfaced as unlocked.
+ */
+function AppRoutes() {
+  const navigate = useNavigate()
+  const location = useLocation()
+  const pendingResource = location.state?.pendingResource ?? null
+
+  function handleRequireAuth(resourceTitle) {
+    navigate('/login', { state: { pendingResource: resourceTitle } })
+  }
+
+  function handleSignedIn() {
+    // After the brief "ACCESS CONFIRMED" state, return the user to Resources —
+    // now signed in — and pass back the resource they came for so the page can
+    // surface it as unlocked.
+    window.setTimeout(() => {
+      navigate('/resources', pendingResource ? { state: { unlocked: pendingResource } } : undefined)
+    }, 1400)
+  }
+
+  return (
+    <Routes>
+      <Route element={<Layout />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/journey" element={<ComingSoon title="Journey" />} />
+        <Route path="/opportunities" element={<ComingSoon title="Opportunities" />} />
+        <Route path="/ecosystem" element={<ComingSoon title="Ecosystem" />} />
+        <Route path="/resources" element={<Resources onRequireAuth={handleRequireAuth} />} />
+        <Route path="/partners" element={<ComingSoon title="Partners" />} />
+        <Route path="/login" element={<Login pendingResource={pendingResource} onSignedIn={handleSignedIn} />} />
+        <Route path="/join" element={<Join />} />
+        <Route path="/privacy" element={<ComingSoon title="Privacy Policy" />} />
+        <Route path="/terms" element={<ComingSoon title="Terms of Use" />} />
+        <Route path="/cookies" element={<ComingSoon title="Cookie Policy" />} />
+        <Route path="*" element={<ComingSoon title="Page Not Found" />} />
+      </Route>
+    </Routes>
+  )
+}
 
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route element={<Layout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/journey" element={<ComingSoon title="Journey" />} />
-          <Route path="/opportunities" element={<ComingSoon title="Opportunities" />} />
-          <Route path="/ecosystem" element={<ComingSoon title="Ecosystem" />} />
-          <Route path="/resources" element={<ComingSoon title="Resources" />} />
-          <Route path="/partners" element={<ComingSoon title="Partners" />} />
-          <Route path="/login" element={<ComingSoon title="Login" />} />
-          <Route path="/join" element={<ComingSoon title="Join HATCH" />} />
-          <Route path="/privacy" element={<ComingSoon title="Privacy Policy" />} />
-          <Route path="/terms" element={<ComingSoon title="Terms of Use" />} />
-          <Route path="/cookies" element={<ComingSoon title="Cookie Policy" />} />
-          <Route path="*" element={<ComingSoon title="Page Not Found" />} />
-        </Route>
-      </Routes>
+      <AppRoutes />
     </BrowserRouter>
   )
 }

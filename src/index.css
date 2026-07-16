@@ -140,3 +140,41 @@
     animation: none;
   }
 }
+
+/* ── Auth / Resources page atmosphere ──────────────────────
+ * Per-page layered colour fields for the Resources, Login and Join pages.
+ * Each keeps the same deep-midnight base plus a blue atmosphere layer, then
+ * adds one accent tuned to what the page is for, so the pages read as distinct
+ * zones of the same ecosystem rather than identical screens.
+ */
+.hatch-atmosphere-resources {
+  background:
+    radial-gradient(90% 75% at 6% -15%, rgba(46, 74, 122, 0.5) 0%, rgba(46, 74, 122, 0.2) 45%, transparent 78%),
+    radial-gradient(70% 60% at 96% 8%, rgba(180, 139, 255, 0.22) 0%, transparent 72%),
+    radial-gradient(85% 70% at 45% 120%, rgba(46, 74, 122, 0.32) 0%, transparent 78%),
+    var(--color-bg);
+}
+
+.hatch-atmosphere-signin {
+  background:
+    radial-gradient(90% 75% at 10% -15%, rgba(46, 74, 122, 0.5) 0%, rgba(46, 74, 122, 0.2) 45%, transparent 78%),
+    radial-gradient(65% 55% at 97% 95%, rgba(110, 231, 255, 0.2) 0%, transparent 72%),
+    radial-gradient(85% 65% at 50% 30%, rgba(46, 74, 122, 0.28) 0%, transparent 80%),
+    var(--color-bg);
+}
+
+/* Functional entry transition — communicates "the system responded". */
+.hatch-fade-in {
+  animation: hatch-fade-in 0.22s ease-out;
+}
+
+@keyframes hatch-fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hatch-fade-in {
+    animation: none;
+  }
+}
