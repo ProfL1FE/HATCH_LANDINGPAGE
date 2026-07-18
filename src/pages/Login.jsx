@@ -67,7 +67,16 @@ export default function Login({ pendingResource, onSignedIn }) {
 
     if (!result.ok || !result.data) {
       setStatus('idle');
-      setError(result.message);
+      // JO1NID locks accounts after repeated failures, and retrying while
+      // locked restarts the lock timer — so when the server says "locked",
+      // the most useful thing we can tell the user is to stop trying.
+      if (/locked/i.test(result.message)) {
+        setError(
+          `${result.message} Wait about 15 minutes without attempting again — each retry restarts the timer.`,
+        );
+      } else {
+        setError(result.message);
+      }
       return;
     }
 
