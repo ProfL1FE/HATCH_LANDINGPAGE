@@ -4,7 +4,7 @@ import { Eye, EyeOff, Loader2, Fingerprint, GraduationCap, Briefcase, ArrowRight
 import Button from '../components/Button';
 import Field from '../components/Field';
 import { isValidEmail, required } from '../lib/validation';
-import { loginUser } from '../services/jo1nid';
+import { loginUser, requestPasswordReset } from '../services/jo1nid';
 import { saveSession } from '../lib/auth';
 
 const ROUTES = [
@@ -22,6 +22,27 @@ export default function Login({ pendingResource, onSignedIn }) {
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState('idle');
   const [error, setError] = useState(null);
+
+  // Forgot-password panel state — kept separate from the login form so a
+  // reset request never disturbs what the user has typed above.
+  const [resetOpen, setResetOpen] = useState(false);
+  const [resetEmail, setResetEmail] = useState('');
+  const [resetStatus, setResetStatus] = useState('idle');
+  const [resetError, setResetError] = useState(null);
+
+  async function sendReset() {
+    setResetError(null);
+    if (!required(resetEmail) || !isValidEmail(resetEmail)) {
+      setResetError('Enter a valid email address.');
+      return;
+    }
+    setResetStatus('loading');
+    const result = await requestPasswordReset(resetEmail);
+    setResetStatus('sent');
+    // requestPasswordReset always resolves ok:true by design (anti-enumeration),
+    // so "sent" here means "request made", not "account exists".
+    void result;
+  }
 
   function validate() {
     const next = {};
@@ -149,7 +170,7 @@ export default function Login({ pendingResource, onSignedIn }) {
                 </button>
               </div>
 
-              <div className="flex items-center text-sm">
+              <div className="flex items-center justify-between text-sm">
                 <label className="flex items-center gap-2 text-muted">
                   <input
                     type="checkbox"
@@ -159,7 +180,66 @@ export default function Login({ pendingResource, onSignedIn }) {
                   />
                   Remember me
                 </label>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setResetOpen((v) => !v);
+                    setResetStatus('idle');
+                    setResetError(null);
+                    // Pre-fill with whatever they typed in the login form.
+                    if (!resetEmail && email) setResetEmail(email);
+                  }}
+                  className="font-medium text-gold/90 transition-opacity hover:opacity-70"
+                >
+                  Forgot password?
+                </button>
               </div>
+
+              {resetOpen && (
+                <div className="hatch-fade-in rounded-lg border border-line bg-panel-2/50 p-4">
+                  {resetStatus === 'sent' ? (
+                    <div className="flex items-start gap-2.5">
+                      <CheckCircle2 size={16} aria-hidden="true" className="mt-0.5 shrink-0 text-gold" />
+                      <p className="text-sm text-muted">
+                        If that email is registered, a reset link is on its way. Check your inbox
+                        (and spam folder), then come back here and sign in with your new password.
+                      </p>
+                    </div>
+                  ) : (
+                    <>
+                      <p className="text-sm text-muted">
+                        Enter your JO1NID email and we&rsquo;ll send you a reset link.
+                      </p>
+                      <div className="mt-3 flex flex-col gap-3">
+                        <Field
+                          id="reset-email"
+                          type="email"
+                          label="Email address"
+                          value={resetEmail}
+                          onChange={(e) => setResetEmail(e.target.value)}
+                          error={resetError ?? undefined}
+                        />
+                        <div className="flex gap-2">
+                          <Button
+                            variant="secondary"
+                            size="sm"
+                            onClick={sendReset}
+                            disabled={resetStatus === 'loading'}
+                          >
+                            {resetStatus === 'loading' ? (
+                              <Loader2 size={14} className="animate-spin" aria-hidden="true" />
+                            ) : null}
+                            {resetStatus === 'loading' ? 'Sending…' : 'Send reset link'}
+                          </Button>
+                          <Button variant="secondary" size="sm" onClick={() => setResetOpen(false)}>
+                            Cancel
+                          </Button>
+                        </div>
+                      </div>
+                    </>
+                  )}
+                </div>
+              )}
 
               {error && <p className="text-sm text-red-300">{error}</p>}
 
