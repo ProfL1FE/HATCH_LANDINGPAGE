@@ -99,7 +99,7 @@ export default function Resources({ onRequireAuth }) {
               return (
                 <article
                   key={resource.id}
-                  className="flex flex-col rounded-xl border border-line bg-panel/40 p-6 transition-colors duration-[250ms] hover:border-gold/30"
+                  className="hatch-panel-glass flex flex-col rounded-xl border border-line bg-panel/70 p-6 transition-colors duration-[250ms] hover:border-gold/30"
                 >
                   <div className="mb-4">
                     {loggedIn ? (

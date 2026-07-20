@@ -128,6 +128,7 @@ export default function Join() {
   }
 
   return (
+    <div className="hatch-atmosphere-join min-h-[calc(100svh-74px)]">
     <div className="mx-auto max-w-3xl px-6 py-16 hatch-fade-in">
       <h1 className="text-4xl font-bold tracking-tight text-ink">Join HATCH™ 2027</h1>
       <p className="mt-3 text-muted">Three steps to start your journey.</p>
@@ -144,8 +145,8 @@ export default function Join() {
                   key={p.id}
                   onClick={() => selectPath(p.id)}
                   aria-pressed={active}
-                  className={`flex flex-col items-start gap-3 rounded-2xl border p-5 text-left transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-cyan ${
-                    active ? 'border-cyan/60 bg-cyan/5' : 'border-line bg-panel hover:border-cyan/30'
+                  className={`hatch-panel-glass flex flex-col items-start gap-3 rounded-2xl border p-5 text-left transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-cyan ${
+                    active ? 'border-cyan/60 bg-cyan/5' : 'border-line bg-panel/70 hover:border-cyan/30'
                   }`}
                 >
                   <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-panel-2 text-cyan">
@@ -264,7 +265,7 @@ export default function Join() {
       )}
 
       {step === 'success' && path && (
-        <div className="mt-10 max-w-md rounded-2xl border border-green/40 bg-green/10 p-8 text-center hatch-fade-in">
+        <div className="hatch-panel-glass mt-10 max-w-md rounded-2xl border border-green/40 bg-green/10 p-8 text-center hatch-fade-in">
           <p className="text-xl font-semibold text-ink">{SUCCESS_COPY[path].heading}</p>
           <p className="mt-2 text-sm text-muted">{SUCCESS_COPY[path].body}</p>
           {(path === 'student' || path === 'business') && (
@@ -280,6 +281,7 @@ export default function Join() {
       )}
 
       {showTermsModal && <TermsModal onClose={() => setShowTermsModal(false)} />}
+    </div>
     </div>
   );
 }

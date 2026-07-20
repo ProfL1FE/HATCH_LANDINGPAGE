@@ -15,7 +15,7 @@ export default function TermsModal({ onClose }) {
       aria-modal="true"
       aria-labelledby="terms-modal-title"
     >
-      <div className="relative max-h-[80vh] w-full max-w-lg overflow-y-auto rounded-2xl border border-line bg-panel p-6">
+      <div className="hatch-panel-glass relative max-h-[80vh] w-full max-w-lg overflow-y-auto rounded-2xl border border-line bg-panel p-6">
         <button
           onClick={onClose}
           aria-label="Close"

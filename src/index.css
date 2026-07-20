@@ -147,20 +147,21 @@
  * adds one accent tuned to what the page is for, so the pages read as distinct
  * zones of the same ecosystem rather than identical screens.
  */
-.hatch-atmosphere-resources {
-  background:
-    radial-gradient(90% 75% at 6% -15%, rgba(46, 74, 122, 0.5) 0%, rgba(46, 74, 122, 0.2) 45%, transparent 78%),
-    radial-gradient(70% 60% at 96% 8%, rgba(180, 139, 255, 0.22) 0%, transparent 72%),
-    radial-gradient(85% 70% at 45% 120%, rgba(46, 74, 122, 0.32) 0%, transparent 78%),
-    var(--color-bg);
+/* Poster gradient (violet → blue → teal), scoped to the auth/resources pages
+ * only — the rest of the site keeps the shared dark-navy theme. Fixed
+ * attachment so the colour field stays stable while the page scrolls. */
+.hatch-atmosphere-resources,
+.hatch-atmosphere-signin,
+.hatch-atmosphere-join {
+  background-image: linear-gradient(180deg, #360653 0%, #41376a 22%, #4c8ea8 48%, #50bbc4 70%, #7fc9d3 100%);
+  background-attachment: fixed;
 }
 
-.hatch-atmosphere-signin {
-  background:
-    radial-gradient(90% 75% at 10% -15%, rgba(46, 74, 122, 0.5) 0%, rgba(46, 74, 122, 0.2) 45%, transparent 78%),
-    radial-gradient(65% 55% at 97% 95%, rgba(110, 231, 255, 0.2) 0%, transparent 72%),
-    radial-gradient(85% 65% at 50% 30%, rgba(46, 74, 122, 0.28) 0%, transparent 80%),
-    var(--color-bg);
+/* Light glassmorphism for cards sitting on the gradient — pairs with
+ * translucent panel fills so text stays readable on the bright lower half. */
+.hatch-panel-glass {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 
 /* Functional entry transition — communicates "the system responded". */

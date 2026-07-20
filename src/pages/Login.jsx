@@ -112,7 +112,7 @@ export default function Login({ pendingResource, onSignedIn }) {
 
         {/* Right — sign-in panel */}
         <div className="hatch-fade-in mx-auto w-full max-w-md lg:mx-0">
-          <div className="rounded-xl border border-line bg-panel/70 p-6">
+          <div className="hatch-panel-glass rounded-xl border border-line bg-panel/70 p-6">
             {pendingResource && (
               <div className="mb-6 border-l-2 border-gold/60 pl-4">
                 <p className="text-[10px] font-semibold uppercase tracking-[0.25em] text-gold/80">RESOURCE ACCESS</p>
@@ -205,7 +205,7 @@ export default function Login({ pendingResource, onSignedIn }) {
               </div>
 
               {resetOpen && (
-                <div className="hatch-fade-in rounded-lg border border-line bg-panel-2/50 p-4">
+                <div className="hatch-panel-glass hatch-fade-in rounded-lg border border-line bg-panel-2/50 p-4">
                   {resetStatus === 'sent' ? (
                     <div className="flex items-start gap-2.5">
                       <CheckCircle2 size={16} aria-hidden="true" className="mt-0.5 shrink-0 text-gold" />
@@ -261,7 +261,7 @@ export default function Login({ pendingResource, onSignedIn }) {
                   </div>
                 </div>
               ) : (
-                <Button variant="gold" onClick={signIn} disabled={status === 'loading'} className="w-full">
+                <Button variant="primary" onClick={signIn} disabled={status === 'loading'} className="w-full">
                   {status === 'loading' ? <Loader2 size={16} className="animate-spin" aria-hidden="true" /> : null}
                   {status === 'loading' ? 'Authenticating…' : 'Continue to HATCH'}
                 </Button>
