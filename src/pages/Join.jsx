@@ -129,13 +129,13 @@ export default function Join() {
 
   return (
     <div className="hatch-atmosphere-join min-h-[calc(100svh-74px)]">
-    <div className="mx-auto max-w-3xl px-6 py-16 hatch-fade-in">
+    <div className="hatch-on-gradient mx-auto max-w-3xl px-6 py-16 hatch-fade-in">
       <h1 className="text-4xl font-bold tracking-tight text-ink">Join HATCH™ 2027</h1>
-      <p className="mt-3 text-muted">Three steps to start your journey.</p>
+      <p className="mt-3 text-ink/90">Three steps to start your journey.</p>
 
       {step === 'choose' && (
         <div className="mt-10">
-          <h2 className="mb-4 text-sm font-semibold uppercase tracking-wide text-muted">Step 1 — Choose your path</h2>
+          <h2 className="mb-4 text-sm font-semibold uppercase tracking-wide text-ink/85">Step 1 — Choose your path</h2>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
             {PATHS.map((p) => {
               const Icon = p.icon;
@@ -168,7 +168,7 @@ export default function Join() {
 
       {step === 'form' && path && (
         <div className="mt-10 max-w-md">
-          <h2 className="mb-4 text-sm font-semibold uppercase tracking-wide text-muted">Step 2 — Create your account</h2>
+          <h2 className="mb-4 text-sm font-semibold uppercase tracking-wide text-ink/85">Step 2 — Create your account</h2>
           <div className="flex flex-col gap-4">
             <Field
               id="reg-name"
@@ -220,7 +220,7 @@ export default function Join() {
             )}
 
             <div className="mt-1">
-              <label className="flex items-start gap-2 text-sm text-muted">
+              <label className="flex items-start gap-2 text-sm text-ink/85">
                 <input
                   type="checkbox"
                   checked={termsAccepted}

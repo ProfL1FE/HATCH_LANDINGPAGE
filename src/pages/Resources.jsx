@@ -45,10 +45,10 @@ export default function Resources({ onRequireAuth }) {
   return (
     <main className="hatch-atmosphere-resources relative min-h-[calc(100svh-74px)] px-6 py-16 text-ink sm:px-10 lg:px-16">
       <div className="mx-auto max-w-6xl hatch-fade-in">
-        <div className="max-w-2xl">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-gold/80">HATCH™ 2027 / RESOURCES</p>
+        <div className="hatch-on-gradient max-w-2xl">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-gold">HATCH™ 2027 / RESOURCES</p>
           <h1 className="mt-4 text-3xl font-semibold tracking-tight text-ink sm:text-4xl">Move with clarity.</h1>
-          <p className="mt-3 text-base leading-7 text-muted">
+          <p className="mt-3 text-base leading-7 text-ink/90">
             Resources, frameworks and tools to help you move from idea to action.
           </p>
         </div>
@@ -67,12 +67,12 @@ export default function Resources({ onRequireAuth }) {
                 role="tab"
                 aria-selected={active}
                 onClick={() => setCategory(c)}
-                className={`flex items-center justify-center gap-2 rounded-md px-4 py-2.5 text-xs font-semibold uppercase tracking-[0.15em] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold ${
-                  active ? 'bg-panel-2/60 text-gold' : 'text-muted hover:text-ink'
+                className={`hatch-on-gradient flex items-center justify-center gap-2 rounded-md px-4 py-2.5 text-xs font-semibold uppercase tracking-[0.15em] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold ${
+                  active ? 'bg-panel-2/60 text-gold' : 'text-ink/80 hover:text-ink'
                 }`}
               >
                 <span>{c}</span>
-                <span className={`text-[10px] font-medium tracking-normal ${active ? 'text-gold/70' : 'text-muted/50'}`}>
+                <span className={`text-[10px] font-medium tracking-normal ${active ? 'text-gold/70' : 'text-ink/60'}`}>
                   {counts[c]}
                 </span>
               </button>
@@ -83,11 +83,11 @@ export default function Resources({ onRequireAuth }) {
         {/* Status + resource grid */}
         <div className="mt-8">
           {unlockedTitle && (
-            <div className="mb-8 flex items-center gap-3 border-l-2 border-gold pl-4 py-1 hatch-fade-in">
+            <div className="hatch-on-gradient mb-8 flex items-center gap-3 border-l-2 border-gold pl-4 py-1 hatch-fade-in">
               <CheckCircle2 size={17} aria-hidden="true" className="shrink-0 text-gold" />
               <div>
                 <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold">RESOURCE ACCESS GRANTED</p>
-                <p className="mt-1 text-sm text-muted">{unlockedTitle}</p>
+                <p className="mt-1 text-sm text-ink/90">{unlockedTitle}</p>
               </div>
             </div>
           )}
@@ -115,7 +115,7 @@ export default function Resources({ onRequireAuth }) {
                   </div>
 
                   <h3 className="text-lg font-semibold tracking-[-0.01em] text-ink">{resource.title}</h3>
-                  <p className="mt-2 flex-1 text-sm leading-6 text-muted">{resource.description}</p>
+                  <p className="mt-2 flex-1 text-sm leading-6 text-ink/80">{resource.description}</p>
 
                   <Button
                     variant="secondary"

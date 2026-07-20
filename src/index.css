@@ -164,6 +164,12 @@
   -webkit-backdrop-filter: blur(16px);
 }
 
+/* Text that sits directly on the gradient (outside dark panels) — a soft dark
+ * halo keeps it legible where the teal gets bright, without a heavy outline. */
+.hatch-on-gradient {
+  text-shadow: 0 1px 2px rgba(10, 8, 20, 0.55), 0 4px 18px rgba(10, 8, 20, 0.35);
+}
+
 /* Functional entry transition — communicates "the system responded". */
 .hatch-fade-in {
   animation: hatch-fade-in 0.22s ease-out;

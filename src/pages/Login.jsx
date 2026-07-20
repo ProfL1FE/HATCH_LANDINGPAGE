@@ -99,11 +99,11 @@ export default function Login({ pendingResource, onSignedIn }) {
     <div className="hatch-atmosphere-signin relative min-h-[calc(100svh-74px)]">
       <div className="relative mx-auto grid max-w-6xl grid-cols-1 items-start gap-10 px-6 py-14 sm:px-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16 lg:px-16 lg:py-20">
         {/* Left — page identity */}
-        <div className="hatch-fade-in max-w-xl">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-gold/80">HATCH™ 2027 / ACCESS</p>
+        <div className="hatch-on-gradient hatch-fade-in max-w-xl">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-gold">HATCH™ 2027 / ACCESS</p>
           <h1 className="mt-4 text-3xl font-semibold tracking-tight text-ink sm:text-4xl">Continue where you left off.</h1>
-          <p className="mt-3 text-base leading-7 text-muted">Sign in to access your HATCH journey.</p>
-          <p className="mt-10 text-[10px] font-semibold uppercase leading-6 tracking-[0.25em] text-muted/50">
+          <p className="mt-3 text-base leading-7 text-ink/90">Sign in to access your HATCH journey.</p>
+          <p className="mt-10 text-[10px] font-semibold uppercase leading-6 tracking-[0.25em] text-ink/60">
             One ecosystem.
             <br />
             One journey.
