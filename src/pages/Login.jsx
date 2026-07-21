@@ -102,8 +102,8 @@ export default function Login({ pendingResource, onSignedIn }) {
         <div className="hatch-on-gradient hatch-fade-in max-w-xl">
           <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-gold">HATCH™ 2027 / ACCESS</p>
           <h1 className="mt-4 text-3xl font-semibold tracking-tight text-ink sm:text-4xl">Continue where you left off.</h1>
-          <p className="mt-3 text-base leading-7 text-ink/90">Sign in to access your HATCH journey.</p>
-          <p className="mt-10 text-[10px] font-semibold uppercase leading-6 tracking-[0.25em] text-ink/60">
+          <p className="mt-3 text-base leading-7 text-ink">Sign in to access your HATCH journey.</p>
+          <p className="mt-10 text-[10px] font-semibold uppercase leading-6 tracking-[0.25em] text-ink/80">
             One ecosystem.
             <br />
             One journey.
