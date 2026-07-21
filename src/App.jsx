@@ -5,6 +5,9 @@ import Home from './pages/Home'
 import Resources from './pages/Resources'
 import Login from './pages/Login'
 import Join from './pages/Join'
+import Journey from './pages/Journey'
+import Awards from './pages/Awards'
+import Partners from './pages/Partners'
 
 /**
  * Routes live in their own component so they can use router hooks
@@ -36,11 +39,15 @@ function AppRoutes() {
     <Routes>
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
-        <Route path="/journey" element={<ComingSoon title="Journey" />} />
+        <Route path="/journey" element={<Journey />} />
+        {/* No existing route matches this page yet — added as new. Team:
+            please confirm this shouldn't instead live at /opportunities
+            or /ecosystem before merging (see PR description). */}
+        <Route path="/awards" element={<Awards />} />
         <Route path="/opportunities" element={<ComingSoon title="Opportunities" />} />
         <Route path="/ecosystem" element={<ComingSoon title="Ecosystem" />} />
         <Route path="/resources" element={<Resources onRequireAuth={handleRequireAuth} />} />
-        <Route path="/partners" element={<ComingSoon title="Partners" />} />
+        <Route path="/partners" element={<Partners />} />
         <Route path="/login" element={<Login pendingResource={pendingResource} onSignedIn={handleSignedIn} />} />
         <Route path="/join" element={<Join />} />
         <Route path="/privacy" element={<ComingSoon title="Privacy Policy" />} />

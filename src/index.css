@@ -152,7 +152,10 @@
  * attachment so the colour field stays stable while the page scrolls. */
 .hatch-atmosphere-resources,
 .hatch-atmosphere-signin,
-.hatch-atmosphere-join {
+.hatch-atmosphere-join,
+.hatch-atmosphere-journey,
+.hatch-atmosphere-awards,
+.hatch-atmosphere-partners {
   background-image: linear-gradient(180deg, #360653 0%, #41376a 22%, #4c8ea8 48%, #50bbc4 70%, #7fc9d3 100%);
   background-attachment: fixed;
 }
@@ -176,7 +179,10 @@
  * flipped to dark tones for contrast on the light teal. */
 body:has(.hatch-atmosphere-resources) footer,
 body:has(.hatch-atmosphere-signin) footer,
-body:has(.hatch-atmosphere-join) footer {
+body:has(.hatch-atmosphere-join) footer,
+body:has(.hatch-atmosphere-journey) footer,
+body:has(.hatch-atmosphere-awards) footer,
+body:has(.hatch-atmosphere-partners) footer {
   background: linear-gradient(180deg, #35708c 0%, #4f96ad 100%);
   border-top-color: rgba(255, 255, 255, 0.25);
   color: #dff0f5;
@@ -184,7 +190,10 @@ body:has(.hatch-atmosphere-join) footer {
 
 body:has(.hatch-atmosphere-resources) footer :is(b, .text-white),
 body:has(.hatch-atmosphere-signin) footer :is(b, .text-white),
-body:has(.hatch-atmosphere-join) footer :is(b, .text-white) {
+body:has(.hatch-atmosphere-join) footer :is(b, .text-white),
+body:has(.hatch-atmosphere-journey) footer :is(b, .text-white),
+body:has(.hatch-atmosphere-awards) footer :is(b, .text-white),
+body:has(.hatch-atmosphere-partners) footer :is(b, .text-white) {
   color: #ffffff;
 }
 
