@@ -40,11 +40,15 @@
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* The margin/padding/box-sizing reset that used to live here is dropped:
+   Tailwind's own Preflight (loaded once, site-wide, via index.css's
+   `@import "tailwindcss"`) already applies the identical reset inside a
+   proper CSS layer. An unlayered `* { margin: 0; padding: 0; ... }` here
+   would always win over Tailwind's `p-*`/`m-*` utilities regardless of
+   specificity (unlayered rules beat layered ones per the CSS cascade-layer
+   spec), which silently broke spacing utilities on every page, not just
+   this one. Removing the duplicate changes nothing visually — Preflight
+   already provides the same values. */
 
 html {
   scroll-behavior: smooth;
