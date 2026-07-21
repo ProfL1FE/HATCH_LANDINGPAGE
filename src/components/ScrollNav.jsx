@@ -40,7 +40,7 @@ export default function ScrollNav({ sections }) {
 
   return (
     <div
-      className="anim-fade fixed right-4 top-1/2 z-40 hidden -translate-y-1/2 flex-col items-center gap-4 lg:flex"
+      className="anim-fade fixed right-2 top-1/2 z-40 hidden -translate-y-1/2 flex-col items-center gap-4 lg:flex"
       style={{ animationDelay: '0.6s' }}
       aria-label="Section navigation"
     >
@@ -57,7 +57,7 @@ export default function ScrollNav({ sections }) {
             title={s.label}
             className={`rounded-full transition-all duration-300 ease-out ${
               i === active
-                ? 'h-2 w-2 bg-gold shadow-[0_0_10px_rgba(255,209,102,0.9)]'
+                ? 'h-2 w-2 bg-gold shadow-[0_0_10px_rgba(255,204,97,0.9)]'
                 : 'h-1.5 w-1.5 bg-white/30 hover:bg-white/70'
             }`}
           />

@@ -39,15 +39,13 @@ function AppRoutes() {
     <Routes>
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
+        <Route path="/about" element={<ComingSoon title="About" />} />
         <Route path="/journey" element={<Journey />} />
-        {/* No existing route matches this page yet — added as new. Team:
-            please confirm this shouldn't instead live at /opportunities
-            or /ecosystem before merging (see PR description). */}
         <Route path="/awards" element={<Awards />} />
         <Route path="/opportunities" element={<ComingSoon title="Opportunities" />} />
         <Route path="/ecosystem" element={<ComingSoon title="Ecosystem" />} />
-        <Route path="/resources" element={<Resources onRequireAuth={handleRequireAuth} />} />
         <Route path="/partners" element={<Partners />} />
+        <Route path="/resources" element={<Resources onRequireAuth={handleRequireAuth} />} />
         <Route path="/login" element={<Login pendingResource={pendingResource} onSignedIn={handleSignedIn} />} />
         <Route path="/join" element={<Join />} />
         <Route path="/privacy" element={<ComingSoon title="Privacy Policy" />} />
