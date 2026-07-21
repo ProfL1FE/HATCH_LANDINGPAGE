@@ -9,13 +9,13 @@ function App() {
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
+          <Route path="/about" element={<ComingSoon title="About" />} />
           <Route path="/journey" element={<ComingSoon title="Journey" />} />
-          <Route path="/opportunities" element={<ComingSoon title="Opportunities" />} />
-          <Route path="/ecosystem" element={<ComingSoon title="Ecosystem" />} />
-          <Route path="/resources" element={<ComingSoon title="Resources" />} />
+          <Route path="/awards" element={<ComingSoon title="Awards" />} />
           <Route path="/partners" element={<ComingSoon title="Partners" />} />
-          <Route path="/login" element={<ComingSoon title="Login" />} />
-          <Route path="/join" element={<ComingSoon title="Join HATCH" />} />
+          <Route path="/resources" element={<ComingSoon title="Resources" />} />
+          <Route path="/register" element={<ComingSoon title="Register" />} />
+          <Route path="/sign-in" element={<ComingSoon title="Sign In" />} />
           <Route path="/privacy" element={<ComingSoon title="Privacy Policy" />} />
           <Route path="/terms" element={<ComingSoon title="Terms of Use" />} />
           <Route path="/cookies" element={<ComingSoon title="Cookie Policy" />} />

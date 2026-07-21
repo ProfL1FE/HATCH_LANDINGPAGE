@@ -1,10 +1,10 @@
 export const NAV_LINKS = [
-  { to: '/', label: 'Discover' },
+  { to: '/', label: 'Home' },
   { to: '/journey', label: 'Journey' },
-  { to: '/opportunities', label: 'Opportunities' },
-  { to: '/ecosystem', label: 'Ecosystem' },
-  { to: '/resources', label: 'Resources' },
+  { to: '/awards', label: 'Awards' },
   { to: '/partners', label: 'Partners' },
+  { to: '/resources', label: 'Resources' },
+  { to: '/about', label: 'About' },
 ]
 
 export const HOME_SECTIONS = [
@@ -14,7 +14,6 @@ export const HOME_SECTIONS = [
   { id: 'built-for-everyone', label: 'Built for Everyone' },
   { id: 'why-join', label: 'Why Join' },
   { id: 'recognition', label: 'Recognition' },
-  { id: 'success-stories', label: 'Success Stories' },
   { id: 'partners', label: 'Partners' },
   { id: 'cta', label: 'Join' },
 ]
@@ -31,19 +30,19 @@ export const AUDIENCES = [
     icon: 'graduationCap',
     title: 'University Students',
     desc: 'Turn your academic journey into real-world impact and recognition.',
-    to: '/join',
+    to: '/register',
   },
   {
     icon: 'briefcase',
     title: 'Professionals & Adults',
     desc: 'Bring your experience and ideas to the next level.',
-    to: '/join',
+    to: '/register',
   },
   {
     icon: 'bank',
     title: 'Schools & TVET',
     desc: 'Empowering the next generation of innovators nationwide.',
-    to: '/join',
+    to: '/register',
   },
 ]
 
@@ -56,7 +55,16 @@ export const WHY_JOIN = [
   { icon: 'rocket', label: 'Launchpad Access' },
 ]
 
-export const PARTNER_LOGOS = ['UTM', 'UPM', 'MMU', 'SUNWAY', 'PETRONAS', 'MDEC', 'Cradle', 'Maybank']
+export const HOME_JOURNEY = [
+  { icon: '💡', title: 'Idea' },
+  { icon: '🔍', title: 'Discover' },
+  { icon: '🛠️', title: 'Build' },
+  { icon: '🎤', title: 'Pitch' },
+  { icon: '🏅', title: 'Top 100' },
+  { icon: '⭐', title: 'Top 20' },
+  { icon: '👑', title: 'Champion' },
+  { icon: '🚀', title: 'Launchpad' },
+]
 
 export const STAGES = [
   {

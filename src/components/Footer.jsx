@@ -13,10 +13,10 @@ const COLUMNS = [
   {
     title: 'Explore',
     links: [
-      { to: '/', label: 'Discover' },
+      { to: '/', label: 'Home' },
       { to: '/journey', label: 'Journey' },
-      { to: '/opportunities', label: 'Opportunities' },
-      { to: '/ecosystem', label: 'Ecosystem' },
+      { to: '/awards', label: 'Awards' },
+      { to: '/about', label: 'About' },
     ],
   },
   {
@@ -29,9 +29,9 @@ const COLUMNS = [
   {
     title: 'Access',
     links: [
-      { to: '/join', label: 'JO1NID for students' },
-      { to: '/join', label: 'JO1NBiz for partners' },
-      { to: '/join', label: 'JO1NUNI for universities' },
+      { to: '/register', label: 'JO1NID for students' },
+      { to: '/register', label: 'JO1NBiz for partners' },
+      { to: '/register', label: 'JO1NUNI for universities' },
     ],
   },
   {
@@ -46,14 +46,14 @@ const COLUMNS = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-line pt-14 pb-8 text-sm text-[#8fa3bb]">
+    <footer className="border-t border-line pt-14 pb-8 text-sm text-muted">
       <div className="hatch-wrap grid gap-10 md:grid-cols-[1.3fr_.7fr_.7fr_.9fr_.7fr]">
         <div>
           <Link to="/" className="flex items-center gap-2.5">
-            <HatchLogo size={34} />
+            <HatchLogo size={34} className="text-cyan" />
             <span className="leading-tight">
               <span className="block text-[16px] font-black tracking-[1px] text-white">
-                HATCH<sup className="text-[8px] font-bold">™</sup> <span className="text-gold">2027</span>
+                HATCH<sup className="text-[8px] font-bold">™</sup> <span className="text-cyan">2027</span>
               </span>
               <span className="block text-[8px] font-semibold uppercase tracking-[3px] text-muted">
                 AI for Humanity
@@ -73,7 +73,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 aria-label={s.label}
                 title={s.label}
-                className="grid h-10 w-10 place-items-center rounded-full border border-line bg-white/6 text-[#dcecff] transition hover:bg-white/12"
+                className="grid h-10 w-10 place-items-center rounded-full border border-line bg-white/6 text-body transition hover:bg-white/12"
               >
                 <Icon name={s.icon} size={17} />
               </a>
