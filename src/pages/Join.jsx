@@ -137,7 +137,7 @@ export default function Join() {
         <div className="mt-10">
           <h2 className="mb-4 text-sm font-semibold uppercase tracking-wide text-ink/85">Step 1 — Choose your path</h2>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-            {PATHS.map((p) => {
+            {PATHS.map((p, i) => {
               const Icon = p.icon;
               const active = path === p.id;
               return (
@@ -145,7 +145,8 @@ export default function Join() {
                   key={p.id}
                   onClick={() => selectPath(p.id)}
                   aria-pressed={active}
-                  className={`hatch-panel-glass flex flex-col items-start gap-3 rounded-2xl border p-5 text-left transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-cyan ${
+                  style={{ animationDelay: `${i * 0.9}s` }}
+                  className={`hatch-panel-glass anim-float flex flex-col items-start gap-3 rounded-2xl border p-5 text-left shadow-[0_25px_60px_rgba(6,16,28,0.4)] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-cyan ${
                     active ? 'border-cyan/60 bg-cyan/5' : 'border-line bg-panel/70 hover:border-cyan/30'
                   }`}
                 >

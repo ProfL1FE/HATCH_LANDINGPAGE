@@ -112,7 +112,7 @@ export default function Login({ pendingResource, onSignedIn }) {
 
         {/* Right — sign-in panel */}
         <div className="hatch-fade-in mx-auto w-full max-w-md lg:mx-0">
-          <div className="hatch-panel-glass rounded-xl border border-line bg-panel/70 p-6">
+          <div className="hatch-panel-glass anim-float rounded-xl border border-line bg-panel/70 p-6 shadow-[0_30px_70px_rgba(6,16,28,0.45)]">
             {pendingResource && (
               <div className="mb-6 border-l-2 border-gold/60 pl-4">
                 <p className="text-[10px] font-semibold uppercase tracking-[0.25em] text-gold/80">RESOURCE ACCESS</p>
