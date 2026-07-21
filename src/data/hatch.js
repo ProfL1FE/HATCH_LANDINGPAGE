@@ -47,12 +47,12 @@ export const AUDIENCES = [
 ]
 
 export const WHY_JOIN = [
-  { icon: 'star', label: 'National Recognition' },
-  { icon: 'brain', label: 'AI Masterclasses' },
-  { icon: 'graduationCap', label: 'Founder Bootcamps' },
-  { icon: 'users', label: 'Industry Mentorship' },
-  { icon: 'briefcase', label: 'Professional Portfolio' },
-  { icon: 'rocket', label: 'Launchpad Access' },
+  { icon: 'star', label: 'National Recognition', desc: 'Gain visibility through national showcases and competitions.' },
+  { icon: 'brain', label: 'AI Masterclasses', desc: 'Learn practical AI skills from industry experts.' },
+  { icon: 'graduationCap', label: 'Founder Bootcamps', desc: 'Turn innovative ideas into investment-ready ventures.' },
+  { icon: 'users', label: 'Industry Mentorship', desc: 'Connect with experienced founders and professionals.' },
+  { icon: 'briefcase', label: 'Professional Portfolio', desc: 'Build a portfolio that showcases your work and achievements.' },
+  { icon: 'rocket', label: 'Launchpad Access', desc: 'Unlock funding opportunities, networks and venture support.' },
 ]
 
 export const HOME_JOURNEY = [

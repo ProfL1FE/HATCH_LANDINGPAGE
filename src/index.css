@@ -247,3 +247,113 @@ body:has(.hatch-atmosphere-join) footer a[aria-label] {
     animation: none;
   }
 }
+
+/* ── "Why Join" cards ───────────────────────────────────────────
+ * Gradient image panel with a floating frosted-glass title chip,
+ * asymmetric corner radius. Panel colors come from the campaign
+ * poster's own violet→teal gradient (--color-violet-deep / --color-cyan
+ * / --color-royal-purple were sampled from it), not arbitrary hues.
+ */
+.hatch-whycard {
+  position: relative;
+  border-radius: 0.5rem 2rem;
+  overflow: hidden;
+  background: var(--color-panel);
+  border: 1px solid var(--color-line);
+  box-shadow: 0 15px 20px -5px rgba(0, 0, 0, 0.45);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.hatch-whycard:hover {
+  transform: scale(1.03);
+  box-shadow: 0 22px 34px -8px rgba(0, 0, 0, 0.55);
+}
+
+.hatch-whycard-imgwrap {
+  position: relative;
+  height: 230px;
+  overflow: hidden;
+}
+
+.hatch-whycard-img {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.25));
+  transition: transform 0.4s ease;
+}
+.hatch-whycard:hover .hatch-whycard-img {
+  transform: scale(1.12);
+}
+
+.hatch-whycard-img--photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: none;
+}
+
+.hatch-whycard-chip {
+  position: absolute;
+  bottom: 0.5rem;
+  left: 0.5rem;
+  width: calc(100% - 1rem);
+  padding: 0.5rem 1em;
+  border-radius: 0.5rem 2rem;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  background-color: rgba(5, 12, 20, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  transition: transform 0.4s ease;
+}
+.hatch-whycard:hover .hatch-whycard-chip {
+  transform: perspective(300px) translateX(5px) rotateX(2deg) rotateY(2deg);
+}
+
+.hatch-whycard-title {
+  display: block;
+  overflow: hidden;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.05rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.hatch-whycard-content {
+  padding: 1.1rem 1.25rem 1.4rem;
+}
+
+.hatch-whycard-desc {
+  margin: 0 0 0.9rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--color-body);
+}
+
+.hatch-whycard-learnmore {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-cyan);
+}
+
+.hatch-whycard-arrow {
+  display: inline-block;
+  transition: transform 0.3s ease-out;
+}
+.hatch-whycard:hover .hatch-whycard-arrow {
+  transform: translateX(6px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hatch-whycard,
+  .hatch-whycard-img,
+  .hatch-whycard-chip,
+  .hatch-whycard-arrow {
+    transition: none;
+  }
+}
