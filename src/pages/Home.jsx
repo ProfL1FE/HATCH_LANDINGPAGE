@@ -148,7 +148,7 @@ export default function Home() {
               refined and transformed into <span className="text-royal-purple">real impact</span>.
             </p>
             <div className="anim-rise flex flex-wrap items-center gap-6" style={{ animationDelay: '0.3s' }}>
-              <Button to="/register" variant="primary" size="md" className="uppercase tracking-[1.5px]">
+              <Button to="/join" variant="primary" size="md" className="uppercase tracking-[1.5px]">
                 Start Your Journey →
               </Button>
               <a
@@ -427,7 +427,7 @@ export default function Home() {
           title="Your idea deserves more than a notebook."
           description="Some ideas stay as sketches. Others become companies. HATCH gives you the opportunity to build, validate, and present your idea to the world."
           buttonText="Register Now →"
-          buttonTo="/register"
+          buttonTo="/join"
         />
       </Section>
     </>

@@ -29,9 +29,9 @@ const COLUMNS = [
   {
     title: 'Access',
     links: [
-      { to: '/register', label: 'JO1NID for students' },
-      { to: '/register', label: 'JO1NBiz for partners' },
-      { to: '/register', label: 'JO1NUNI for universities' },
+      { to: '/join', label: 'JO1NID for students' },
+      { to: '/join', label: 'JO1NBiz for partners' },
+      { to: '/join', label: 'JO1NUNI for universities' },
     ],
   },
   {

@@ -70,10 +70,10 @@ export default function Navbar() {
         </nav>
 
         <div className="hidden shrink-0 items-center gap-3 sm:flex">
-          <Button to="/sign-in" variant="outline" size="sm" className="uppercase tracking-[1.5px]">
+          <Button to="/login" variant="outline" size="sm" className="uppercase tracking-[1.5px]">
             Sign In
           </Button>
-          <Button to="/register" variant="gradient" size="sm" className="uppercase tracking-[1.5px]">
+          <Button to="/join" variant="gradient" size="sm" className="uppercase tracking-[1.5px]">
             Register
           </Button>
         </div>
@@ -97,10 +97,10 @@ export default function Navbar() {
               <NavItem key={link.to} to={link.to} label={link.label} mobile onClick={() => setOpen(false)} />
             ))}
             <div className="mt-2 flex gap-2.5">
-              <Button to="/sign-in" variant="outline" size="sm" className="flex-1 uppercase tracking-[1.5px]" onClick={() => setOpen(false)}>
+              <Button to="/login" variant="outline" size="sm" className="flex-1 uppercase tracking-[1.5px]" onClick={() => setOpen(false)}>
                 Sign In
               </Button>
-              <Button to="/register" variant="gradient" size="sm" className="flex-1 uppercase tracking-[1.5px]" onClick={() => setOpen(false)}>
+              <Button to="/join" variant="gradient" size="sm" className="flex-1 uppercase tracking-[1.5px]" onClick={() => setOpen(false)}>
                 Register
               </Button>
             </div>

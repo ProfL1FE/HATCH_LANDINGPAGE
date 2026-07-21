@@ -30,19 +30,19 @@ export const AUDIENCES = [
     icon: 'graduationCap',
     title: 'University Students',
     desc: 'Turn your academic journey into real-world impact and recognition.',
-    to: '/register',
+    to: '/join',
   },
   {
     icon: 'briefcase',
     title: 'Professionals & Adults',
     desc: 'Bring your experience and ideas to the next level.',
-    to: '/register',
+    to: '/join',
   },
   {
     icon: 'bank',
     title: 'Schools & TVET',
     desc: 'Empowering the next generation of innovators nationwide.',
-    to: '/register',
+    to: '/join',
   },
 ]
 
