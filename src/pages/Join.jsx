@@ -147,7 +147,7 @@ export default function Join() {
                   aria-pressed={active}
                   style={{ animationDelay: `${i * 0.9}s` }}
                   className={`hatch-panel-glass anim-float flex flex-col items-start gap-3 rounded-2xl border p-5 text-left shadow-[0_25px_60px_rgba(6,16,28,0.4)] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-cyan ${
-                    active ? 'border-cyan/60 bg-cyan/5' : 'border-line bg-panel/70 hover:border-cyan/30'
+                    active ? 'border-cyan/60 bg-panel-2/95' : 'border-line bg-panel/95 hover:border-cyan/30'
                   }`}
                 >
                   <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-panel-2 text-cyan">
@@ -168,7 +168,7 @@ export default function Join() {
       )}
 
       {step === 'form' && path && (
-        <div className="hatch-panel-glass anim-float mt-10 max-w-md rounded-xl border border-line bg-panel/70 p-6 shadow-[0_30px_70px_rgba(6,16,28,0.45)]">
+        <div className="hatch-panel-glass anim-float mt-10 max-w-md rounded-xl border border-line bg-panel/95 p-6 shadow-[0_30px_70px_rgba(6,16,28,0.45)]">
           <h2 className="mb-4 text-sm font-semibold uppercase tracking-wide text-ink">Step 2 — Create your account</h2>
           <div className="flex flex-col gap-4">
             <Field
