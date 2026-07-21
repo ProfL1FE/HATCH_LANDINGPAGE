@@ -5,6 +5,9 @@ import Home from './pages/Home'
 import Resources from './pages/Resources'
 import Login from './pages/Login'
 import Join from './pages/Join'
+import Journey from './pages/Journey'
+import Awards from './pages/Awards'
+import Partners from './pages/Partners'
 
 /**
  * Routes live in their own component so they can use router hooks
@@ -37,11 +40,11 @@ function AppRoutes() {
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<ComingSoon title="About" />} />
-        <Route path="/journey" element={<ComingSoon title="Journey" />} />
-        <Route path="/awards" element={<ComingSoon title="Awards" />} />
+        <Route path="/journey" element={<Journey />} />
+        <Route path="/awards" element={<Awards />} />
         <Route path="/opportunities" element={<ComingSoon title="Opportunities" />} />
         <Route path="/ecosystem" element={<ComingSoon title="Ecosystem" />} />
-        <Route path="/partners" element={<ComingSoon title="Partners" />} />
+        <Route path="/partners" element={<Partners />} />
         <Route path="/resources" element={<Resources onRequireAuth={handleRequireAuth} />} />
         <Route path="/login" element={<Login pendingResource={pendingResource} onSignedIn={handleSignedIn} />} />
         <Route path="/join" element={<Join />} />
