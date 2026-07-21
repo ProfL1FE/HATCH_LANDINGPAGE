@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom'
 
 const VARIANTS = {
-  primary: 'bg-gradient-to-br from-cyan to-violet text-[#06101c] shadow-[0_15px_45px_rgba(110,231,255,0.22)] hover:brightness-105',
-  gold: 'bg-gradient-to-br from-[#ffe8a3] to-gold text-[#06101c] shadow-[0_10px_40px_rgba(255,209,102,0.25)] hover:brightness-105',
-  gradient: 'bg-gradient-to-r from-violet via-[#8fa7f5] to-gold text-[#06101c] shadow-[0_10px_40px_rgba(167,139,250,0.35)] hover:brightness-105',
+  primary: 'bg-gradient-to-br from-cyan to-royal-purple text-on-brand shadow-[0_6px_20px_rgba(58,214,222,0.25)] hover:brightness-110',
+  gold: 'bg-gradient-to-br from-gold-light to-gold text-on-brand shadow-[0_10px_40px_rgba(255,204,97,0.25)] hover:brightness-105',
+  gradient: 'bg-gradient-to-r from-cyan via-royal-purple to-gold text-on-brand shadow-[0_8px_26px_rgba(106,63,232,0.28)] hover:brightness-105',
   outline: 'bg-transparent border border-white/45 text-ink hover:border-white/80 hover:bg-white/8',
   secondary: 'bg-white/7 border border-line text-ink hover:bg-white/12',
 }

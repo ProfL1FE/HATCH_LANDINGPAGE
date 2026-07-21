@@ -110,6 +110,19 @@ const PATHS = {
       <path d="M10.3 9.3v5.4l4.7-2.7z" fill="currentColor" stroke="none" />
     </>
   ),
+  question: (
+    <>
+      <circle cx="12" cy="12" r="8.5" />
+      <path d="M9.3 9.5a2.7 2.7 0 1 1 3.9 2.4c-.8.4-1.2.9-1.2 1.8v.3" />
+      <circle cx="12" cy="16.8" r="0.15" fill="currentColor" stroke="currentColor" strokeWidth="1.2" />
+    </>
+  ),
+  sparkles: (
+    <>
+      <path d="M12 3.5c.4 2.4 1 4.2 2 5.2s2.8 1.6 5.2 2c-2.4.4-4.2 1-5.2 2s-1.6 2.8-2 5.2c-.4-2.4-1-4.2-2-5.2s-2.8-1.6-5.2-2c2.4-.4 4.2-1 5.2-2s1.6-2.8 2-5.2z" />
+      <path d="M18.5 4v2.4M17.3 5.2h2.4" />
+    </>
+  ),
 }
 
 export default function Icon({ name, size = 20, className = '' }) {
@@ -136,15 +149,15 @@ export function EggIcon({ size = 44, className = '' }) {
     <svg width={size} height={size * 1.2} viewBox="0 0 24 29" fill="none" className={className} aria-hidden="true">
       <defs>
         <linearGradient id="egg-gold" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#ffe8a3" />
-          <stop offset="100%" stopColor="#ffd166" />
+          <stop offset="0%" style={{ stopColor: 'var(--color-gold-light)' }} />
+          <stop offset="100%" style={{ stopColor: 'var(--color-gold)' }} />
         </linearGradient>
       </defs>
       <path
         d="M12 2C8 2 4.5 10 4.5 16.5a7.5 7.5 0 0 0 15 0C19.5 10 16 2 12 2z"
         stroke="url(#egg-gold)"
         strokeWidth="1.6"
-        fill="rgba(255,209,102,0.12)"
+        style={{ fill: 'rgba(255,204,97,0.12)' }}
       />
     </svg>
   )
@@ -153,20 +166,15 @@ export function EggIcon({ size = 44, className = '' }) {
 export function HatchLogo({ size = 38, className = '' }) {
   return (
     <svg width={size} height={size} viewBox="0 0 40 40" fill="none" className={className} aria-hidden="true">
-      <defs>
-        <linearGradient id="hatch-logo-gold" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#ffe8a3" />
-          <stop offset="100%" stopColor="#c99a3f" />
-        </linearGradient>
-      </defs>
-      <ellipse cx="20" cy="16" rx="9" ry="3.6" stroke="url(#hatch-logo-gold)" strokeWidth="1.1" opacity="0.55" />
+      <ellipse cx="20" cy="16" rx="9" ry="3.6" stroke="currentColor" strokeWidth="1.1" opacity="0.55" />
       <path
         d="M20 8c-4.4 0-8 7.4-8 13a8 8 0 0 0 16 0c0-5.6-3.6-13-8-13z"
-        stroke="url(#hatch-logo-gold)"
+        stroke="currentColor"
         strokeWidth="1.5"
-        fill="rgba(255,209,102,0.08)"
+        fill="currentColor"
+        fillOpacity="0.08"
       />
-      <circle cx="20" cy="21" r="1.4" fill="url(#hatch-logo-gold)" />
+      <circle cx="20" cy="21" r="1.4" fill="currentColor" />
     </svg>
   )
 }

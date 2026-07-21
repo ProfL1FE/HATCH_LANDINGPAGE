@@ -36,11 +36,13 @@ function AppRoutes() {
     <Routes>
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
+        <Route path="/about" element={<ComingSoon title="About" />} />
         <Route path="/journey" element={<ComingSoon title="Journey" />} />
+        <Route path="/awards" element={<ComingSoon title="Awards" />} />
         <Route path="/opportunities" element={<ComingSoon title="Opportunities" />} />
         <Route path="/ecosystem" element={<ComingSoon title="Ecosystem" />} />
-        <Route path="/resources" element={<Resources onRequireAuth={handleRequireAuth} />} />
         <Route path="/partners" element={<ComingSoon title="Partners" />} />
+        <Route path="/resources" element={<Resources onRequireAuth={handleRequireAuth} />} />
         <Route path="/login" element={<Login pendingResource={pendingResource} onSignedIn={handleSignedIn} />} />
         <Route path="/join" element={<Join />} />
         <Route path="/privacy" element={<ComingSoon title="Privacy Policy" />} />
