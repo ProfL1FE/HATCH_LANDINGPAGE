@@ -123,7 +123,7 @@ export default function Home() {
   }
 
   return (
-    <>
+    <div className="hatch-atmosphere-home">
       <ScrollNav sections={HOME_SECTIONS} />
 
       {/* Hero — header + hero fill exactly one screen; next section appears on scroll */}
@@ -309,7 +309,7 @@ export default function Home() {
         />
 
         <div className="relative mx-auto w-[92vw] max-w-[1400px]">
-          <div className="mx-auto mb-14 max-w-[640px] text-center sm:mb-16">
+          <div className="hatch-on-gradient mx-auto mb-14 max-w-[640px] text-center sm:mb-16">
             <div className="mb-4 flex items-center justify-center gap-3">
               <span className="h-px w-14 bg-gradient-to-r from-transparent to-cyan/60" />
               <span className="text-xs font-semibold uppercase text-cyan" style={{ letterSpacing: '0.15em' }}>
@@ -443,7 +443,7 @@ export default function Home() {
 
       {/* FAQ Preview */}
       <Section id="faq-preview">
-        <div className="mx-auto mb-10 max-w-[640px] text-center">
+        <div className="hatch-on-gradient mx-auto mb-10 max-w-[640px] text-center">
           <div className="mb-4 flex items-center justify-center gap-3 text-cyan">
             <span className="h-px w-14 bg-gradient-to-r from-transparent to-cyan/60" />
             <span className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-[3px]">
@@ -475,7 +475,7 @@ export default function Home() {
                   <span className="mt-1 w-px flex-1 bg-line" />
                 </div>
                 <details
-                  className="group flex-1 rounded-2xl border border-line bg-white/5 open:border-cyan/50 open:bg-cyan/5"
+                  className="group flex-1 rounded-2xl border border-line bg-panel/70 open:border-cyan/50"
                   open={i === 0}
                 >
                   <summary className="details-marker-hidden flex cursor-pointer items-center gap-4 p-5">
@@ -495,7 +495,7 @@ export default function Home() {
           })}
         </div>
 
-        <div className="mt-8 flex items-center justify-center gap-3 text-sm text-muted">
+        <div className="hatch-on-gradient mt-8 flex items-center justify-center gap-3 text-sm text-muted">
           <Icon name="question" size={16} className="text-cyan" />
           Still have questions?
           <span className="text-line">|</span>
@@ -517,6 +517,6 @@ export default function Home() {
           buttonTo="/join"
         />
       </Section>
-    </>
+    </div>
   )
 }

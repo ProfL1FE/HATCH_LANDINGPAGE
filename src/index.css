@@ -85,14 +85,14 @@
 }
 
 @utility hatch-panel {
-  background: rgba(180, 232, 236, 0.07);
+  background: rgba(10, 37, 49, 0.78);
   border: 1px solid var(--color-line);
   border-radius: var(--radius-hatch);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.16);
 }
 
 @utility hatch-glass {
-  background: linear-gradient(180deg, rgba(180, 232, 236, 0.09), rgba(180, 232, 236, 0.03));
+  background: linear-gradient(180deg, rgba(10, 37, 49, 0.85), rgba(10, 37, 49, 0.68));
   border: 1px solid var(--color-line);
   box-shadow: var(--shadow-hatch);
 }
@@ -171,7 +171,8 @@
 .hatch-atmosphere-join,
 .hatch-atmosphere-journey,
 .hatch-atmosphere-awards,
-.hatch-atmosphere-partners {
+.hatch-atmosphere-partners,
+.hatch-atmosphere-home {
   background-image: linear-gradient(180deg, #360653 0%, #41376a 22%, #4c8ea8 48%, #50bbc4 70%, #7fc9d3 100%);
   background-attachment: fixed;
 }
@@ -275,7 +276,8 @@ body:has(.hatch-atmosphere-signin) footer,
 body:has(.hatch-atmosphere-join) footer,
 body:has(.hatch-atmosphere-journey) footer,
 body:has(.hatch-atmosphere-awards) footer,
-body:has(.hatch-atmosphere-partners) footer {
+body:has(.hatch-atmosphere-partners) footer,
+body:has(.hatch-atmosphere-home) footer {
   background: linear-gradient(180deg, #35708c 0%, #4f96ad 100%);
   border-top-color: rgba(255, 255, 255, 0.25);
   color: #dff0f5;
@@ -286,7 +288,8 @@ body:has(.hatch-atmosphere-signin) footer :is(b, .text-white),
 body:has(.hatch-atmosphere-join) footer :is(b, .text-white),
 body:has(.hatch-atmosphere-journey) footer :is(b, .text-white),
 body:has(.hatch-atmosphere-awards) footer :is(b, .text-white),
-body:has(.hatch-atmosphere-partners) footer :is(b, .text-white) {
+body:has(.hatch-atmosphere-partners) footer :is(b, .text-white),
+body:has(.hatch-atmosphere-home) footer :is(b, .text-white) {
   color: #ffffff;
 }
 
