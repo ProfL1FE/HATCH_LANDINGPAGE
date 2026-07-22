@@ -309,21 +309,21 @@ export default function Home() {
         />
 
         <div className="relative mx-auto w-[92vw] max-w-[1400px]">
-          <div className="hatch-on-gradient mx-auto mb-14 max-w-[640px] text-center sm:mb-16">
+          <div className="hatch-on-gradient-soft mx-auto mb-14 max-w-[640px] text-center sm:mb-16">
             <div className="mb-4 flex items-center justify-center gap-3">
-              <span className="h-px w-14 bg-gradient-to-r from-transparent to-cyan/60" />
-              <span className="text-xs font-semibold uppercase text-cyan" style={{ letterSpacing: '0.15em' }}>
+              <span className="h-px w-14 bg-gradient-to-r from-transparent to-gold/60" />
+              <span className="text-xs font-semibold uppercase text-white" style={{ letterSpacing: '0.15em', textShadow: 'none' }}>
                 Why Join
               </span>
-              <span className="h-px w-14 bg-gradient-to-l from-transparent to-cyan/60" />
+              <span className="h-px w-14 bg-gradient-to-l from-transparent to-gold/60" />
             </div>
             <h2 className="m-0 mb-4 text-[clamp(32px,4.5vw,52px)] font-extrabold leading-[1.05] tracking-[-1.5px]">
               Why join{' '}
-              <span className="bg-gradient-to-r from-cyan to-royal-purple bg-clip-text text-transparent">HATCH</span>?
+              <span className="bg-gradient-to-r from-gold to-gold-light bg-clip-text text-transparent" style={{ textShadow: 'none' }}>HATCH</span>?
             </h2>
             <p className="mx-auto max-w-[520px] text-lg text-body">
               We provide the tools, mentorship, and opportunities to help your ideas become{' '}
-              <span className="text-cyan">real-world impact</span>.
+              <span className="text-gold">real-world impact</span>.
             </p>
           </div>
 
@@ -443,17 +443,17 @@ export default function Home() {
 
       {/* FAQ Preview */}
       <Section id="faq-preview">
-        <div className="hatch-on-gradient mx-auto mb-10 max-w-[640px] text-center">
-          <div className="mb-4 flex items-center justify-center gap-3 text-cyan">
-            <span className="h-px w-14 bg-gradient-to-r from-transparent to-cyan/60" />
+        <div className="hatch-on-gradient-soft mx-auto mb-10 max-w-[640px] text-center">
+          <div className="mb-4 flex items-center justify-center gap-3 text-white" style={{ textShadow: 'none' }}>
+            <span className="h-px w-14 bg-gradient-to-r from-transparent to-gold/60" />
             <span className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-[3px]">
               <Icon name="sparkles" size={12} />
               FAQ
             </span>
-            <span className="h-px w-14 bg-gradient-to-l from-transparent to-cyan/60" />
+            <span className="h-px w-14 bg-gradient-to-l from-transparent to-gold/60" />
           </div>
           <h2 className="m-0 mb-3 text-[clamp(28px,4vw,44px)] tracking-[-1px]">
-            Frequently Asked <span className="text-cyan">Questions</span>
+            Frequently Asked <span className="text-gold">Questions</span>
           </h2>
           <p className="m-0 text-body">Everything you need to know about HATCH.</p>
         </div>
@@ -495,11 +495,11 @@ export default function Home() {
           })}
         </div>
 
-        <div className="hatch-on-gradient mt-8 flex items-center justify-center gap-3 text-sm text-muted">
-          <Icon name="question" size={16} className="text-cyan" />
+        <div className="hatch-on-gradient-soft mt-8 flex items-center justify-center gap-3 text-sm text-muted">
+          <Icon name="question" size={16} className="text-gold" />
           Still have questions?
           <span className="text-line">|</span>
-          <a href="#" className="font-bold text-cyan hover:underline">
+          <a href="#" className="font-bold text-gold hover:underline">
             Contact us →
           </a>
         </div>

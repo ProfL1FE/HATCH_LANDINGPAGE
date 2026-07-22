@@ -191,6 +191,13 @@
   text-shadow: 0 1px 3px rgba(10, 8, 20, 0.7), 0 4px 20px rgba(10, 8, 20, 0.45);
 }
 
+/* Lighter version of the above, scoped to Home — the original's 20px blur reads fine on the
+ * large display type it was built for, but at Home's smaller heading/body sizes that same blur
+ * radius is bigger than the glyphs themselves and reads as haze rather than a crisp shadow. */
+.hatch-on-gradient-soft {
+  text-shadow: 0 1px 2px rgba(5, 10, 20, 0.55), 0 2px 9px rgba(5, 10, 20, 0.32);
+}
+
 /* On the gradient pages, carry the teal through the footer so the page does
  * not end on an abrupt dark band. Scoped with :has() to the three atmosphere
  * pages only — every other page keeps the shared dark footer. Text inside is
