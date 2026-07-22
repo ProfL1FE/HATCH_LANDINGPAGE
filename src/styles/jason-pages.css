@@ -50,6 +50,18 @@
    this one. Removing the duplicate changes nothing visually — Preflight
    already provides the same values. */
 
+/* html/body/a/img/button/:focus-visible are generic tag-and-pseudo
+   selectors that every page shares. Left unlayered, the CSS cascade-layer
+   spec makes them win over ANY Tailwind utility regardless of specificity
+   — e.g. `button { background: none; border: none; }` here was silently
+   stripping the background and border off every plain <button> across the
+   whole app (Login/Join submit buttons, download buttons, tab buttons —
+   anything not rendered as a Link/<a>), the same class of bug as the
+   earlier universal-selector reset. Wrapping them in @layer base — the
+   same layer Tailwind's own Preflight and this project's index.css use —
+   restores the normal cascade so component-level Tailwind classes win as
+   expected, with no visual change intended for this page's own styles. */
+@layer base {
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 90px;
@@ -63,6 +75,7 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+}
 }
 
 .site {
@@ -93,6 +106,7 @@ main {
   padding-inline: 24px;
 }
 
+@layer base {
 ::selection {
   background: rgba(61, 214, 227, 0.35);
 }
@@ -120,6 +134,7 @@ button {
   outline: 2px solid var(--gold);
   outline-offset: 3px;
   border-radius: 4px;
+}
 }
 
 /* ── Typography ──────────────────────────────────────────── */
