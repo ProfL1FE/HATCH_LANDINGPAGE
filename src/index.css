@@ -167,15 +167,27 @@
 /* Poster gradient (violet → blue → teal), scoped to the auth/resources pages
  * only — the rest of the site keeps the shared dark-navy theme. Fixed
  * attachment so the colour field stays stable while the page scrolls. */
-.hatch-atmosphere-resources,
-.hatch-atmosphere-signin,
-.hatch-atmosphere-join,
 .hatch-atmosphere-journey,
 .hatch-atmosphere-awards,
 .hatch-atmosphere-partners,
 .hatch-atmosphere-home {
   background-image: linear-gradient(180deg, #360653 0%, #41376a 22%, #4c8ea8 48%, #50bbc4 70%, #7fc9d3 100%);
   background-attachment: fixed;
+}
+
+/* Resources, Sign In and Join — flat teal-dark-blue, no gradient. */
+.hatch-atmosphere-resources,
+.hatch-atmosphere-signin,
+.hatch-atmosphere-join {
+  background-color: #0b2e3d;
+  background-image: none;
+}
+
+/* Arial, applied only within these three pages — every other page keeps
+ * the shared Inter/Playfair Display type system. */
+.hatch-font-plain,
+.hatch-font-plain * {
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 @keyframes floaty-soft {
@@ -210,10 +222,10 @@
 /* On the gradient pages, carry the teal through the footer so the page does
  * not end on an abrupt dark band. Scoped with :has() to the atmosphere
  * pages only — every other page keeps the shared dark footer. Text inside is
- * flipped to dark tones for contrast on the light teal. */
-body:has(.hatch-atmosphere-resources) footer,
-body:has(.hatch-atmosphere-signin) footer,
-body:has(.hatch-atmosphere-join) footer,
+ * flipped to dark tones for contrast on the light teal.
+ * Resources/Sign In/Join are no longer in this list — those three now use a
+ * flat dark background (no bright gradient bottom), so they keep the
+ * ordinary dark footer instead of a mismatched light-teal continuation. */
 body:has(.hatch-atmosphere-journey) footer,
 body:has(.hatch-atmosphere-awards) footer,
 body:has(.hatch-atmosphere-partners) footer,
@@ -223,41 +235,11 @@ body:has(.hatch-atmosphere-home) footer {
   color: #dff0f5;
 }
 
-body:has(.hatch-atmosphere-resources) footer :is(b, .text-white),
-body:has(.hatch-atmosphere-signin) footer :is(b, .text-white),
-body:has(.hatch-atmosphere-join) footer :is(b, .text-white),
 body:has(.hatch-atmosphere-journey) footer :is(b, .text-white),
 body:has(.hatch-atmosphere-awards) footer :is(b, .text-white),
 body:has(.hatch-atmosphere-partners) footer :is(b, .text-white),
 body:has(.hatch-atmosphere-home) footer :is(b, .text-white) {
   color: #ffffff;
-}
-
-body:has(.hatch-atmosphere-resources) footer :is(.text-muted, .text-gold),
-body:has(.hatch-atmosphere-signin) footer :is(.text-muted, .text-gold),
-body:has(.hatch-atmosphere-join) footer :is(.text-muted, .text-gold) {
-  color: #c6e3ec;
-}
-
-body:has(.hatch-atmosphere-resources) footer a:hover,
-body:has(.hatch-atmosphere-signin) footer a:hover,
-body:has(.hatch-atmosphere-join) footer a:hover {
-  color: #ffffff;
-}
-
-body:has(.hatch-atmosphere-resources) footer .border-line,
-body:has(.hatch-atmosphere-signin) footer .border-line,
-body:has(.hatch-atmosphere-join) footer .border-line {
-  border-color: rgba(255, 255, 255, 0.28);
-}
-
-/* Social icon circles — light-on-blue */
-body:has(.hatch-atmosphere-resources) footer a[aria-label],
-body:has(.hatch-atmosphere-signin) footer a[aria-label],
-body:has(.hatch-atmosphere-join) footer a[aria-label] {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.3);
 }
 
 /* Functional entry transition — communicates "the system responded". */

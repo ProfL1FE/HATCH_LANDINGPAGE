@@ -227,7 +227,7 @@ export default function Join() {
   }
 
   return (
-    <div className="hatch-atmosphere-join min-h-[calc(100svh-74px)]">
+    <div className="hatch-atmosphere-join hatch-font-plain min-h-[calc(100svh-74px)]">
     <div className="hatch-on-gradient mx-auto max-w-3xl px-6 py-16 hatch-fade-in">
       <h1 className="text-4xl font-bold tracking-tight text-ink">Join HATCH™ 2027</h1>
       <p className="mt-3 text-ink">Three steps to start your journey.</p>
@@ -468,7 +468,7 @@ export default function Join() {
               <Button variant="secondary" onClick={() => setStep('choose')} disabled={submitting}>
                 Back
               </Button>
-              <Button onClick={handleRegisterSubmit} disabled={submitting}>
+              <Button variant="flat" onClick={handleRegisterSubmit} disabled={submitting}>
                 {submitting ? <Loader2 size={16} className="animate-spin" aria-hidden="true" /> : null}
                 {submitting ? 'Creating account…' : 'Create account'}
               </Button>

@@ -43,7 +43,7 @@ export default function Resources({ onRequireAuth }) {
   const loggedIn = isLoggedIn();
 
   return (
-    <main className="hatch-atmosphere-resources relative min-h-[calc(100svh-74px)] px-6 py-16 text-ink sm:px-10 lg:px-16">
+    <main className="hatch-atmosphere-resources hatch-font-plain relative min-h-[calc(100svh-74px)] px-6 py-16 text-ink sm:px-10 lg:px-16">
       <div className="mx-auto max-w-6xl hatch-fade-in">
         <div className="hatch-on-gradient max-w-2xl">
           <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-gold">HATCH™ 2027 / RESOURCES</p>

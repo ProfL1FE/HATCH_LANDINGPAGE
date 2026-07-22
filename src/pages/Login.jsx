@@ -122,7 +122,7 @@ export default function Login({ pendingResource, onSignedIn }) {
   const activeRoute = ROUTES.find((r) => r.id === route);
 
   return (
-    <div className="hatch-atmosphere-signin relative min-h-[calc(100svh-74px)]">
+    <div className="hatch-atmosphere-signin hatch-font-plain relative min-h-[calc(100svh-74px)]">
       <div className="relative z-[1] mx-auto grid max-w-6xl grid-cols-1 items-start gap-10 px-6 py-14 sm:px-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16 lg:px-16 lg:py-20">
         {/* Left — page identity */}
         <div className="hatch-on-gradient hatch-fade-in max-w-xl">
@@ -299,25 +299,10 @@ export default function Login({ pendingResource, onSignedIn }) {
                   </div>
                 </div>
               ) : (
-                <button
-                  type="button"
-                  onClick={signIn}
-                  disabled={status === 'loading'}
-                  className="group relative flex w-full items-center justify-center gap-2 overflow-hidden rounded-[13px] bg-[linear-gradient(120deg,#57D4E8_0%,#4F8DFF_50%,#7664FF_100%)] px-6 py-3.5 text-sm font-bold text-[#08111E] shadow-[0_18px_40px_-14px_rgba(79,141,255,0.55)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_22px_50px_-10px_rgba(87,212,232,0.5)] active:translate-y-0 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:translate-y-0"
-                >
-                  <span className="pointer-events-none absolute inset-0 bg-[linear-gradient(120deg,#7EEAF0_0%,#5B9BFF_50%,#8C7CF0_100%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                  <span className="relative z-[1] flex items-center gap-2">
-                    {status === 'loading' ? <Loader2 size={16} className="animate-spin" aria-hidden="true" /> : null}
-                    {status === 'loading' ? 'Authenticating…' : 'Continue to HATCH'}
-                    {status !== 'loading' && (
-                      <ArrowRight
-                        size={15}
-                        aria-hidden="true"
-                        className="transition-transform duration-300 group-hover:translate-x-1"
-                      />
-                    )}
-                  </span>
-                </button>
+                <Button variant="flat" onClick={signIn} disabled={status === 'loading'} className="w-full">
+                  {status === 'loading' ? <Loader2 size={16} className="animate-spin" aria-hidden="true" /> : null}
+                  {status === 'loading' ? 'Authenticating…' : 'Continue to HATCH'}
+                </Button>
               )}
 
               <div className="flex items-center justify-center gap-1.5 text-center text-[11px] text-muted/70">
