@@ -34,24 +34,22 @@ export async function createTeamRegistration(
   representativeEmail: string,
   members: TeamMemberInput[]
 ): Promise<CreateTeamResult> {
-  const { data: team, error: teamError } = await supabase
-    .from('teams')
-    .insert({
-      team_name: teamName,
-      package: pkg,
-      representative_jo1n_id: representativeJo1nId,
-      representative_email: representativeEmail,
-    })
-    .select('id')
-    .single();
+  const teamId = crypto.randomUUID();
+  const { error: teamError } = await supabase.from('teams').insert({
+    id: teamId,
+    team_name: teamName,
+    package: pkg,
+    representative_jo1n_id: representativeJo1nId,
+    representative_email: representativeEmail,
+  });
 
-  if (teamError || !team) {
-    return { ok: false, message: teamError?.message || 'Could not save your team. Please try again.' };
+  if (teamError) {
+    return { ok: false, message: teamError.message || 'Could not save your team. Please try again.' };
   }
 
   if (members.length > 0) {
     const rows = members.map((m) => ({
-      team_id: team.id,
+      team_id: teamId,
       name: m.name,
       email: m.email,
       phone: m.phone || null,
