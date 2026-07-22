@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { GraduationCap, Building2, Handshake, ArrowRight, Loader2, Sparkles, Check } from 'lucide-react';
+import { GraduationCap, Building2, Handshake, ArrowRight, Loader2, Sparkles, Check, UserPlus, X } from 'lucide-react';
 import Button from '../components/Button';
 import Field from '../components/Field';
 import TermsModal from '../components/TermsModal';
 import { isValidEmail, isValidPassword, required } from '../lib/validation';
 import { generateStrongPassword } from '../lib/passwordGenerator';
 import { registerUser } from '../services/jo1nid';
+import { submitTeamRoster } from '../services/teamRoster';
 
 const PATHS = [
   { id: 'student', icon: GraduationCap, title: 'Student', description: 'Join HATCH through JO1NID and begin your journey.' },
@@ -13,7 +14,11 @@ const PATHS = [
   { id: 'business', icon: Handshake, title: 'Business / Partner', description: 'Connect with the HATCH ecosystem through JO1NBiz.' },
 ];
 
-const EMPTY_FORM = { name: '', email: '', password: '', confirmPassword: '' };
+const EMPTY_FORM = { name: '', email: '', password: '', confirmPassword: '', school: '' };
+const EMPTY_TEAMMATE = { name: '', email: '', phone: '', school: '' };
+// HATCH allows student teams of up to 5 — this caps teammates at 4 so the
+// representative + teammates never exceeds that.
+const MAX_TEAMMATES = 4;
 
 const SUCCESS_COPY = {
   student: { heading: 'Your HATCH journey begins here.', body: 'Your JO1NID registration is ready for the next step.' },
@@ -25,6 +30,7 @@ export default function Join() {
   const [step, setStep] = useState('choose');
   const [path, setPath] = useState(null);
   const [form, setForm] = useState(EMPTY_FORM);
+  const [teammates, setTeammates] = useState([]);
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState(null);
@@ -44,6 +50,27 @@ export default function Join() {
   function updateField(key, value) {
     setForm((f) => ({ ...f, [key]: value }));
     setErrors((e) => ({ ...e, [key]: undefined }));
+  }
+
+  function addTeammate() {
+    setTeammates((t) => (t.length < MAX_TEAMMATES ? [...t, { ...EMPTY_TEAMMATE }] : t));
+  }
+
+  function removeTeammate(index) {
+    setTeammates((t) => t.filter((_, i) => i !== index));
+    setErrors((e) => {
+      const next = { ...e };
+      delete next[`tm-${index}-name`];
+      delete next[`tm-${index}-email`];
+      return next;
+    });
+  }
+
+  function updateTeammate(index, key, value) {
+    setTeammates((t) => t.map((tm, i) => (i === index ? { ...tm, [key]: value } : tm)));
+    if (key === 'name' || key === 'email') {
+      setErrors((e) => ({ ...e, [`tm-${index}-${key}`]: undefined }));
+    }
   }
 
   /** Generates a strong password, fills it in (and confirm, for students), and copies it to clipboard. */
@@ -74,6 +101,16 @@ export default function Join() {
     else if (!isValidPassword(form.password)) nextErrors.password = 'Password must be at least 8 characters.';
     if (path === 'student' && form.confirmPassword !== form.password) {
       nextErrors.confirmPassword = 'Passwords do not match.';
+    }
+    if (path === 'student' && !required(form.school)) {
+      nextErrors.school = 'Enter your school or institution.';
+    }
+    if (path === 'student') {
+      teammates.forEach((tm, i) => {
+        if (!required(tm.name)) nextErrors[`tm-${i}-name`] = 'Required.';
+        if (!required(tm.email)) nextErrors[`tm-${i}-email`] = 'Required.';
+        else if (!isValidEmail(tm.email)) nextErrors[`tm-${i}-email`] = 'Enter a valid email.';
+      });
     }
     setErrors(nextErrors);
 
@@ -114,6 +151,17 @@ export default function Join() {
       setSubmitError(result.message);
       return;
     }
+
+    if (path === 'student') {
+      // Best-effort side channel — JO1NID's account creation above already
+      // succeeded, so this never blocks or affects registration either way.
+      void submitTeamRoster({
+        representative: { name: form.name, email: form.email, school: form.school },
+        teammates,
+        submittedAt: new Date().toISOString(),
+      });
+    }
+
     setStep('success');
   }
 
@@ -121,6 +169,7 @@ export default function Join() {
     setStep('choose');
     setPath(null);
     setForm(EMPTY_FORM);
+    setTeammates([]);
     setErrors({});
     setSubmitError(null);
     setTermsAccepted(false);
@@ -168,7 +217,11 @@ export default function Join() {
       )}
 
       {step === 'form' && path && (
-        <div className="hatch-panel-glass anim-float mt-10 max-w-md rounded-xl border border-line bg-panel/95 p-6 shadow-[0_30px_70px_rgba(6,16,28,0.45)]">
+        <div
+          className={`hatch-panel-glass anim-float mt-10 rounded-xl border border-line bg-panel/95 p-6 shadow-[0_30px_70px_rgba(6,16,28,0.45)] ${
+            path === 'student' ? 'max-w-lg' : 'max-w-md'
+          }`}
+        >
           <h2 className="mb-4 text-sm font-semibold uppercase tracking-wide text-ink">Step 2 — Create your account</h2>
           <div className="flex flex-col gap-4">
             <Field
@@ -186,6 +239,16 @@ export default function Join() {
               onChange={(e) => updateField('email', e.target.value)}
               error={errors.email}
             />
+            {path === 'student' && (
+              <Field
+                id="reg-school"
+                label="School / institution"
+                placeholder="e.g. Universiti Malaya"
+                value={form.school}
+                onChange={(e) => updateField('school', e.target.value)}
+                error={errors.school}
+              />
+            )}
             <div>
               <Field
                 id="reg-password"
@@ -218,6 +281,77 @@ export default function Join() {
                 onChange={(e) => updateField('confirmPassword', e.target.value)}
                 error={errors.confirmPassword}
               />
+            )}
+
+            {path === 'student' && (
+              <div className="rounded-lg border border-line bg-panel-2/50 p-4">
+                <p className="text-sm font-medium text-ink">
+                  Registering as a team? <span className="font-normal text-muted">(optional)</span>
+                </p>
+                <p className="mt-1 text-xs leading-5 text-muted">
+                  HATCH allows teams of up to 5, from any school or faculty. You're registering as
+                  the team representative — teammates don't need their own JO1NID yet.
+                </p>
+
+                {teammates.map((tm, i) => (
+                  <div key={i} className="mt-3 rounded-md border border-line bg-panel-2/60 p-3">
+                    <div className="flex items-center justify-between">
+                      <p className="text-xs font-semibold uppercase tracking-wide text-cyan">
+                        Teammate {i + 1}
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => removeTeammate(i)}
+                        aria-label={`Remove teammate ${i + 1}`}
+                        className="text-muted transition-colors hover:text-red-300"
+                      >
+                        <X size={14} aria-hidden="true" />
+                      </button>
+                    </div>
+                    <div className="mt-2 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+                      <Field
+                        id={`tm-name-${i}`}
+                        label="Full name"
+                        value={tm.name}
+                        onChange={(e) => updateTeammate(i, 'name', e.target.value)}
+                        error={errors[`tm-${i}-name`]}
+                      />
+                      <Field
+                        id={`tm-email-${i}`}
+                        type="email"
+                        label="Email address"
+                        value={tm.email}
+                        onChange={(e) => updateTeammate(i, 'email', e.target.value)}
+                        error={errors[`tm-${i}-email`]}
+                      />
+                      <Field
+                        id={`tm-phone-${i}`}
+                        type="tel"
+                        label="Phone (optional)"
+                        value={tm.phone}
+                        onChange={(e) => updateTeammate(i, 'phone', e.target.value)}
+                      />
+                      <Field
+                        id={`tm-school-${i}`}
+                        label="School / institution"
+                        value={tm.school}
+                        onChange={(e) => updateTeammate(i, 'school', e.target.value)}
+                      />
+                    </div>
+                  </div>
+                ))}
+
+                {teammates.length < MAX_TEAMMATES && (
+                  <button
+                    type="button"
+                    onClick={addTeammate}
+                    className="mt-3 flex items-center gap-1.5 text-xs font-medium text-cyan hover:underline"
+                  >
+                    <UserPlus size={14} aria-hidden="true" />
+                    Add teammate ({teammates.length + 1}/5 so far)
+                  </button>
+                )}
+              </div>
             )}
 
             <div className="mt-1">
