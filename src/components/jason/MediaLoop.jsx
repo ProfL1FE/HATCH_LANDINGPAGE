@@ -9,7 +9,7 @@ const loops = import.meta.glob('../../assets/jason/loops/*.{mp4,webm}', {
 })
 
 export function loopSrc(name) {
-  return loops[`../assets/loops/${name}.mp4`] || loops[`../assets/loops/${name}.webm`]
+  return loops[`../../assets/jason/loops/${name}.mp4`] || loops[`../../assets/jason/loops/${name}.webm`]
 }
 
 export default function MediaLoop({ name, fallback = null, className = '' }) {
