@@ -1,6 +1,17 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Eye, EyeOff, Loader2, Fingerprint, GraduationCap, Briefcase, ArrowRight, CheckCircle2 } from 'lucide-react';
+import {
+  Eye,
+  EyeOff,
+  Loader2,
+  Fingerprint,
+  GraduationCap,
+  Briefcase,
+  ArrowRight,
+  CheckCircle2,
+  Mail,
+  ShieldCheck,
+} from 'lucide-react';
 import Button from '../components/Button';
 import Field from '../components/Field';
 import { isValidEmail, required } from '../lib/validation';
@@ -8,9 +19,24 @@ import { loginUser, requestPasswordReset } from '../services/jo1nid';
 import { saveSession } from '../lib/auth';
 
 const ROUTES = [
-  { id: 'JO1NID', icon: Fingerprint, description: 'Your digital identity for the HATCH journey.', accent: '#6ee7ff' },
-  { id: 'JO1NUNI', icon: GraduationCap, description: 'Campus access for HATCH partner institutions.', accent: '#a78bfa' },
-  { id: 'JO1NBiz', icon: Briefcase, description: 'Business and ecosystem partner access.', accent: '#ffd166' },
+  {
+    id: 'JO1NID',
+    icon: Fingerprint,
+    eyebrow: 'Identity Access',
+    description: 'Sign in with your JO1NID to continue your HATCH journey.',
+  },
+  {
+    id: 'JO1NUNI',
+    icon: GraduationCap,
+    eyebrow: 'University Access',
+    description: 'Campus access for HATCH partner institutions.',
+  },
+  {
+    id: 'JO1NBiz',
+    icon: Briefcase,
+    eyebrow: 'Business Access',
+    description: 'Business and ecosystem partner access.',
+  },
 ];
 
 export default function Login({ pendingResource, onSignedIn }) {
@@ -97,10 +123,10 @@ export default function Login({ pendingResource, onSignedIn }) {
 
   return (
     <div className="hatch-atmosphere-signin relative min-h-[calc(100svh-74px)]">
-      <div className="relative mx-auto grid max-w-6xl grid-cols-1 items-start gap-10 px-6 py-14 sm:px-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16 lg:px-16 lg:py-20">
+      <div className="relative z-[1] mx-auto grid max-w-6xl grid-cols-1 items-start gap-10 px-6 py-14 sm:px-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16 lg:px-16 lg:py-20">
         {/* Left — page identity */}
         <div className="hatch-on-gradient hatch-fade-in max-w-xl">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-gold">HATCH™ 2027 / ACCESS</p>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-cyan">HATCH™ 2027 / ACCESS</p>
           <h1 className="mt-4 text-3xl font-semibold tracking-tight text-ink sm:text-4xl">Continue where you left off.</h1>
           <p className="mt-3 text-base leading-7 text-ink">Sign in to access your HATCH journey.</p>
           <p className="mt-10 text-[10px] font-semibold uppercase leading-6 tracking-[0.25em] text-ink/80">
@@ -112,17 +138,17 @@ export default function Login({ pendingResource, onSignedIn }) {
 
         {/* Right — sign-in panel */}
         <div className="hatch-fade-in mx-auto w-full max-w-md lg:mx-0">
-          <div className="hatch-panel-glass anim-float rounded-xl border border-line bg-panel/70 p-6 shadow-[0_30px_70px_rgba(6,16,28,0.45)]">
+          <div className="hatch-panel-glass anim-float-soft rounded-[18px] border border-line/60 bg-panel/55 p-7 shadow-[0_30px_70px_rgba(6,16,28,0.45)] transition-colors duration-300 hover:border-cyan/25">
             {pendingResource && (
-              <div className="mb-6 border-l-2 border-gold/60 pl-4">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.25em] text-gold/80">RESOURCE ACCESS</p>
+              <div className="mb-6 border-l-2 border-cyan/60 pl-4">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.25em] text-cyan/90">RESOURCE ACCESS</p>
                 <p className="mt-1 text-sm text-muted">
                   Sign in to continue to <span className="font-medium text-ink">{pendingResource}</span>.
                 </p>
               </div>
             )}
 
-            {/* Route selector — precise segmented navigation, JO1NID as the primary route */}
+            {/* Route selector — sliding cyan underline per tab, white text on active */}
             <div role="tablist" aria-label="Access route" className="flex border-b border-line">
               {ROUTES.map((r) => {
                 const Icon = r.icon;
@@ -133,28 +159,39 @@ export default function Login({ pendingResource, onSignedIn }) {
                     role="tab"
                     aria-selected={active}
                     onClick={() => setRoute(r.id)}
-                    className={`relative -mb-px flex flex-1 items-center justify-center gap-1.5 border-b-2 px-2 pb-2.5 pt-1 text-xs font-semibold transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold ${
-                      active ? 'border-gold text-gold' : 'border-transparent text-muted hover:text-ink'
+                    className={`relative flex flex-1 items-center justify-center gap-1.5 px-2 pb-3 pt-1 text-xs font-semibold transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-cyan ${
+                      active ? 'text-ink' : 'text-muted hover:text-ink/80'
                     }`}
                   >
                     <Icon size={14} aria-hidden="true" />
                     {r.id}
+                    <span
+                      className={`absolute inset-x-2 -bottom-px h-[2px] origin-center rounded-full bg-cyan transition-transform duration-[250ms] ease-out ${
+                        active ? 'scale-x-100' : 'scale-x-0'
+                      }`}
+                    />
                   </button>
                 );
               })}
             </div>
-            <p className="mt-3 text-sm text-muted">{activeRoute?.description}</p>
-            {route !== 'JO1NID' && (
-              <p className="mt-2 text-xs text-muted/70">
-                {route} has its own sign-in — you’re not signing into the wrong system.
-              </p>
-            )}
 
-            <div className="mt-6 flex flex-col gap-4">
+            <div className="mt-5">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan">{activeRoute?.eyebrow}</p>
+              <p className="mt-1.5 text-sm leading-6 text-muted">{activeRoute?.description}</p>
+              {route !== 'JO1NID' && (
+                <p className="mt-2 text-xs text-muted/70">
+                  {route} has its own sign-in — you’re not signing into the wrong system.
+                </p>
+              )}
+            </div>
+
+            <div className="mt-7 flex flex-col gap-5">
               <Field
                 id="signin-email"
                 type="email"
                 label="Email address"
+                icon={Mail}
+                placeholder="Enter your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 error={errors.email}
@@ -164,6 +201,7 @@ export default function Login({ pendingResource, onSignedIn }) {
                   id="signin-password"
                   type={showPassword ? 'text' : 'password'}
                   label="Password"
+                  placeholder="Enter your password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   error={errors.password}
@@ -173,7 +211,7 @@ export default function Login({ pendingResource, onSignedIn }) {
                   type="button"
                   onClick={() => setShowPassword((s) => !s)}
                   aria-label={showPassword ? 'Hide password' : 'Show password'}
-                  className="absolute right-3 top-[38px] text-muted transition-colors hover:text-gold"
+                  className="absolute right-3 top-[38px] text-muted transition-colors hover:text-cyan"
                 >
                   {showPassword ? <EyeOff size={18} aria-hidden="true" /> : <Eye size={18} aria-hidden="true" />}
                 </button>
@@ -185,7 +223,7 @@ export default function Login({ pendingResource, onSignedIn }) {
                     type="checkbox"
                     checked={rememberMe}
                     onChange={(e) => setRememberMe(e.target.checked)}
-                    className="h-4 w-4 rounded border-line accent-gold"
+                    className="h-4 w-4 rounded border-line accent-cyan"
                   />
                   Remember me
                 </label>
@@ -198,7 +236,7 @@ export default function Login({ pendingResource, onSignedIn }) {
                     // Pre-fill with whatever they typed in the login form.
                     if (!resetEmail && email) setResetEmail(email);
                   }}
-                  className="font-medium text-gold/90 transition-opacity hover:opacity-70"
+                  className="font-medium text-cyan transition-opacity hover:opacity-70"
                 >
                   Forgot password?
                 </button>
@@ -208,7 +246,7 @@ export default function Login({ pendingResource, onSignedIn }) {
                 <div className="hatch-panel-glass hatch-fade-in rounded-lg border border-line bg-panel-2/50 p-4">
                   {resetStatus === 'sent' ? (
                     <div className="flex items-start gap-2.5">
-                      <CheckCircle2 size={16} aria-hidden="true" className="mt-0.5 shrink-0 text-gold" />
+                      <CheckCircle2 size={16} aria-hidden="true" className="mt-0.5 shrink-0 text-cyan" />
                       <p className="text-sm text-muted">
                         If that email is registered, a reset link is on its way. Check your inbox
                         (and spam folder), then come back here and sign in with your new password.
@@ -253,25 +291,45 @@ export default function Login({ pendingResource, onSignedIn }) {
               {error && <p className="text-sm text-red-300">{error}</p>}
 
               {status === 'success' ? (
-                <div className="hatch-fade-in flex items-center gap-3 border-l-2 border-gold pl-4 py-2">
-                  <CheckCircle2 size={17} aria-hidden="true" className="shrink-0 text-gold" />
+                <div className="hatch-fade-in flex items-center gap-3 border-l-2 border-cyan pl-4 py-2">
+                  <CheckCircle2 size={17} aria-hidden="true" className="shrink-0 text-cyan" />
                   <div>
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.25em] text-gold">ACCESS CONFIRMED</p>
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.25em] text-cyan">ACCESS CONFIRMED</p>
                     <p className="mt-1 text-sm text-muted">Preparing your HATCH workspace.</p>
                   </div>
                 </div>
               ) : (
-                <Button variant="primary" onClick={signIn} disabled={status === 'loading'} className="w-full">
-                  {status === 'loading' ? <Loader2 size={16} className="animate-spin" aria-hidden="true" /> : null}
-                  {status === 'loading' ? 'Authenticating…' : 'Continue to HATCH'}
-                </Button>
+                <button
+                  type="button"
+                  onClick={signIn}
+                  disabled={status === 'loading'}
+                  className="group relative flex w-full items-center justify-center gap-2 overflow-hidden rounded-[13px] bg-[linear-gradient(120deg,#57D4E8_0%,#4F8DFF_50%,#7664FF_100%)] px-6 py-3.5 text-sm font-bold text-[#08111E] shadow-[0_18px_40px_-14px_rgba(79,141,255,0.55)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_22px_50px_-10px_rgba(87,212,232,0.5)] active:translate-y-0 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:translate-y-0"
+                >
+                  <span className="pointer-events-none absolute inset-0 bg-[linear-gradient(120deg,#7EEAF0_0%,#5B9BFF_50%,#8C7CF0_100%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                  <span className="relative z-[1] flex items-center gap-2">
+                    {status === 'loading' ? <Loader2 size={16} className="animate-spin" aria-hidden="true" /> : null}
+                    {status === 'loading' ? 'Authenticating…' : 'Continue to HATCH'}
+                    {status !== 'loading' && (
+                      <ArrowRight
+                        size={15}
+                        aria-hidden="true"
+                        className="transition-transform duration-300 group-hover:translate-x-1"
+                      />
+                    )}
+                  </span>
+                </button>
               )}
+
+              <div className="flex items-center justify-center gap-1.5 text-center text-[11px] text-muted/70">
+                <ShieldCheck size={13} aria-hidden="true" className="shrink-0 text-cyan/70" />
+                Your data is protected with enterprise-grade security and encryption.
+              </div>
 
               <div className="border-t border-line pt-5 text-center text-sm">
                 <span className="text-muted">New to HATCH? </span>
                 <Link
                   to="/join"
-                  className="inline-flex items-center gap-1 font-medium text-gold/90 transition-opacity hover:opacity-70"
+                  className="inline-flex items-center gap-1 font-medium text-cyan transition-opacity hover:opacity-70"
                 >
                   Begin your journey <ArrowRight size={14} aria-hidden="true" />
                 </Link>

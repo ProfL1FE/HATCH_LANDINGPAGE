@@ -178,6 +178,15 @@
   background-attachment: fixed;
 }
 
+@keyframes floaty-soft {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-4px); }
+}
+.anim-float-soft { animation: floaty-soft 9s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .anim-float-soft { animation: none; }
+}
+
 /* Light glassmorphism for cards sitting on the gradient — pairs with
  * translucent panel fills so text stays readable on the bright lower half. */
 .hatch-panel-glass {
@@ -199,7 +208,7 @@
 }
 
 /* On the gradient pages, carry the teal through the footer so the page does
- * not end on an abrupt dark band. Scoped with :has() to the three atmosphere
+ * not end on an abrupt dark band. Scoped with :has() to the atmosphere
  * pages only — every other page keeps the shared dark footer. Text inside is
  * flipped to dark tones for contrast on the light teal. */
 body:has(.hatch-atmosphere-resources) footer,
