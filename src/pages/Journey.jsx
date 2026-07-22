@@ -35,10 +35,10 @@ const sceneImages = import.meta.glob('../assets/jason/scenes/stage-*.{png,jpg,jp
   import: 'default',
 })
 const sceneFor = (n) =>
-  sceneImages[`../assets/scenes/stage-${n}.png`] ||
-  sceneImages[`../assets/scenes/stage-${n}.jpg`] ||
-  sceneImages[`../assets/scenes/stage-${n}.jpeg`] ||
-  sceneImages[`../assets/scenes/stage-${n}.webp`]
+  sceneImages[`../assets/jason/scenes/stage-${n}.png`] ||
+  sceneImages[`../assets/jason/scenes/stage-${n}.jpg`] ||
+  sceneImages[`../assets/jason/scenes/stage-${n}.jpeg`] ||
+  sceneImages[`../assets/jason/scenes/stage-${n}.webp`]
 
 // Label positions (percentages) matched to the glowing trail in the
 // full-bleed hero image. Decorative — the stages below carry the real
