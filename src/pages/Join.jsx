@@ -404,7 +404,7 @@ export default function Join() {
           <p className="text-xl font-semibold text-ink">{SUCCESS_COPY[path].heading}</p>
           <p className="mt-2 text-sm text-muted">{SUCCESS_COPY[path].body}</p>
           {(path === 'student' || path === 'business') && (
-            <p className="mt-4 rounded-xl border border-gold/40 bg-gold/10 px-4 py-3 text-sm text-gold">
+            <p className="mt-4 rounded-xl border border-gold/40 bg-panel-2/85 px-4 py-3 text-sm text-gold">
               Check your email and click the verification link, then come back to this page and use the
               <span className="font-semibold"> Login</span> button above to access HATCH.
             </p>
