@@ -52,7 +52,7 @@ export default function Awards() {
             <h1 className="display">
               {awards.heroTitle[0]}
               <br />
-              <span className="text-gold">{awards.heroTitle[1]}</span>
+              <span className="hatch-gradient-heading">{awards.heroTitle[1]}</span>
             </h1>
             <p className="hero-sub">{awards.heroSub}</p>
           </Reveal>

@@ -123,7 +123,7 @@ export default function Journey() {
               <br />
               {journey.heroTitle[1]}
               <br />
-              <span className="text-gold">{journey.heroTitle[2]}</span>
+              <span className="hatch-gradient-heading">{journey.heroTitle[2]}</span>
             </h1>
             <p className="hero-sub">{journey.heroSub}</p>
             <div className="hero-actions">

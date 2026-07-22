@@ -83,7 +83,7 @@ export default function Partners() {
             <h1 className="display">
               {partners.heroTitle[0]}
               <br />
-              <span className="text-gold">{partners.heroTitle[1]}</span>
+              <span className="hatch-gradient-heading">{partners.heroTitle[1]}</span>
             </h1>
             <p className="hero-sub">{partners.heroSub}</p>
           </Reveal>

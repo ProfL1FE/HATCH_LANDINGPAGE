@@ -147,7 +147,15 @@ button {
   letter-spacing: -0.01em;
 }
 
-.text-gold {
+/* Renamed from .text-gold: that name collided with Tailwind's own text-gold
+   COLOR utility used across other pages (Resources, Join, Home). Since this
+   rule is unlayered plain CSS and Tailwind's utility is inside @layer
+   utilities, the cascade-layer spec makes unlayered rules win regardless of
+   specificity — so every unrelated text-gold element sitewide was silently
+   getting color: transparent from this gradient-clip effect, rendering as
+   near-invisible text. Renaming removes the collision entirely; usages of
+   this specific gradient effect were updated to the new name below. */
+.hatch-gradient-heading {
   background: linear-gradient(100deg, var(--gold-bright), var(--gold-deep));
   -webkit-background-clip: text;
   background-clip: text;
@@ -434,9 +442,9 @@ button {
   font-size: clamp(2.8rem, 6.2vw, 4.7rem);
 }
 
-.journey-hero .text-gold,
-.awards-hero .text-gold,
-.partners-hero .text-gold {
+.journey-hero .hatch-gradient-heading,
+.awards-hero .hatch-gradient-heading,
+.partners-hero .hatch-gradient-heading {
   background: none;
   -webkit-background-clip: initial;
   background-clip: initial;
