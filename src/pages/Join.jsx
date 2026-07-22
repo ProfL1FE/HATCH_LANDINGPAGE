@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { GraduationCap, Building2, Handshake, ArrowRight, Loader2, Sparkles, Check, UserPlus, X } from 'lucide-react';
+import { GraduationCap, Building2, Handshake, ArrowRight, Loader2, Sparkles, Check, Plus, X } from 'lucide-react';
 import Button from '../components/Button';
 import Field from '../components/Field';
 import TermsModal from '../components/TermsModal';
 import { isValidEmail, isValidPassword, required } from '../lib/validation';
 import { generateStrongPassword } from '../lib/passwordGenerator';
 import { registerUser } from '../services/jo1nid';
-import { submitTeamRoster } from '../services/teamRoster';
+import { createTeamRegistration, submitPartnerRequest } from '../services/supabase';
 
 const PATHS = [
   { id: 'student', icon: GraduationCap, title: 'Student', description: 'Join HATCH through JO1NID and begin your journey.' },
@@ -14,11 +14,16 @@ const PATHS = [
   { id: 'business', icon: Handshake, title: 'Business / Partner', description: 'Connect with the HATCH ecosystem through JO1NBiz.' },
 ];
 
+// Matches Hatchbac's package model exactly — the live `teams` table has a
+// NOT NULL check constraint on `package` restricted to these three values.
+const PACKAGES = [
+  { id: 'explorer', label: 'Explorer Pass', teamSize: 'Individual', min: 1, max: 1 },
+  { id: 'challenger', label: 'Challenger Pass', teamSize: 'Team of 2', min: 2, max: 2 },
+  { id: 'challenger_plus', label: 'Challenger Plus', teamSize: 'Team of 3 to 5', min: 3, max: 5 },
+];
+
 const EMPTY_FORM = { name: '', email: '', password: '', confirmPassword: '', school: '' };
-const EMPTY_TEAMMATE = { name: '', email: '', phone: '', school: '' };
-// HATCH allows student teams of up to 5 — this caps teammates at 4 so the
-// representative + teammates never exceeds that.
-const MAX_TEAMMATES = 4;
+const EMPTY_MEMBER = { name: '', email: '', phone: '', school: '' };
 
 const SUCCESS_COPY = {
   student: { heading: 'Your HATCH journey begins here.', body: 'Your JO1NID registration is ready for the next step.' },
@@ -30,7 +35,6 @@ export default function Join() {
   const [step, setStep] = useState('choose');
   const [path, setPath] = useState(null);
   const [form, setForm] = useState(EMPTY_FORM);
-  const [teammates, setTeammates] = useState([]);
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState(null);
@@ -38,6 +42,15 @@ export default function Join() {
   const [termsError, setTermsError] = useState(null);
   const [showTermsModal, setShowTermsModal] = useState(false);
   const [passwordCopied, setPasswordCopied] = useState(false);
+
+  // Team registration state — Student path only.
+  const [pkg, setPkg] = useState('explorer');
+  const [teamName, setTeamName] = useState('');
+  const [members, setMembers] = useState([]);
+  const [teamError, setTeamError] = useState(null);
+
+  const selectedPackage = PACKAGES.find((p) => p.id === pkg);
+  const requiresTeam = selectedPackage.max > 1;
 
   function selectPath(p) {
     setPath(p);
@@ -52,12 +65,22 @@ export default function Join() {
     setErrors((e) => ({ ...e, [key]: undefined }));
   }
 
-  function addTeammate() {
-    setTeammates((t) => (t.length < MAX_TEAMMATES ? [...t, { ...EMPTY_TEAMMATE }] : t));
+  function handlePackageChange(newPkg) {
+    setPkg(newPkg);
+    const info = PACKAGES.find((p) => p.id === newPkg);
+    const neededMembers = Math.max(0, info.min - 1); // minus the representative themself
+    setMembers(Array.from({ length: neededMembers }, () => ({ ...EMPTY_MEMBER })));
+    setTeamError(null);
   }
 
-  function removeTeammate(index) {
-    setTeammates((t) => t.filter((_, i) => i !== index));
+  function addMember() {
+    if (members.length + 1 >= selectedPackage.max) return; // +1 for the representative
+    setMembers((m) => [...m, { ...EMPTY_MEMBER }]);
+  }
+
+  function removeMember(index) {
+    if (members.length + 1 <= selectedPackage.min) return;
+    setMembers((m) => m.filter((_, i) => i !== index));
     setErrors((e) => {
       const next = { ...e };
       delete next[`tm-${index}-name`];
@@ -66,8 +89,8 @@ export default function Join() {
     });
   }
 
-  function updateTeammate(index, key, value) {
-    setTeammates((t) => t.map((tm, i) => (i === index ? { ...tm, [key]: value } : tm)));
+  function updateMember(index, key, value) {
+    setMembers((m) => m.map((mem, i) => (i === index ? { ...mem, [key]: value } : mem)));
     if (key === 'name' || key === 'email') {
       setErrors((e) => ({ ...e, [`tm-${index}-${key}`]: undefined }));
     }
@@ -105,13 +128,6 @@ export default function Join() {
     if (path === 'student' && !required(form.school)) {
       nextErrors.school = 'Enter your school or institution.';
     }
-    if (path === 'student') {
-      teammates.forEach((tm, i) => {
-        if (!required(tm.name)) nextErrors[`tm-${i}-name`] = 'Required.';
-        if (!required(tm.email)) nextErrors[`tm-${i}-email`] = 'Required.';
-        else if (!isValidEmail(tm.email)) nextErrors[`tm-${i}-email`] = 'Enter a valid email.';
-      });
-    }
     setErrors(nextErrors);
 
     if (!termsAccepted) {
@@ -120,15 +136,30 @@ export default function Join() {
       setTermsError(null);
     }
 
-    return Object.keys(nextErrors).length === 0 && termsAccepted;
+    let teamOk = true;
+    if (path === 'student' && requiresTeam) {
+      if (!required(teamName)) {
+        setTeamError('Team name is required for this package.');
+        teamOk = false;
+      } else if (members.length + 1 < selectedPackage.min) {
+        setTeamError(`${selectedPackage.label} needs at least ${selectedPackage.min} people including you.`);
+        teamOk = false;
+      } else if (members.some((m) => !required(m.name) || !required(m.email) || !isValidEmail(m.email))) {
+        setTeamError('Each teammate needs a name and a valid email.');
+        teamOk = false;
+      } else {
+        setTeamError(null);
+      }
+    }
+
+    return Object.keys(nextErrors).length === 0 && termsAccepted && teamOk;
   }
 
   /**
    * Submit handler. Student and Business/Partner map to real JO1NID roles
    * (student, employer) and create a genuine account. University has no
-   * JO1NUNI backend yet, so that path is captured as an interest submission
-   * rather than a fake account — we don't pretend to create something that
-   * doesn't exist yet.
+   * JO1NUNI backend yet, so that path is captured as a partner request
+   * instead — we don't pretend to create something that doesn't exist yet.
    */
   async function handleRegisterSubmit() {
     if (!validate() || !path) return;
@@ -136,9 +167,12 @@ export default function Join() {
     setSubmitError(null);
 
     if (path === 'university') {
-      // No real JO1NUNI backend yet — record interest only, no fake account.
-      await new Promise((r) => setTimeout(r, 400));
+      const result = await submitPartnerRequest('university', form.name, form.name, form.email, '');
       setSubmitting(false);
+      if (!result.ok) {
+        setSubmitError(result.message);
+        return;
+      }
       setStep('success');
       return;
     }
@@ -152,14 +186,27 @@ export default function Join() {
       return;
     }
 
-    if (path === 'student') {
-      // Best-effort side channel — JO1NID's account creation above already
-      // succeeded, so this never blocks or affects registration either way.
-      void submitTeamRoster({
-        representative: { name: form.name, email: form.email, school: form.school },
-        teammates,
-        submittedAt: new Date().toISOString(),
-      });
+    // Business/Partner also gets logged as a partner request for the team to follow up on,
+    // in addition to their real JO1NID account.
+    if (path === 'business') {
+      await submitPartnerRequest('business', form.name, form.name, form.email, '');
+    }
+
+    // Student with a team package: save the team + members now, using the
+    // newly created identity as the representative.
+    if (path === 'student' && requiresTeam) {
+      const identityId = result.data?.identityId || form.email; // fall back to email if the field name differs
+      const teamResult = await createTeamRegistration(
+        teamName,
+        pkg,
+        identityId,
+        form.email,
+        members.map((m) => ({ name: m.name, email: m.email, phone: m.phone, school: m.school })),
+      );
+      if (!teamResult.ok) {
+        setSubmitError(`Account created, but saving your team failed: ${teamResult.message}`);
+        return;
+      }
     }
 
     setStep('success');
@@ -169,11 +216,14 @@ export default function Join() {
     setStep('choose');
     setPath(null);
     setForm(EMPTY_FORM);
-    setTeammates([]);
     setErrors({});
     setSubmitError(null);
     setTermsAccepted(false);
     setTermsError(null);
+    setPkg('explorer');
+    setTeamName('');
+    setMembers([]);
+    setTeamError(null);
   }
 
   return (
@@ -285,71 +335,99 @@ export default function Join() {
 
             {path === 'student' && (
               <div className="rounded-lg border border-line bg-panel-2/50 p-4">
-                <p className="text-sm font-medium text-ink">
-                  Registering as a team? <span className="font-normal text-muted">(optional)</span>
-                </p>
-                <p className="mt-1 text-xs leading-5 text-muted">
-                  HATCH allows teams of up to 5, from any school or faculty. You're registering as
-                  the team representative — teammates don't need their own JO1NID yet.
-                </p>
+                <p className="text-sm font-medium text-ink">Registration package</p>
+                <div className="mt-2 grid grid-cols-1 gap-2">
+                  {PACKAGES.map((p) => (
+                    <label
+                      key={p.id}
+                      className={`flex cursor-pointer items-center justify-between rounded-md border px-3 py-2 text-sm transition-colors ${
+                        pkg === p.id ? 'border-cyan/60 bg-cyan/10' : 'border-line'
+                      }`}
+                    >
+                      <span>
+                        <span className="font-medium text-ink">{p.label}</span>{' '}
+                        <span className="text-muted">— {p.teamSize}</span>
+                      </span>
+                      <input
+                        type="radio"
+                        name="package"
+                        checked={pkg === p.id}
+                        onChange={() => handlePackageChange(p.id)}
+                        className="accent-cyan"
+                      />
+                    </label>
+                  ))}
+                </div>
 
-                {teammates.map((tm, i) => (
-                  <div key={i} className="mt-3 rounded-md border border-line bg-panel-2/60 p-3">
-                    <div className="flex items-center justify-between">
-                      <p className="text-xs font-semibold uppercase tracking-wide text-cyan">
-                        Teammate {i + 1}
-                      </p>
+                {requiresTeam && (
+                  <div className="mt-4 flex flex-col gap-3">
+                    <Field id="team-name" label="Team name" value={teamName} onChange={(e) => setTeamName(e.target.value)} />
+
+                    <p className="text-xs text-muted">
+                      Add your teammates ({selectedPackage.min - 1} to {selectedPackage.max - 1} more, plus you as the
+                      representative). Teammates don't need their own JO1NID yet.
+                    </p>
+
+                    {members.map((m, i) => (
+                      <div key={i} className="rounded-md border border-line bg-panel-2/60 p-3">
+                        <div className="flex items-center justify-between">
+                          <p className="text-xs font-semibold uppercase tracking-wide text-cyan">Teammate {i + 1}</p>
+                          {members.length + 1 > selectedPackage.min && (
+                            <button
+                              type="button"
+                              onClick={() => removeMember(i)}
+                              aria-label={`Remove teammate ${i + 1}`}
+                              className="text-muted transition-colors hover:text-red-300"
+                            >
+                              <X size={14} aria-hidden="true" />
+                            </button>
+                          )}
+                        </div>
+                        <div className="mt-2 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+                          <Field
+                            id={`tm-name-${i}`}
+                            label="Full name"
+                            value={m.name}
+                            onChange={(e) => updateMember(i, 'name', e.target.value)}
+                            error={errors[`tm-${i}-name`]}
+                          />
+                          <Field
+                            id={`tm-email-${i}`}
+                            type="email"
+                            label="Email address"
+                            value={m.email}
+                            onChange={(e) => updateMember(i, 'email', e.target.value)}
+                            error={errors[`tm-${i}-email`]}
+                          />
+                          <Field
+                            id={`tm-phone-${i}`}
+                            type="tel"
+                            label="Phone (optional)"
+                            value={m.phone}
+                            onChange={(e) => updateMember(i, 'phone', e.target.value)}
+                          />
+                          <Field
+                            id={`tm-school-${i}`}
+                            label="School / institution"
+                            value={m.school}
+                            onChange={(e) => updateMember(i, 'school', e.target.value)}
+                          />
+                        </div>
+                      </div>
+                    ))}
+
+                    {members.length + 1 < selectedPackage.max && (
                       <button
                         type="button"
-                        onClick={() => removeTeammate(i)}
-                        aria-label={`Remove teammate ${i + 1}`}
-                        className="text-muted transition-colors hover:text-red-300"
+                        onClick={addMember}
+                        className="flex items-center justify-center gap-1.5 rounded-md border border-dashed border-line py-2 text-sm text-cyan hover:border-cyan/50"
                       >
-                        <X size={14} aria-hidden="true" />
+                        <Plus size={14} aria-hidden="true" /> Add another teammate
                       </button>
-                    </div>
-                    <div className="mt-2 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
-                      <Field
-                        id={`tm-name-${i}`}
-                        label="Full name"
-                        value={tm.name}
-                        onChange={(e) => updateTeammate(i, 'name', e.target.value)}
-                        error={errors[`tm-${i}-name`]}
-                      />
-                      <Field
-                        id={`tm-email-${i}`}
-                        type="email"
-                        label="Email address"
-                        value={tm.email}
-                        onChange={(e) => updateTeammate(i, 'email', e.target.value)}
-                        error={errors[`tm-${i}-email`]}
-                      />
-                      <Field
-                        id={`tm-phone-${i}`}
-                        type="tel"
-                        label="Phone (optional)"
-                        value={tm.phone}
-                        onChange={(e) => updateTeammate(i, 'phone', e.target.value)}
-                      />
-                      <Field
-                        id={`tm-school-${i}`}
-                        label="School / institution"
-                        value={tm.school}
-                        onChange={(e) => updateTeammate(i, 'school', e.target.value)}
-                      />
-                    </div>
-                  </div>
-                ))}
+                    )}
 
-                {teammates.length < MAX_TEAMMATES && (
-                  <button
-                    type="button"
-                    onClick={addTeammate}
-                    className="mt-3 flex items-center gap-1.5 text-xs font-medium text-cyan hover:underline"
-                  >
-                    <UserPlus size={14} aria-hidden="true" />
-                    Add teammate ({teammates.length + 1}/5 so far)
-                  </button>
+                    {teamError && <p className="text-xs text-red-300">{teamError}</p>}
+                  </div>
                 )}
               </div>
             )}

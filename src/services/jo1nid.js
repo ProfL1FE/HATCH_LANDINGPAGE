@@ -47,7 +47,11 @@ async function postJSON(path, body) {
 export async function registerUser(email, password, role) {
   const result = await postJSON('/api/v1/auth/register', { email: email.trim(), password, role });
   if (!result.ok) return result;
-  return { ok: true, message: 'Account created. Check your email for a verification link before signing in.' };
+  return {
+    ok: true,
+    message: 'Account created. Check your email for a verification link before signing in.',
+    data: result.data,
+  };
 }
 
 /** Sign in with a verified JO1NID account. On success, the caller is responsible for persisting the session. */
