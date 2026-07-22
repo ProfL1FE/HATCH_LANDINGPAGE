@@ -73,7 +73,7 @@ export default function Navbar() {
           <Button to="/login" variant="outline" size="sm" className="uppercase tracking-[1.5px]">
             Sign In
           </Button>
-          <Button to="/join" variant="gradient" size="sm" className="uppercase tracking-[1.5px]">
+          <Button to="/join" variant="outline" size="sm" className="uppercase tracking-[1.5px]">
             Register
           </Button>
         </div>
@@ -100,7 +100,7 @@ export default function Navbar() {
               <Button to="/login" variant="outline" size="sm" className="flex-1 uppercase tracking-[1.5px]" onClick={() => setOpen(false)}>
                 Sign In
               </Button>
-              <Button to="/join" variant="gradient" size="sm" className="flex-1 uppercase tracking-[1.5px]" onClick={() => setOpen(false)}>
+              <Button to="/join" variant="outline" size="sm" className="flex-1 uppercase tracking-[1.5px]" onClick={() => setOpen(false)}>
                 Register
               </Button>
             </div>

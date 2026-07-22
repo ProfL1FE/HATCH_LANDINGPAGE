@@ -164,22 +164,15 @@
  * adds one accent tuned to what the page is for, so the pages read as distinct
  * zones of the same ecosystem rather than identical screens.
  */
-/* Poster gradient (violet → blue → teal), scoped to the auth/resources pages
- * only — the rest of the site keeps the shared dark-navy theme. Fixed
- * attachment so the colour field stays stable while the page scrolls. */
+/* Flat dark blue, no gradient — shared across every page's atmosphere zone. */
+.hatch-atmosphere-resources,
+.hatch-atmosphere-signin,
+.hatch-atmosphere-join,
 .hatch-atmosphere-journey,
 .hatch-atmosphere-awards,
 .hatch-atmosphere-partners,
 .hatch-atmosphere-home {
-  background-image: linear-gradient(180deg, #360653 0%, #41376a 22%, #4c8ea8 48%, #50bbc4 70%, #7fc9d3 100%);
-  background-attachment: fixed;
-}
-
-/* Resources, Sign In and Join — flat teal-dark-blue, no gradient. */
-.hatch-atmosphere-resources,
-.hatch-atmosphere-signin,
-.hatch-atmosphere-join {
-  background-color: #0b2e3d;
+  background-color: #0c1f3d;
   background-image: none;
 }
 
@@ -219,28 +212,9 @@
   text-shadow: 0 1px 2px rgba(5, 10, 20, 0.55), 0 2px 9px rgba(5, 10, 20, 0.32);
 }
 
-/* On the gradient pages, carry the teal through the footer so the page does
- * not end on an abrupt dark band. Scoped with :has() to the atmosphere
- * pages only — every other page keeps the shared dark footer. Text inside is
- * flipped to dark tones for contrast on the light teal.
- * Resources/Sign In/Join are no longer in this list — those three now use a
- * flat dark background (no bright gradient bottom), so they keep the
- * ordinary dark footer instead of a mismatched light-teal continuation. */
-body:has(.hatch-atmosphere-journey) footer,
-body:has(.hatch-atmosphere-awards) footer,
-body:has(.hatch-atmosphere-partners) footer,
-body:has(.hatch-atmosphere-home) footer {
-  background: linear-gradient(180deg, #35708c 0%, #4f96ad 100%);
-  border-top-color: rgba(255, 255, 255, 0.25);
-  color: #dff0f5;
-}
-
-body:has(.hatch-atmosphere-journey) footer :is(b, .text-white),
-body:has(.hatch-atmosphere-awards) footer :is(b, .text-white),
-body:has(.hatch-atmosphere-partners) footer :is(b, .text-white),
-body:has(.hatch-atmosphere-home) footer :is(b, .text-white) {
-  color: #ffffff;
-}
+/* All atmosphere pages are flat dark blue now (no bright gradient bottom
+ * anywhere), so every page just keeps the ordinary shared dark footer —
+ * no special continuation treatment needed. */
 
 /* Functional entry transition — communicates "the system responded". */
 .hatch-fade-in {
