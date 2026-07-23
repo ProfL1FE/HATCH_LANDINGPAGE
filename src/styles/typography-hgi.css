@@ -1,0 +1,139 @@
+/**
+ * HGI.life-matched typography system — imported site-wide via index.css.
+ * Fonts themselves are loaded once in index.html (SF Pro Display + Lato),
+ * not re-imported here, to avoid duplicate network requests.
+ *
+ * Two typefaces:
+ *   --font-primary   SF Pro Display — headlines & body, used everywhere.
+ *   --font-secondary Lato (300/400/700/900) — used sparingly for specific
+ *                    accents (e.g. an intro/loader screen), not a
+ *                    general-purpose body font.
+ *
+ * index.css's own --font-sans/--font-serif and jason-pages.css's
+ * --font-display/--font-body are updated separately to the same SF Pro
+ * Display stack, so every existing component already picks this up without
+ * needing to switch to the .hgi-* classes below. Those classes exist for
+ * new components that want the exact HGI size/weight/tracking scale.
+ */
+
+:root {
+  /* ── Font stacks ─────────────────────────────────────────── */
+  --font-primary: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial,
+    sans-serif;
+  --font-secondary: 'Lato', sans-serif;
+
+  /* ── Weights ─────────────────────────────────────────────── */
+  --fw-headline: 700; /* H1 / H2 */
+  --fw-subheading: 600; /* H3, sub-headings, labels, eyebrows, buttons */
+  --fw-body: 400;
+
+  /* ── Sizes (clamp: min, viewport-relative, max) ─────────────
+   * Hero has two variants — pick per-page based on how dominant the
+   * headline is meant to be. Everything else has one canonical size.
+   */
+  --text-hero: clamp(36px, 6vw, 80px); /* standard hero headline */
+  --text-hero-xl: clamp(80px, 12vw, 180px); /* largest hero variant */
+  --text-h2: clamp(28px, 4vw, 56px); /* section heading */
+  --text-h3: clamp(24px, 3.5vw, 44px); /* smaller section heading */
+  --text-subheadline: clamp(16px, 1.8vw, 21px); /* intro paragraph under a headline */
+  --text-body: clamp(15px, 1.1vw, 19px); /* body copy, 15–19px */
+  --text-label: clamp(10px, 0.9vw, 13px); /* eyebrows, nav, small uppercase labels */
+
+  /* ── Letter-spacing ──────────────────────────────────────────
+   * Big text tracks tighter; small uppercase text tracks looser.
+   * Two headline steps so the largest hero (xl) can go tighter than a
+   * regular hero, matching "bigger text = tighter" from the spec.
+   */
+  --tracking-hero: -0.03em;
+  --tracking-hero-xl: -0.05em;
+  --tracking-heading: -0.03em; /* H2 / H3 */
+  --tracking-body: 0; /* normal running text needs no adjustment */
+  --tracking-label: 0.08em; /* eyebrow tags, nav */
+  --tracking-label-tight: 0.06em; /* lower end of the label range */
+  --tracking-label-loose: 0.12em; /* upper end — smallest/most compressed labels */
+
+  /* ── Line-height ─────────────────────────────────────────────
+   * Not specified in the brief, but every clamp()-based type scale needs
+   * one — tight for display type, relaxed for reading copy.
+   */
+  --leading-display: 1.05; /* hero, H2, H3 */
+  --leading-body: 1.5; /* body copy, sub-headline */
+  --leading-label: 1.3; /* short uppercase labels */
+}
+
+/* ── Usage classes ─────────────────────────────────────────────
+ * Apply these directly, or reference the variables above inline if a
+ * component needs a one-off combination. Not applied to any element by
+ * default — nothing on the live site changes until these are used.
+ */
+
+.hgi-h1 {
+  font-family: var(--font-primary);
+  font-weight: var(--fw-headline);
+  font-size: var(--text-hero);
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-hero);
+}
+
+.hgi-h1-xl {
+  font-family: var(--font-primary);
+  font-weight: var(--fw-headline);
+  font-size: var(--text-hero-xl);
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-hero-xl);
+}
+
+.hgi-h2 {
+  font-family: var(--font-primary);
+  font-weight: var(--fw-headline);
+  font-size: var(--text-h2);
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-heading);
+}
+
+.hgi-h3 {
+  font-family: var(--font-primary);
+  font-weight: var(--fw-subheading);
+  font-size: var(--text-h3);
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-heading);
+}
+
+.hgi-subheadline {
+  font-family: var(--font-primary);
+  font-weight: var(--fw-body);
+  font-size: var(--text-subheadline);
+  line-height: var(--leading-body);
+  letter-spacing: var(--tracking-body);
+}
+
+.hgi-body {
+  font-family: var(--font-primary);
+  font-weight: var(--fw-body);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  letter-spacing: var(--tracking-body);
+}
+
+.hgi-label {
+  font-family: var(--font-primary);
+  font-weight: var(--fw-subheading);
+  font-size: var(--text-label);
+  line-height: var(--leading-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.hgi-button {
+  font-family: var(--font-primary);
+  font-weight: var(--fw-subheading);
+  font-size: var(--text-label);
+  line-height: var(--leading-label);
+  letter-spacing: var(--tracking-label-tight);
+}
+
+.hgi-intro-accent {
+  /* Lato — reserved for intro/loader-style moments, not general body text. */
+  font-family: var(--font-secondary);
+  font-weight: 900;
+}
