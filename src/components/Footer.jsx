@@ -52,7 +52,7 @@ export default function Footer() {
           <Link to="/" className="flex items-center gap-2.5">
             <HatchLogo size={34} className="text-cyan" />
             <span className="leading-tight">
-              <span className="block text-[16px] font-black tracking-[1px] text-white">
+              <span className="block text-[16px] font-black tracking-[1px] text-ink">
                 HATCH<sup className="text-[8px] font-bold">™</sup> <span className="text-cyan">2027</span>
               </span>
               <span className="block text-[8px] font-semibold uppercase tracking-[3px] text-muted">
@@ -73,7 +73,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 aria-label={s.label}
                 title={s.label}
-                className="grid h-10 w-10 place-items-center rounded-full border border-line bg-white/6 text-body transition hover:bg-white/12"
+                className="grid h-10 w-10 place-items-center rounded-full border border-line bg-panel text-body transition hover:bg-panel-2"
               >
                 <Icon name={s.icon} size={17} />
               </a>
@@ -83,10 +83,10 @@ export default function Footer() {
 
         {COLUMNS.map((col) => (
           <div key={col.title}>
-            <b className="text-white">{col.title}</b>
+            <b className="text-ink">{col.title}</b>
             <p className="mt-3 flex flex-col gap-2">
               {col.links.map((l) => (
-                <Link key={l.label} to={l.to} className="hover:text-white">
+                <Link key={l.label} to={l.to} className="hover:text-ink">
                   {l.label}
                 </Link>
               ))}

@@ -13,26 +13,31 @@
   --font-sans: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   --font-serif: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 
-  --color-bg: #051822;
-  --color-panel: #0a2531;
-  --color-panel-2: #0e2e3c;
-  --color-ink: #f2f8fb;
-  --color-body: #c4d7e8;
-  --color-muted: #92a7bf;
-  --color-slate: #5b6673;
-  --color-line: rgba(255, 255, 255, 0.12);
+  /* Light theme — white base, dark text. Accent hues (cyan/violet/gold/
+     green/red) are deepened from their original pastel-on-dark values so
+     they hold enough contrast used as text/icons on white; --color-on-brand
+     (dark text sitting ON bright button fills) is untouched since buttons
+     stay saturated color islands regardless of page theme. */
+  --color-bg: #ffffff;
+  --color-panel: #f4f6f9;
+  --color-panel-2: #e9edf3;
+  --color-ink: #0b1626;
+  --color-body: #3c4a5e;
+  --color-muted: #5b6b82;
+  --color-slate: #94a3b8;
+  --color-line: rgba(15, 23, 42, 0.12);
 
-  --color-cyan: #3ad6de;
-  --color-cyan-deep: #106b78;
-  --color-aqua: #8debff;
-  --color-violet: #8c7cf0;
+  --color-cyan: #0891b2;
+  --color-cyan-deep: #075e6f;
+  --color-aqua: #0e7f92;
+  --color-violet: #6d4de0;
   --color-violet-deep: #2a1854;
-  --color-royal-purple: #6a3fe8;
-  --color-gold: #ffcc61;
+  --color-royal-purple: #5b30d6;
+  --color-gold: #b4790f;
   --color-gold-light: #ffe8a3;
-  --color-gold-deep: #b8862e;
-  --color-green: #5be0a8;
-  --color-red: #ff7a90;
+  --color-gold-deep: #8a5c14;
+  --color-green: #158f52;
+  --color-red: #d6294a;
 
   --color-on-brand: #071019;
 
@@ -52,11 +57,12 @@
     font-family: var(--font-sans);
     color: var(--color-ink);
     background-color: var(--color-bg);
+    /* The bold colour-glow composition this replaced was a dark-mode trick —
+       on white, a clean flat background reads as more professional (a very
+       faint corner tint instead of saturated colour blooms). */
     background-image:
-      radial-gradient(circle at 0% -10%, rgba(58, 214, 222, 0.32), transparent 55%),
-      radial-gradient(circle at 100% -5%, rgba(140, 124, 240, 0.3), transparent 48%),
-      radial-gradient(circle at 50% 105%, rgba(255, 204, 97, 0.16), transparent 45%),
-      linear-gradient(180deg, rgba(42, 24, 84, 0.4) 0%, rgba(58, 214, 222, 0.14) 42%, rgba(5, 24, 34, 0) 78%);
+      radial-gradient(circle at 0% -10%, rgba(8, 145, 178, 0.05), transparent 55%),
+      radial-gradient(circle at 100% -5%, rgba(109, 77, 224, 0.045), transparent 48%);
     background-attachment: fixed;
     line-height: 1.5;
   }
@@ -168,7 +174,7 @@
  * adds one accent tuned to what the page is for, so the pages read as distinct
  * zones of the same ecosystem rather than identical screens.
  */
-/* Flat dark blue, no gradient — shared across every page's atmosphere zone. */
+/* White, matching the page body — shared across every page's atmosphere zone. */
 .hatch-atmosphere-resources,
 .hatch-atmosphere-signin,
 .hatch-atmosphere-join,
@@ -176,7 +182,7 @@
 .hatch-atmosphere-awards,
 .hatch-atmosphere-partners,
 .hatch-atmosphere-home {
-  background-color: #0c1f3d;
+  background-color: var(--color-bg);
   background-image: none;
 }
 
@@ -203,22 +209,17 @@
   -webkit-backdrop-filter: blur(16px);
 }
 
-/* Text that sits directly on the gradient (outside dark panels) — a soft dark
- * halo keeps it legible where the teal gets bright, without a heavy outline. */
-.hatch-on-gradient {
-  text-shadow: 0 1px 3px rgba(10, 8, 20, 0.7), 0 4px 20px rgba(10, 8, 20, 0.45);
-}
-
-/* Lighter version of the above, scoped to Home — the original's 20px blur reads fine on the
- * large display type it was built for, but at Home's smaller heading/body sizes that same blur
- * radius is bigger than the glyphs themselves and reads as haze rather than a crisp shadow. */
+/* These dark text-shadows existed to keep light text legible over a bright
+ * gradient. Now that text is dark-on-white, a dark halo just looks like
+ * unwanted blur — both are neutralised rather than removed, so any element
+ * still referencing these classes doesn't need to be hunted down individually. */
+.hatch-on-gradient,
 .hatch-on-gradient-soft {
-  text-shadow: 0 1px 2px rgba(5, 10, 20, 0.55), 0 2px 9px rgba(5, 10, 20, 0.32);
+  text-shadow: none;
 }
 
-/* All atmosphere pages are flat dark blue now (no bright gradient bottom
- * anywhere), so every page just keeps the ordinary shared dark footer —
- * no special continuation treatment needed. */
+/* All atmosphere pages are white now, so every page just keeps the ordinary
+ * shared footer — no special continuation treatment needed. */
 
 /* Functional entry transition — communicates "the system responded". */
 .hatch-fade-in {

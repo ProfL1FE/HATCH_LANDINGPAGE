@@ -165,7 +165,7 @@ export default function Home() {
         {/* Top: 40 / 60 split — left copy, right lets the egg breathe */}
         <div className="hatch-wrap-wide relative grid flex-1 items-center gap-8 pt-6 short:pt-4 xshort:pt-3 lg:grid-cols-[40%_60%]">
           <div className="max-w-[560px]">
-            <h1 className="anim-rise font-serif m-0 mb-3 text-[clamp(46px,5.8vw,84px)] font-semibold leading-[1.08] tracking-[-0.5px] short:mb-3 short:text-[clamp(36px,4.2vw,52px)] xshort:text-[clamp(31px,3.6vw,43px)]">
+            <h1 className="anim-rise font-serif m-0 mb-3 text-[clamp(46px,5.8vw,84px)] font-semibold leading-[1.08] tracking-[-0.5px] text-white short:mb-3 short:text-[clamp(36px,4.2vw,52px)] xshort:text-[clamp(31px,3.6vw,43px)]">
               Every idea
               <br />
               has wonders.
@@ -189,7 +189,7 @@ export default function Home() {
               </Button>
               <a
                 href="#video"
-                className="group inline-flex items-center gap-2.5 text-[13px] font-bold uppercase tracking-[1.5px] text-ink transition duration-300 hover:text-cyan"
+                className="group inline-flex items-center gap-2.5 text-[13px] font-bold uppercase tracking-[1.5px] text-white transition duration-300 hover:text-cyan"
               >
                 <span className="grid h-10 w-10 place-items-center rounded-full border border-cyan/50 text-[11px] transition duration-300 group-hover:border-cyan group-hover:shadow-[0_0_14px_rgba(58,214,222,0.4)]">
                   ▶
