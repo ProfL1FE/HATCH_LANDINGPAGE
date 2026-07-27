@@ -553,41 +553,6 @@ button {
   height: 72px;
 }
 
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-right: auto;
-}
-
-.logo-text {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.15;
-}
-
-.logo-name {
-  font-weight: 700;
-  font-size: 1.02rem;
-  letter-spacing: 0.06em;
-}
-
-.logo-name sup {
-  font-size: 0.5em;
-}
-
-.logo-name em {
-  font-style: normal;
-  color: var(--gold);
-}
-
-.logo-tag {
-  font-size: 0.58rem;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--ink-3);
-}
-
 .nav-links {
   display: flex;
   align-items: center;

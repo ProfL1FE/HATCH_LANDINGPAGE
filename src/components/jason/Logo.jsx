@@ -1,5 +1,3 @@
-import { Link } from 'react-router-dom'
-
 export function EggMark({ size = 34 }) {
   return (
     <svg width={size} height={size} viewBox="0 0 40 40" fill="none" aria-hidden="true">
@@ -21,19 +19,5 @@ export function EggMark({ size = 34 }) {
         </linearGradient>
       </defs>
     </svg>
-  )
-}
-
-export default function Logo() {
-  return (
-    <Link to="/journey" className="logo" aria-label="HATCH 2027 home">
-      <EggMark />
-      <span className="logo-text">
-        <span className="logo-name">
-          HATCH<sup>™</sup> <em>2027</em>
-        </span>
-        <span className="logo-tag">AI for Humanity</span>
-      </span>
-    </Link>
   )
 }
