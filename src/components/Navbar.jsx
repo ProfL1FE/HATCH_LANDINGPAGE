@@ -13,10 +13,10 @@ function NavItem({ to, label, onClick, mobile = false }) {
       className={({ isActive }) =>
         mobile
           ? `rounded-lg px-3 py-2.5 text-[13px] font-semibold uppercase tracking-[2px] ${
-              isActive ? 'bg-panel text-cyan' : 'text-muted hover:text-cyan'
+              isActive ? 'bg-white/10 text-cyan' : 'text-white/70 hover:text-cyan'
             }`
           : `group relative py-2 text-[12px] font-semibold uppercase tracking-[2.2px] transition duration-300 ${
-              isActive ? 'text-cyan' : 'text-muted hover:text-cyan'
+              isActive ? 'text-cyan' : 'text-white/70 hover:text-cyan'
             }`
       }
     >
@@ -47,17 +47,17 @@ export default function Navbar() {
 
   return (
     <header
-      className="anim-fade-down sticky top-0 z-50 border-b border-line shadow-[0_4px_20px_rgba(15,23,42,0.06)] backdrop-blur-md"
-      style={{ background: 'linear-gradient(180deg, rgba(255,255,255,1), rgba(249,250,252,1))' }}
+      className="anim-fade-down sticky top-0 z-50 border-b border-white/10 shadow-[0_4px_20px_rgba(15,23,42,0.25)] backdrop-blur-md"
+      style={{ backgroundColor: 'var(--color-navy)' }}
     >
       <div className="hatch-wrap-wide flex h-[74px] items-center justify-between gap-6">
         <Link to="/" className="flex shrink-0 items-center gap-2.5">
           <HatchLogo size={38} className="text-cyan" />
           <span className="leading-tight">
-            <span className="block text-[17px] font-black tracking-[1px] text-ink">
+            <span className="block text-[17px] font-black tracking-[1px] text-white">
               HATCH<sup className="text-[9px] font-bold">™</sup> <span className="text-cyan">2027</span>
             </span>
-            <span className="block text-[9px] font-semibold uppercase tracking-[3.5px] text-muted">
+            <span className="block text-[9px] font-semibold uppercase tracking-[3.5px] text-white/60">
               AI for Humanity
             </span>
           </span>
@@ -79,7 +79,7 @@ export default function Navbar() {
         </div>
 
         <button
-          className="grid h-10 w-10 place-items-center rounded-lg border border-line text-xl lg:hidden"
+          className="grid h-10 w-10 place-items-center rounded-lg border border-white/20 text-xl text-white lg:hidden"
           onClick={() => setOpen((v) => !v)}
           aria-label="Toggle navigation"
         >
@@ -89,8 +89,8 @@ export default function Navbar() {
 
       {open && (
         <div
-          className="border-t border-line lg:hidden"
-          style={{ background: 'linear-gradient(180deg, rgba(255,255,255,1), rgba(249,250,252,1))' }}
+          className="border-t border-white/10 lg:hidden"
+          style={{ backgroundColor: 'var(--color-navy)' }}
         >
           <nav className="hatch-wrap flex flex-col gap-1 py-4">
             {NAV_LINKS.map((link) => (
