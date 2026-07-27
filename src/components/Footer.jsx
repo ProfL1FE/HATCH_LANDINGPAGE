@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
-import Icon, { HatchLogo } from './Icon'
+import Icon from './Icon'
+import hatchLogo from '../assets/HATCH_LOGO_P1.png'
 
 const SOCIALS = [
   { label: 'LinkedIn', icon: 'linkedin', href: 'https://www.linkedin.com/' },
@@ -49,16 +50,8 @@ export default function Footer() {
     <footer className="border-t border-white/10 pt-14 pb-8 text-sm text-white/60" style={{ backgroundColor: 'var(--color-navy)' }}>
       <div className="hatch-wrap grid gap-10 md:grid-cols-[1.3fr_.7fr_.7fr_.9fr_.7fr]">
         <div>
-          <Link to="/" className="flex items-center gap-2.5">
-            <HatchLogo size={34} className="text-cyan" />
-            <span className="leading-tight">
-              <span className="block text-[16px] font-black tracking-[1px] text-white">
-                HATCH<sup className="text-[8px] font-bold">™</sup> <span className="text-cyan">2027</span>
-              </span>
-              <span className="block text-[8px] font-semibold uppercase tracking-[3px] text-white/60">
-                AI for Humanity
-              </span>
-            </span>
+          <Link to="/" className="flex items-center">
+            <img src={hatchLogo} alt="HATCH — Ideas Worth Hatching" className="h-9 w-auto" />
           </Link>
           <p className="mt-4 max-w-[360px]">
             Organised by CareerBank™. Strategic Partners: World Halalpreneur Council and World Talent Council.
