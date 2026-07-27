@@ -52,7 +52,7 @@ export default function Navbar() {
     >
       <div className="hatch-wrap-wide flex h-[74px] items-center justify-between gap-6">
         <Link to="/" className="flex shrink-0 items-center">
-          <img src={hatchLogo} alt="HATCH — Ideas Worth Hatching" className="h-11 w-auto" />
+          <img src={hatchLogo} alt="HATCH — Ideas Worth Hatching" className="h-16 w-auto" />
         </Link>
 
         <nav className="hidden items-center gap-8 lg:flex">

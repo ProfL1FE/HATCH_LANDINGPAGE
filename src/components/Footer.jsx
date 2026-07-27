@@ -51,7 +51,7 @@ export default function Footer() {
       <div className="hatch-wrap grid gap-10 md:grid-cols-[1.3fr_.7fr_.7fr_.9fr_.7fr]">
         <div>
           <Link to="/" className="flex items-center">
-            <img src={hatchLogo} alt="HATCH — Ideas Worth Hatching" className="h-9 w-auto" />
+            <img src={hatchLogo} alt="HATCH — Ideas Worth Hatching" className="h-14 w-auto" />
           </Link>
           <p className="mt-4 max-w-[360px]">
             Organised by CareerBank™. Strategic Partners: World Halalpreneur Council and World Talent Council.
