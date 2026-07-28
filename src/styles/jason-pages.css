@@ -4,18 +4,23 @@
    ──────────────────────────────────────────────────────────── */
 
 :root {
-  /* Light theme — white base, dark text (matches index.css's tokens; this
-     file keeps its own names since Journey/Awards/Partners reference them
-     directly). --gold-bright/--gold-deep are deliberately NOT deepened —
+  /* These reference index.css's --color-* tokens (not hardcoded copies)
+     so this file's ~50 uses of --bg/--surface/--ink across Journey/Awards/
+     Partners flip to dark mode automatically along with the rest of the
+     site, instead of staying stuck at light-mode values while the page
+     background goes dark — which previously made body text and headings
+     styled through this file (including ones on Home.jsx, since this CSS
+     bundles globally) render as near-invisible dark-on-dark text.
+     --gold-bright/--gold-deep are deliberately NOT wired to theme tokens —
      they're only ever used for text sitting on the dark hero photos
      (.hatch-gradient-heading inside .journey-hero etc.), so they need to
      stay bright regardless of the page theme. */
-  --bg: #ffffff;
-  --bg-2: #f4f6f9;
-  --surface: rgba(244, 246, 249, 0.85);
-  --surface-solid: #f4f6f9;
+  --bg: var(--color-bg);
+  --bg-2: var(--color-panel);
+  --surface: color-mix(in srgb, var(--color-panel) 85%, transparent);
+  --surface-solid: var(--color-panel);
   --line-gold: rgba(8, 145, 178, 0.25);
-  --line-soft: rgba(15, 23, 42, 0.12);
+  --line-soft: var(--color-line);
 
   /* Named --gold for historical reasons — this is now the brand's
      cyan/teal accent (see the HATCH poster palette), not literal gold. */
@@ -31,9 +36,9 @@
   --green: #158f52;
   --green-soft: rgba(21, 143, 82, 0.12);
 
-  --ink: #0b1626;
-  --ink-2: #3c4a5e;
-  --ink-3: #5b6b82;
+  --ink: var(--color-ink);
+  --ink-2: var(--color-body);
+  --ink-3: var(--color-muted);
 
   /* HGI.life-matched type system — SF Pro Display everywhere, unified with
      index.css's --font-sans/--font-serif (both now point to the same stack). */
