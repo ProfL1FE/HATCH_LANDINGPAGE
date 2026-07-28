@@ -3,8 +3,8 @@ import { Link, NavLink } from 'react-router-dom'
 import { NAV_LINKS } from '../data/hatch'
 import Button from './Button'
 import { useTheme } from '../context/ThemeContext'
-import hatchLogoLight from '../assets/HATCH_LOGO_P1.jpg'
-import hatchLogoDark from '../assets/HATCH_LOGO_P2.jpg'
+import hatchLogoLight from '../assets/HATCH_LOGO_P1.png'
+import hatchLogoDark from '../assets/HATCH_LOGO_P2.png'
 
 function NavItem({ to, label, onClick, mobile = false }) {
   return (
