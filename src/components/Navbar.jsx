@@ -80,12 +80,15 @@ export default function Navbar() {
       className="anim-fade-down sticky top-0 z-50 border-b border-chrome-border bg-chrome-bg shadow-[0_4px_20px_rgba(15,23,42,0.25)] backdrop-blur-md"
     >
       <div className="hatch-wrap-wide flex h-[74px] items-center justify-between gap-6">
-        <Link to="/" className="flex shrink-0 items-center">
+        <Link to="/" className="flex shrink-0 flex-col items-start leading-none">
           <img
             src={hatchLogo}
-            alt="HATCH — Ideas Worth Hatching"
-            className={`h-8 w-auto ${theme === 'dark' ? '' : 'brightness-150 contrast-125'}`}
+            alt="HATCH"
+            className={`h-7 w-auto ${theme === 'dark' ? '' : 'brightness-150 contrast-125'}`}
           />
+          <span className="mt-1 text-[10px] font-medium tracking-wide text-chrome-ink-muted">
+            Ideas Worth Hatching
+          </span>
         </Link>
 
         <nav className="hidden items-center gap-8 lg:flex">

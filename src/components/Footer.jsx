@@ -55,12 +55,15 @@ export default function Footer() {
     <footer className="border-t border-chrome-border bg-chrome-bg pt-14 pb-8 text-sm text-chrome-ink-muted">
       <div className="hatch-wrap grid gap-10 md:grid-cols-[1.3fr_.7fr_.7fr_.9fr_.7fr]">
         <div>
-          <Link to="/" className="flex items-center">
+          <Link to="/" className="flex flex-col items-start leading-none">
             <img
               src={hatchLogo}
-              alt="HATCH — Ideas Worth Hatching"
-              className={`h-7 w-auto ${theme === 'dark' ? '' : 'brightness-150 contrast-125'}`}
+              alt="HATCH"
+              className={`h-6 w-auto ${theme === 'dark' ? '' : 'brightness-150 contrast-125'}`}
             />
+            <span className="mt-1 text-[9px] font-medium tracking-wide text-chrome-ink-muted">
+              Ideas Worth Hatching
+            </span>
           </Link>
           <p className="mt-4 max-w-[360px]">
             Organised by CareerBank™. Strategic Partners: World Halalpreneur Council and World Talent Council.
