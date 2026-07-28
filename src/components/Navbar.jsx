@@ -84,7 +84,7 @@ export default function Navbar() {
           <img
             src={hatchLogo}
             alt="HATCH — Ideas Worth Hatching"
-            className={`h-11 w-auto ${theme === 'dark' ? '' : 'brightness-150 contrast-125'}`}
+            className={`h-8 w-auto ${theme === 'dark' ? '' : 'brightness-150 contrast-125'}`}
           />
         </Link>
 

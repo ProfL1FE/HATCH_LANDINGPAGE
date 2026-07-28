@@ -59,7 +59,7 @@ export default function Footer() {
             <img
               src={hatchLogo}
               alt="HATCH — Ideas Worth Hatching"
-              className={`h-9 w-auto ${theme === 'dark' ? '' : 'brightness-150 contrast-125'}`}
+              className={`h-7 w-auto ${theme === 'dark' ? '' : 'brightness-150 contrast-125'}`}
             />
           </Link>
           <p className="mt-4 max-w-[360px]">
