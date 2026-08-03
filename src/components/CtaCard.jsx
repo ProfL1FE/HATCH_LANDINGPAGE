@@ -26,7 +26,7 @@ export default function CtaCard({
         <h2 className="m-0 mb-3 font-serif text-[clamp(24px,3vw,36px)] leading-tight tracking-[-0.5px]">{title}</h2>
         <p className="m-0 mb-6 max-w-[440px] text-body">{description}</p>
         <div>
-          <Button to={buttonTo} variant="gradient" onClick={onButtonClick}>
+          <Button to={buttonTo} variant="flat" onClick={onButtonClick}>
             {buttonText}
           </Button>
         </div>

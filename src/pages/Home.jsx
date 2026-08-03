@@ -288,7 +288,15 @@ export default function Home() {
               <div className="absolute inset-y-0 left-0 flex w-[70%] flex-col justify-center p-5">
                 <h3 className="mb-2 text-xl font-bold uppercase leading-tight text-white">{a.title}</h3>
                 <p className="mb-4 text-[13px] text-white/85">{a.desc}</p>
-                <Button to={a.to} variant="secondary" size="sm" className="self-start">
+                {/* Overrides secondary's text-ink: this button sits on the card's dark
+                    photo scrim, not a light panel, so the light-theme ink color would
+                    be unreadable here. */}
+                <Button
+                  to={a.to}
+                  variant="secondary"
+                  size="sm"
+                  className="self-start !border-white/40 !bg-white/10 !text-white hover:!bg-white/20"
+                >
                   Learn More →
                 </Button>
               </div>

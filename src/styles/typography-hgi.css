@@ -1,26 +1,17 @@
 /**
  * HGI.life-matched typography system — imported site-wide via index.css.
- * Fonts themselves are loaded once in index.html (SF Pro Display + Lato),
- * not re-imported here, to avoid duplicate network requests.
- *
- * Two typefaces:
- *   --font-primary   SF Pro Display — headlines & body, used everywhere.
- *   --font-secondary Lato (300/400/700/900) — used sparingly for specific
- *                    accents (e.g. an intro/loader screen), not a
- *                    general-purpose body font.
  *
  * index.css's own --font-sans/--font-serif and jason-pages.css's
- * --font-display/--font-body are updated separately to the same SF Pro
- * Display stack, so every existing component already picks this up without
+ * --font-display/--font-body are updated separately to the same Arial
+ * stack, so every existing component already picks this up without
  * needing to switch to the .hgi-* classes below. Those classes exist for
  * new components that want the exact HGI size/weight/tracking scale.
  */
 
 :root {
   /* ── Font stacks ─────────────────────────────────────────── */
-  --font-primary: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial,
-    sans-serif;
-  --font-secondary: 'Lato', sans-serif;
+  --font-primary: Arial, Helvetica, sans-serif;
+  --font-secondary: Arial, Helvetica, sans-serif;
 
   /* ── Weights ─────────────────────────────────────────────── */
   --fw-headline: 700; /* H1 / H2 */
@@ -133,7 +124,6 @@
 }
 
 .hgi-intro-accent {
-  /* Lato — reserved for intro/loader-style moments, not general body text. */
   font-family: var(--font-secondary);
   font-weight: 900;
 }

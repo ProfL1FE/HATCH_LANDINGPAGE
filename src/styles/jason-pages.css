@@ -35,10 +35,9 @@
   --ink-2: #3c4a5e;
   --ink-3: #5b6b82;
 
-  /* HGI.life-matched type system — SF Pro Display everywhere, unified with
-     index.css's --font-sans/--font-serif (both now point to the same stack). */
-  --font-display: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-  --font-body: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  /* Arial everywhere, unified with index.css's --font-sans/--font-serif. */
+  --font-display: Arial, Helvetica, sans-serif;
+  --font-body: Arial, Helvetica, sans-serif;
 
   --radius: 16px;
   --radius-lg: 22px;
@@ -176,10 +175,12 @@ button {
   font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  /* Pinned to the original bright cyan (not var(--gold), which is now
-     deepened for the light theme) — .kicker only appears inside a dark
-     photo hero, where the brighter value is what actually reads well. */
-  color: #3dd6e3;
+  /* var(--gold) (deepened for the light theme) — .kicker is reused for
+     every section eyebrow, not just the hero, so it needs to hold up on
+     the flat white section backgrounds most instances actually sit on.
+     The hero-scoped override below restores the brighter value where it
+     sits on a dark photo instead. */
+  color: var(--gold);
   margin-bottom: 18px;
 }
 
@@ -243,7 +244,10 @@ button {
 
 .btn-ghost {
   border: 1px solid rgba(255, 255, 255, 0.28);
-  color: var(--ink);
+  /* Pinned light, not var(--ink) — this is a dark glass pill meant to sit
+     on the hero photo/video (only usage: Journey's "Watch Video"), so it
+     needs light text regardless of --ink's light-theme (dark) value. */
+  color: #f4f1e9;
   background: rgba(6, 9, 18, 0.55);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -467,6 +471,24 @@ button {
   color: var(--gold-bright);
 }
 
+.journey-hero .kicker,
+.awards-hero .kicker,
+.partners-hero .kicker {
+  /* Restore the brighter bright-cyan value here — this instance sits on
+     the dark hero photo, where var(--gold)'s deepened value is too dim. */
+  color: #3dd6e3;
+}
+
+.journey-hero .hero-sub {
+  /* The shared cream .hero-sub washes out against the sun in this
+     specific photo — blue instead, with the same dark halo the headline
+     already uses for insurance against the brightest spots. Dark navy,
+     not a lighter blue — pixel-checked against the sun-glow area, a
+     mid-brightness blue had almost no contrast there. */
+  color: #0a1f45;
+  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.7), 0 1px 6px rgba(0, 0, 0, 0.6);
+}
+
 @media (min-width: 1025px) {
   .awards-hero .hero-copy {
     /* Shift left by whatever room exists outside the 1200px container
@@ -492,7 +514,10 @@ button {
   font-size: 0.58rem;
   font-weight: 700;
   letter-spacing: 0.14em;
-  color: var(--ink-2);
+  /* Pinned light, not var(--ink-2) — these labels sit on the journey-path
+     hero photo behind a dark glass pill, so they need light text
+     regardless of --ink-2's light-theme (dark) value. */
+  color: #f4f1e9;
   background: rgba(5, 7, 15, 0.55);
   border: 1px solid rgba(148, 163, 204, 0.16);
   border-radius: 999px;
@@ -781,6 +806,20 @@ button {
   padding: 56px 52px;
 }
 
+/* Protective scrim behind .cta-copy: the scene art bleeds in from the right
+   with only a mask-based fade (see .cta-art below), and dark ink-2 text
+   over a photo with no contrast guarantee can land on a dark region of the
+   image and nearly disappear. This guarantees a solid light backdrop under
+   the full text column, independent of what the photo looks like there. */
+.cta-banner.has-scene::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(to right, var(--surface-solid) 0px, var(--surface-solid) 580px, transparent 760px);
+}
+
 .cta-glow {
   position: absolute;
   inset: auto -20% -120% -20%;
@@ -878,7 +917,9 @@ button {
 
 .pathway-chip span {
   font-size: 0.7rem;
-  color: var(--ink-3);
+  /* Pinned light (not var(--ink-3)) — this chip sits on the journey-path
+     hero photo, same reasoning as .path-node above. */
+  color: rgba(244, 241, 233, 0.75);
   line-height: 1.35;
 }
 
