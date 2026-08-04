@@ -1,4 +1,4 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string;
@@ -6,12 +6,17 @@ const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string;
 if (!supabaseUrl || !supabaseAnonKey) {
   // Fails loudly at startup rather than silently doing nothing on first submit —
   // easier to notice a missing .env than a mysterious failed insert later.
+  // createClient() throws on a missing URL, which would otherwise take down the
+  // whole app (every page statically imports this module), so stay null instead.
   console.error(
     'VITE_SUPABASE_URL / VITE_SUPABASE_ANON_KEY are missing. Copy .env.example to .env and fill in your real project values.'
   );
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+export const supabase: SupabaseClient | null =
+  supabaseUrl && supabaseAnonKey ? createClient(supabaseUrl, supabaseAnonKey) : null;
+
+const NOT_CONFIGURED_MESSAGE = 'Registration is temporarily unavailable. Please contact the HATCH team.';
 
 export type Package = 'explorer' | 'challenger' | 'challenger_plus';
 
@@ -34,6 +39,10 @@ export async function createTeamRegistration(
   representativeEmail: string,
   members: TeamMemberInput[]
 ): Promise<CreateTeamResult> {
+  if (!supabase) {
+    return { ok: false, message: NOT_CONFIGURED_MESSAGE };
+  }
+
   const teamId = crypto.randomUUID();
   const { error: teamError } = await supabase.from('teams').insert({
     id: teamId,
@@ -71,6 +80,10 @@ export async function submitPartnerRequest(
   email: string,
   message: string
 ): Promise<CreateTeamResult> {
+  if (!supabase) {
+    return { ok: false, message: NOT_CONFIGURED_MESSAGE };
+  }
+
   const { error } = await supabase.from('partner_requests').insert({
     type,
     organisation_name: organisationName,
