@@ -1,5 +1,4 @@
 import { useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
 import Section, { SectionHeading } from '../components/Section'
 import Card from '../components/Card'
 import Button from '../components/Button'
@@ -8,6 +7,7 @@ import Icon from '../components/Icon'
 import CtaCard from '../components/CtaCard'
 import ParticlesBackground from '../components/ParticlesBackground'
 import { HOME_JOURNEY, FAQ, HOME_SECTIONS, RECOGNITION, WHAT_IS_HATCH, AUDIENCES, WHY_JOIN } from '../data/hatch'
+import hatchLogo from '../assets/HATCH_LOGO_P2.png'
 import heroVideo from '../assets/heropage.mp4'
 import utmLogo from '../assets/partners/utm.png'
 import upmLogo from '../assets/partners/upm.png'
@@ -67,6 +67,14 @@ const AUDIENCE_POSITIONS = {
   'University Students': 'object-right',
   'Professionals & Adults': 'object-[65%_50%]',
   'Schools & TVET': 'object-right',
+}
+
+// Per-card icon-badge accent for "Who Can Join HATCH" — violet for the university card,
+// teal/cyan for the other two, matching the reference's varied (not uniform) badge colors.
+const AUDIENCE_STYLES = {
+  'University Students': { badgeFrom: 'var(--color-violet)', badgeTo: 'var(--color-royal-purple)' },
+  'Professionals & Adults': { badgeFrom: 'var(--color-cyan)', badgeTo: 'var(--color-aqua)' },
+  'Schools & TVET': { badgeFrom: 'var(--color-aqua)', badgeTo: 'var(--color-cyan-deep)' },
 }
 
 const PARTNER_LOGOS = [
@@ -187,7 +195,7 @@ export default function Home() {
               <br />
               has wonders.
               <br />
-              <span className="hatch-wordmark">HATCH</span>
+              <img src={hatchLogo} alt="HATCH" className="inline-block h-[0.82em] w-auto align-middle" />
               <sup className="text-[0.35em] text-white">™</sup> it.
             </h1>
             <div
@@ -358,34 +366,53 @@ export default function Home() {
         <SectionHeading
           title={
             <>
-              WHO CAN JOIN <span className="hatch-wordmark">HATCH</span>
+              <span className="text-[1.2em]">WHO CAN JOIN</span>{' '}
+              <img src={hatchLogo} alt="HATCH" className="inline-block h-[0.8em] w-auto align-middle" />
             </>
           }
           center
         />
         <div className="grid gap-4 md:grid-cols-3">
-          {AUDIENCES.map((a) => (
-            <Card key={a.title} className="relative min-h-[320px] overflow-hidden bg-black p-0">
-              <img src={AUDIENCE_IMAGES[a.title]} alt="" className={`absolute inset-0 h-full w-full object-cover ${AUDIENCE_POSITIONS[a.title]}`} />
-              <div className="absolute inset-0 bg-gradient-to-br from-violet-deep/92 from-10% via-royal-purple/58 via-55% to-transparent" />
-              <div className="absolute inset-0 flex w-[72%] flex-col justify-between p-5">
-                <div className="grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br from-violet to-royal-purple text-white shadow-[0_8px_20px_rgba(91,48,214,0.45)]">
-                  <Icon name={a.icon} size={22} />
-                </div>
-                <div>
-                  <h3 className="mb-2 text-lg font-bold uppercase leading-tight text-white">{a.title}</h3>
-                  <span className="mb-3 block h-0.5 w-6 rounded-full bg-cyan" />
-                  <p className="mb-4 text-[13px] text-white/85">{a.desc}</p>
-                  <Link
-                    to={a.to}
-                    className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-white transition hover:text-cyan"
+          {AUDIENCES.map((a) => {
+            const style = AUDIENCE_STYLES[a.title]
+            return (
+              <Card key={a.title} className="relative min-h-[320px] overflow-hidden bg-black p-0">
+                <img src={AUDIENCE_IMAGES[a.title]} alt="" className={`absolute inset-0 h-full w-full object-cover ${AUDIENCE_POSITIONS[a.title]}`} />
+                {/* Same violet/purple shade as before, but blended across a wider, softer zone
+                    (multiple stops) instead of a hard cutoff, so it fades into the photo rather
+                    than reading as a flat color block. */}
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-0"
+                  style={{
+                    background:
+                      'linear-gradient(90deg, rgba(42,24,84,0.9) 0%, rgba(91,48,214,0.55) 28%, rgba(91,48,214,0.22) 46%, rgba(91,48,214,0) 66%)',
+                  }}
+                />
+                <div className="absolute inset-0 flex w-[72%] flex-col justify-between p-5">
+                  <div
+                    className="grid h-12 w-12 place-items-center rounded-2xl text-white shadow-[0_8px_20px_rgba(0,0,0,0.25)]"
+                    style={{ background: `linear-gradient(135deg, ${style.badgeFrom}, ${style.badgeTo})` }}
                   >
-                    Learn More →
-                  </Link>
+                    <Icon name={a.icon} size={22} />
+                  </div>
+                  <div>
+                    <h3 className="mb-2 text-lg font-bold uppercase leading-tight text-white">{a.title}</h3>
+                    <span className="mb-3 block h-0.5 w-6 rounded-full bg-cyan" />
+                    <p className="mb-4 text-[13px] text-white/85">{a.desc}</p>
+                    <Button
+                      to={a.to}
+                      variant="secondary"
+                      size="sm"
+                      className="!border-transparent !bg-white !text-ink shadow-[0_4px_14px_rgba(0,0,0,0.18)] hover:!bg-white/90"
+                    >
+                      Learn More →
+                    </Button>
+                  </div>
                 </div>
-              </div>
-            </Card>
-          ))}
+              </Card>
+            )
+          })}
         </div>
       </Section>
 
@@ -411,7 +438,7 @@ export default function Home() {
             </div>
             <h2 className="m-0 mb-4 text-[clamp(32px,4.5vw,52px)] font-extrabold leading-[1.05] tracking-[-1.5px]">
               Why join{' '}
-              <span className="hatch-wordmark">HATCH</span>?
+              <img src={hatchLogo} alt="HATCH" className="inline-block h-[0.78em] w-auto align-middle" />?
             </h2>
             <p className="mx-auto max-w-[520px] text-lg text-body">
               We provide the tools, mentorship, and opportunities to help your ideas become{' '}
@@ -489,7 +516,7 @@ export default function Home() {
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black from-10% via-black/60 via-40% to-black/10" />
               <div className="absolute inset-y-0 left-0 flex flex-col justify-center gap-4 p-6 sm:p-10">
                 <h2 className="m-0 font-serif text-[clamp(26px,3.5vw,42px)] font-semibold leading-tight text-white">
-                  <span className="hatch-wordmark">HATCH</span> in
+                  <img src={hatchLogo} alt="HATCH" className="inline-block h-[0.75em] w-auto align-middle" /> in
                   <br />
                   90 seconds
                 </h2>
