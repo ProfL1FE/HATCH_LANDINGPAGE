@@ -34,6 +34,11 @@
   --color-cyan: #0891b2;
   --color-cyan-deep: #075e6f;
   --color-aqua: #0e7f92;
+  /* CTA gradient — exact values from jason-pages.css's .btn-gold (the
+     "Apply as JO1NUNI Partner" button), reused site-wide as the one
+     button gradient. */
+  --color-teal-bright: #7eeaf0;
+  --color-teal-deep: #12909f;
   --color-violet: #6d4de0;
   --color-violet-deep: #2a1854;
   --color-royal-purple: #5b30d6;

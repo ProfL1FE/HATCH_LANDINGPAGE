@@ -108,7 +108,7 @@ export default function Resources({ onRequireAuth }) {
                         <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted">{resource.category}</span>
                       </div>
                     ) : (
-                      <span className="inline-flex rounded-full bg-gold px-3 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-bg">
+                      <span className="inline-flex rounded-full bg-gradient-to-r from-teal-bright to-teal-deep px-3 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-on-brand">
                         JO1NID required
                       </span>
                     )}
