@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { NAV_LINKS } from '../data/hatch'
 import Button from './Button'
-import { HatchLogo } from './Icon'
+import hatchLogo from '../assets/HATCH_LOGO_P2.png'
 
 function NavItem({ to, label, onClick, mobile = false }) {
   return (
@@ -48,15 +48,10 @@ export default function Navbar() {
   return (
     <header className="anim-fade-down sticky top-0 z-50 w-full border-b border-black/5 bg-white/80 backdrop-blur">
       <div className="hatch-wrap-wide flex h-[74px] items-center justify-between gap-6">
-        <Link to="/" className="flex shrink-0 items-center gap-2.5">
-          <HatchLogo size={38} className="text-cyan" />
-          <span className="leading-tight">
-            <span className="block text-[17px] font-black tracking-[1px] text-ink">
-              HATCH<sup className="text-[9px] font-bold">™</sup> <span className="text-cyan">2027</span>
-            </span>
-            <span className="block text-[9px] font-semibold uppercase tracking-[3.5px] text-muted">
-              AI for Humanity
-            </span>
+        <Link to="/" className="flex shrink-0 flex-col items-start gap-1">
+          <img src={hatchLogo} alt="HATCH" className="h-[30px] w-auto" />
+          <span className="block pl-0.5 text-[9px] font-semibold uppercase tracking-[3.5px] text-muted">
+            AI for Humanity
           </span>
         </Link>
 
