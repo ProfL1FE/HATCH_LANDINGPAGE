@@ -116,6 +116,21 @@
   box-shadow: var(--shadow-hatch);
 }
 
+/* Standalone "HATCH" wordmark moments (hero, section headings) — Orbitron is
+   the closest widely-available web font to the logo's blocky, hard-angled
+   lettering, colored with the same dark-purple-to-teal gradient as the
+   actual logo file. Not used for running text or other headings. */
+@utility hatch-wordmark {
+  font-family: "Orbitron", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial,
+    sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  background: linear-gradient(180deg, var(--color-violet-deep), var(--color-cyan-deep));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
 @utility hatch-pill {
   display: inline-flex;
   align-items: center;

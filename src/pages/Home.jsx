@@ -1,10 +1,12 @@
 import { useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 import Section, { SectionHeading } from '../components/Section'
 import Card from '../components/Card'
 import Button from '../components/Button'
 import ScrollNav from '../components/ScrollNav'
 import Icon from '../components/Icon'
 import CtaCard from '../components/CtaCard'
+import ParticlesBackground from '../components/ParticlesBackground'
 import { HOME_JOURNEY, FAQ, HOME_SECTIONS, RECOGNITION, WHAT_IS_HATCH, AUDIENCES, WHY_JOIN } from '../data/hatch'
 import heroVideo from '../assets/heropage.mp4'
 import utmLogo from '../assets/partners/utm.png'
@@ -38,12 +40,13 @@ import hatchVideo from '../assets/hatch .mp4'
 import playButtonIcon from '../assets/icons/playbutton.png'
 import joinVideo from '../assets/join.mp4'
 
-// Icon circle tint per "What is HATCH" card — mirrors the poster's per-card accent (gold/violet/cyan/red).
+// Per-card accent for "What is HATCH" — same badge + photo-scrim treatment as the audience cards,
+// rotated across gold/violet/cyan/red so each card reads as its own category at a glance.
 const WHAT_IS_HATCH_STYLES = {
-  Idea: { bg: 'rgba(180,121,15,0.12)', color: 'var(--color-gold)' },
-  Build: { bg: 'rgba(109,77,224,0.12)', color: 'var(--color-violet)' },
-  Pitch: { bg: 'rgba(8,145,178,0.12)', color: 'var(--color-cyan)' },
-  Launch: { bg: 'rgba(214,41,74,0.12)', color: 'var(--color-red)' },
+  Idea: { overlayFrom: '#8a5c14', overlayVia: '#b4790f', badgeFrom: 'var(--color-gold-light)', badgeTo: 'var(--color-gold)' },
+  Build: { overlayFrom: 'var(--color-violet-deep)', overlayVia: 'var(--color-royal-purple)', badgeFrom: 'var(--color-violet)', badgeTo: 'var(--color-royal-purple)' },
+  Pitch: { overlayFrom: 'var(--color-cyan-deep)', overlayVia: 'var(--color-cyan)', badgeFrom: 'var(--color-aqua)', badgeTo: 'var(--color-cyan-deep)' },
+  Launch: { overlayFrom: '#7a1530', overlayVia: '#d6294a', badgeFrom: '#e8496b', badgeTo: '#8a1530' },
 }
 
 // Looping clip shown inside each "What is HATCH" icon circle in place of a flat icon.
@@ -184,9 +187,7 @@ export default function Home() {
               <br />
               has wonders.
               <br />
-              <span className="bg-gradient-to-r from-cyan via-royal-purple to-aqua bg-clip-text text-transparent">
-                HATCH
-              </span>
+              <span className="hatch-wordmark">HATCH</span>
               <sup className="text-[0.35em] text-white">™</sup> it.
             </h1>
             <div
@@ -273,26 +274,34 @@ export default function Home() {
               const style = WHAT_IS_HATCH_STYLES[w.title]
               const video = WHAT_IS_HATCH_VIDEOS[w.title]
               return (
-                <Card key={w.title} className="!p-4 text-center">
+                <Card key={w.title} className="relative min-h-[168px] overflow-hidden bg-black p-0">
+                  {video && (
+                    <video
+                      src={video}
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      className="absolute inset-0 h-full w-full object-cover"
+                    />
+                  )}
                   <div
-                    className="relative mx-auto mb-2 grid h-12 w-12 place-items-center overflow-hidden rounded-full ring-2 ring-offset-2"
-                    style={{ background: style.bg, color: style.color, '--tw-ring-color': style.color, '--tw-ring-offset-color': 'var(--color-panel)' }}
-                  >
-                    {video ? (
-                      <video
-                        src={video}
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        className="absolute inset-0 h-full w-full object-cover"
-                      />
-                    ) : (
-                      <Icon name={w.icon} size={19} />
-                    )}
+                    aria-hidden="true"
+                    className="absolute inset-0"
+                    style={{ background: `linear-gradient(0deg, ${style.overlayFrom}f2 0%, ${style.overlayVia}70 45%, transparent 75%)` }}
+                  />
+                  <div className="absolute inset-0 flex flex-col justify-between p-3.5">
+                    <div
+                      className="grid h-9 w-9 place-items-center rounded-xl text-white shadow-[0_6px_16px_rgba(0,0,0,0.35)]"
+                      style={{ background: `linear-gradient(135deg, ${style.badgeFrom}, ${style.badgeTo})` }}
+                    >
+                      <Icon name={w.icon} size={17} />
+                    </div>
+                    <div>
+                      <h3 className="mb-1 text-[15px] text-white">{w.title}</h3>
+                      <p className="text-[12.5px] leading-snug text-white/85">{w.desc}</p>
+                    </div>
                   </div>
-                  <h3 className="mb-1 text-[15px]">{w.title}</h3>
-                  <p className="text-[12.5px] leading-snug text-body">{w.desc}</p>
                 </Card>
               )
             })}
@@ -310,7 +319,10 @@ export default function Home() {
               'linear-gradient(120deg, var(--color-violet-deep) 0%, var(--color-royal-purple) 45%, var(--color-cyan-deep) 100%)',
           }}
         />
-        <div className="hatch-wrap relative">
+        <ParticlesBackground id="particles-pathway" />
+        {/* pointer-events-none so mouse-move reaches the particle canvas underneath through the
+            empty space in this box — only the button opts back in to receive clicks. */}
+        <div className="hatch-wrap relative pointer-events-none">
           <h2 className="m-0 mb-5 text-center text-[clamp(26px,3.4vw,40px)] font-extrabold leading-[1.05] tracking-[-1.5px] text-white">
             The <span className="text-cyan">Pathway</span>
           </h2>
@@ -329,7 +341,12 @@ export default function Home() {
             })}
           </div>
           <div className="mt-4 text-center">
-            <Button to="/journey" variant="secondary" size="sm" className="!border-white/40 !text-white hover:!bg-white/12">
+            <Button
+              to="/journey"
+              variant="secondary"
+              size="sm"
+              className="pointer-events-auto !border-white/40 !text-white hover:!bg-white/12"
+            >
               See the full interactive journey
             </Button>
           </div>
@@ -338,26 +355,34 @@ export default function Home() {
 
       {/* Built for Everyone */}
       <Section id="built-for-everyone">
-        <SectionHeading title="WHO CAN JOIN HATCH" center />
+        <SectionHeading
+          title={
+            <>
+              WHO CAN JOIN <span className="hatch-wordmark">HATCH</span>
+            </>
+          }
+          center
+        />
         <div className="grid gap-4 md:grid-cols-3">
           {AUDIENCES.map((a) => (
-            <Card key={a.title} className="relative min-h-[300px] overflow-hidden bg-black p-0">
+            <Card key={a.title} className="relative min-h-[320px] overflow-hidden bg-black p-0">
               <img src={AUDIENCE_IMAGES[a.title]} alt="" className={`absolute inset-0 h-full w-full object-cover ${AUDIENCE_POSITIONS[a.title]}`} />
-              <div className="absolute inset-0 bg-gradient-to-r from-black from-15% via-black/75 via-50% to-transparent" />
-              <div className="absolute inset-y-0 left-0 flex w-[70%] flex-col justify-center p-5">
-                <h3 className="mb-2 text-xl font-bold uppercase leading-tight text-white">{a.title}</h3>
-                <p className="mb-4 text-[13px] text-white/85">{a.desc}</p>
-                {/* Overrides secondary's text-ink: this button sits on the card's dark
-                    photo scrim, not a light panel, so the light-theme ink color would
-                    be unreadable here. */}
-                <Button
-                  to={a.to}
-                  variant="secondary"
-                  size="sm"
-                  className="self-start !border-white/40 !bg-white/10 !text-white hover:!bg-white/20"
-                >
-                  Learn More →
-                </Button>
+              <div className="absolute inset-0 bg-gradient-to-br from-violet-deep/92 from-10% via-royal-purple/58 via-55% to-transparent" />
+              <div className="absolute inset-0 flex w-[72%] flex-col justify-between p-5">
+                <div className="grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br from-violet to-royal-purple text-white shadow-[0_8px_20px_rgba(91,48,214,0.45)]">
+                  <Icon name={a.icon} size={22} />
+                </div>
+                <div>
+                  <h3 className="mb-2 text-lg font-bold uppercase leading-tight text-white">{a.title}</h3>
+                  <span className="mb-3 block h-0.5 w-6 rounded-full bg-cyan" />
+                  <p className="mb-4 text-[13px] text-white/85">{a.desc}</p>
+                  <Link
+                    to={a.to}
+                    className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-white transition hover:text-cyan"
+                  >
+                    Learn More →
+                  </Link>
+                </div>
               </div>
             </Card>
           ))}
@@ -386,7 +411,7 @@ export default function Home() {
             </div>
             <h2 className="m-0 mb-4 text-[clamp(32px,4.5vw,52px)] font-extrabold leading-[1.05] tracking-[-1.5px]">
               Why join{' '}
-              <span className="bg-gradient-to-r from-gold to-gold-light bg-clip-text text-transparent" style={{ textShadow: 'none' }}>HATCH</span>?
+              <span className="hatch-wordmark">HATCH</span>?
             </h2>
             <p className="mx-auto max-w-[520px] text-lg text-body">
               We provide the tools, mentorship, and opportunities to help your ideas become{' '}
@@ -464,10 +489,7 @@ export default function Home() {
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black from-10% via-black/60 via-40% to-black/10" />
               <div className="absolute inset-y-0 left-0 flex flex-col justify-center gap-4 p-6 sm:p-10">
                 <h2 className="m-0 font-serif text-[clamp(26px,3.5vw,42px)] font-semibold leading-tight text-white">
-                  <span className="bg-gradient-to-r from-cyan via-royal-purple to-aqua bg-clip-text text-transparent">
-                    HATCH
-                  </span>{' '}
-                  in
+                  <span className="hatch-wordmark">HATCH</span> in
                   <br />
                   90 seconds
                 </h2>
