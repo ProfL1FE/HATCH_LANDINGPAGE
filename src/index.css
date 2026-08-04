@@ -7,9 +7,15 @@
 @custom-variant xshort (@media (max-height: 670px));
 
 @theme {
-  /* Arial everywhere (headlines and body), site-wide. */
-  --font-sans: Arial, Helvetica, sans-serif;
-  --font-serif: Arial, Helvetica, sans-serif;
+  /* SF Pro Display everywhere (headlines and body), site-wide — matches
+     hgi-life.vercel.app. Loaded in index.html; falls back to the closest
+     system UI font stack while the webfont loads or on unsupported OSes. */
+  --font-sans:
+    "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial,
+    sans-serif;
+  --font-serif:
+    "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial,
+    sans-serif;
 
   /* Light theme — white base, dark text. Accent hues (cyan/violet/gold/
      green/red) are deepened from their original pastel-on-dark values so
@@ -184,12 +190,12 @@
   background-image: none;
 }
 
-/* Now redundant with the site-wide Arial default below, but harmless to
- * leave — these three pages opted into Arial before the rest of the site
- * did. */
+/* Now redundant with the site-wide font-sans default above, but harmless
+ * to leave — these three pages opted into the shared stack before the
+ * rest of the site did. */
 .hatch-font-plain,
 .hatch-font-plain * {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
 }
 
 @keyframes floaty-soft {

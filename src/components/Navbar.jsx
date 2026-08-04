@@ -12,10 +12,10 @@ function NavItem({ to, label, onClick, mobile = false }) {
       onClick={onClick}
       className={({ isActive }) =>
         mobile
-          ? `rounded-lg px-3 py-2.5 text-[13px] font-semibold uppercase tracking-[2px] ${
+          ? `rounded-lg px-3 py-2.5 text-[15px] font-medium ${
               isActive ? 'bg-panel text-cyan' : 'text-muted hover:text-cyan'
             }`
-          : `group relative py-2 text-[12px] font-semibold uppercase tracking-[2.2px] transition duration-300 ${
+          : `group relative py-2 text-sm font-normal transition duration-300 ${
               isActive ? 'text-cyan' : 'text-muted hover:text-cyan'
             }`
       }
@@ -46,10 +46,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false)
 
   return (
-    <header
-      className="anim-fade-down sticky top-0 z-50 border-b border-line shadow-[0_4px_20px_rgba(15,23,42,0.06)] backdrop-blur-md"
-      style={{ background: 'linear-gradient(180deg, rgba(255,255,255,1), rgba(249,250,252,1))' }}
-    >
+    <header className="anim-fade-down sticky top-0 z-50 w-full border-b border-black/5 bg-white/80 backdrop-blur">
       <div className="hatch-wrap-wide flex h-[74px] items-center justify-between gap-6">
         <Link to="/" className="flex shrink-0 items-center gap-2.5">
           <HatchLogo size={38} className="text-cyan" />
@@ -70,10 +67,10 @@ export default function Navbar() {
         </nav>
 
         <div className="hidden shrink-0 items-center gap-3 sm:flex">
-          <Button to="/login" variant="outline" size="sm" className="uppercase tracking-[1.5px]">
+          <Button to="/login" variant="outline" size="sm" className="!py-1.5 !px-4 !leading-none">
             Sign In
           </Button>
-          <Button to="/join" variant="outline" size="sm" className="uppercase tracking-[1.5px]">
+          <Button to="/join" variant="flat" size="sm" className="!py-1.5 !px-4 !leading-none">
             Register
           </Button>
         </div>
@@ -97,10 +94,10 @@ export default function Navbar() {
               <NavItem key={link.to} to={link.to} label={link.label} mobile onClick={() => setOpen(false)} />
             ))}
             <div className="mt-2 flex gap-2.5">
-              <Button to="/login" variant="outline" size="sm" className="flex-1 uppercase tracking-[1.5px]" onClick={() => setOpen(false)}>
+              <Button to="/login" variant="outline" size="sm" className="flex-1" onClick={() => setOpen(false)}>
                 Sign In
               </Button>
-              <Button to="/join" variant="outline" size="sm" className="flex-1 uppercase tracking-[1.5px]" onClick={() => setOpen(false)}>
+              <Button to="/join" variant="flat" size="sm" className="flex-1" onClick={() => setOpen(false)}>
                 Register
               </Button>
             </div>

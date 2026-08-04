@@ -1,17 +1,24 @@
 /**
  * HGI.life-matched typography system — imported site-wide via index.css.
  *
+ * Fonts are loaded in index.html: SF Pro Display via fonts.cdnfonts.com,
+ * Lato (300/400/700/900) via Google Fonts. --font-primary/--font-secondary
+ * below are the only variables that resolve to those families.
+ *
  * index.css's own --font-sans/--font-serif and jason-pages.css's
- * --font-display/--font-body are updated separately to the same Arial
- * stack, so every existing component already picks this up without
- * needing to switch to the .hgi-* classes below. Those classes exist for
- * new components that want the exact HGI size/weight/tracking scale.
+ * --font-display/--font-body are a SEPARATE Arial stack still driving the
+ * live site today — they are not wired to the variables below. The .hgi-*
+ * classes here exist for new components (or a future site-wide swap) that
+ * want the exact HGI font/size/weight/tracking scale.
  */
 
 :root {
   /* ── Font stacks ─────────────────────────────────────────── */
-  --font-primary: Arial, Helvetica, sans-serif;
-  --font-secondary: Arial, Helvetica, sans-serif;
+  --font-primary:
+    "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial,
+    sans-serif;
+  --font-secondary:
+    "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 
   /* ── Weights ─────────────────────────────────────────────── */
   --fw-headline: 700; /* H1 / H2 */
