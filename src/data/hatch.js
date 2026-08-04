@@ -300,9 +300,9 @@ export const PARTNER_TYPES = [
 ]
 
 export const RECOGNITION = [
-  { stat: '100+', label: 'Ideas Selected' },
-  { stat: '20', label: 'National Finalists' },
-  { stat: '1', label: 'Champion' },
-  { stat: '12', label: 'Months Launchpad' },
-  { stat: '∞', label: 'Lifetime Ecosystem' },
+  { icon: 'bulb', stat: '100+', label: 'Ideas Submitted' },
+  { icon: 'users', stat: '20', label: 'Finalists & Teams' },
+  { icon: 'trophy', stat: '1', label: 'Champion' },
+  { icon: 'user', stat: '12', label: 'Mentor Partners' },
+  { icon: 'infinity', stat: '∞', label: 'Lifetime Launchpad' },
 ]

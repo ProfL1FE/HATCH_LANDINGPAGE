@@ -440,24 +440,57 @@ export default function Home() {
       </section>
 
       {/* Recognition */}
-      <Section id="recognition">
-        <SectionHeading kicker="Recognition" title="Earned progression, not just prizes." />
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
-          {RECOGNITION.map((r) => (
-            <Card key={r.label} className="text-center">
-              <b className="block text-2xl">{r.stat}</b>
-              <span className="text-[13px] text-muted">{r.label}</span>
-            </Card>
-          ))}
-        </div>
-        <div className="mt-6 text-center">
-          <Button to="/awards" variant="secondary">Explore all award tiers</Button>
-        </div>
-      </Section>
+      <section id="recognition" className="relative overflow-hidden pt-14">
+        <div
+          aria-hidden="true"
+          className="absolute inset-0"
+          style={{
+            background: 'linear-gradient(65deg, var(--color-cyan-deep) 0%, var(--color-royal-purple) 55%, var(--color-violet-deep) 100%)',
+          }}
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-y-0 left-0 hidden w-[22%] opacity-60 sm:block"
+          style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.35) 1px, transparent 1px)', backgroundSize: '16px 16px' }}
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-y-0 right-0 hidden w-[22%] opacity-60 sm:block"
+          style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.35) 1px, transparent 1px)', backgroundSize: '16px 16px' }}
+        />
 
-      {/* Video */}
-      <Section id="video" className="bg-panel/40">
-        <div className="relative aspect-[2.4/1] overflow-hidden rounded-[26px] bg-black">
+        {/* pb matches the video card's own half-height-as-%-of-width (see below) so the gradient
+            reserves exactly enough empty space for the card to overlap without covering the button. */}
+        <div className="hatch-wrap relative pb-[20.8333%]">
+          <h2 className="m-0 mb-8 text-center text-[clamp(24px,3vw,34px)] font-extrabold tracking-[-1px] text-white">
+            Earned progression, <span className="text-cyan">not just prizes.</span>
+          </h2>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+            {RECOGNITION.map((r) => (
+              <Card key={r.label} className="text-center">
+                <div className="mx-auto mb-2 grid h-9 w-9 place-items-center rounded-full bg-royal-purple/10 text-royal-purple">
+                  <Icon name={r.icon} size={18} />
+                </div>
+                <b className="block text-2xl">{r.stat}</b>
+                <span className="text-[13px] text-muted">{r.label}</span>
+              </Card>
+            ))}
+          </div>
+          <div className="mt-6 text-center">
+            <Button to="/awards" variant="secondary" className="!border-white/40 !bg-white/5 !text-white hover:!bg-white/15">
+              Explore all award tiers →
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Video — negative top margin pulls the card up so it overlaps the bottom of the
+          Recognition gradient band above it, rather than sitting in its own clean section. */}
+      <div id="video" className="hatch-wrap relative z-10 pb-16">
+        {/* Vertical margin percentages resolve against the containing block's WIDTH, not its own
+            height — so -100/4.8% (half of the 2.4:1 aspect ratio) keeps this exactly half in the
+            gradient band above and half in the white section below at any viewport width. */}
+        <div className="relative aspect-[2.4/1] -mt-[20.8333%] overflow-hidden rounded-[26px] bg-black shadow-[0_30px_70px_rgba(0,0,0,0.4)]">
           <video
             ref={videoRef}
             src={hatchVideo}
@@ -490,12 +523,12 @@ export default function Home() {
                 aria-label="Play video"
                 className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transition duration-300 hover:scale-105"
               >
-                <img src={playButtonIcon} alt="Play video" className="h-28 w-28 drop-shadow-[0_10px_25px_rgba(0,0,0,0.5)]" />
+                <img src={playButtonIcon} alt="Play video" className="h-14 w-14 drop-shadow-[0_10px_25px_rgba(0,0,0,0.5)] sm:h-16 sm:w-16" />
               </button>
             </>
           )}
         </div>
-      </Section>
+      </div>
 
       {/* Partners */}
       <Section id="partners" className="bg-panel/40">
