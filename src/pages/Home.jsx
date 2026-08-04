@@ -21,6 +21,10 @@ import founderBootcampsImage from '../assets/bootcamp.jpg'
 import industryMentorshipImage from '../assets/Industry Mentorship.jpg'
 import portfolioImage from '../assets/portfolio.jfif'
 import launchpadAccessImage from '../assets/Launchpad Access.png'
+import ideaVideo from '../assets/idea.mp4'
+import aiVideo from '../assets/ai.mp4'
+import pitchingVideo from '../assets/pitching.mp4'
+import launchVideo from '../assets/launch.mp4'
 import ideaIcon from '../assets/icons/idea.png'
 import searchIcon from '../assets/icons/search.png'
 import podcastIcon from '../assets/icons/podcast-.png'
@@ -40,6 +44,14 @@ const WHAT_IS_HATCH_STYLES = {
   Build: { bg: 'rgba(109,77,224,0.12)', color: 'var(--color-violet)' },
   Pitch: { bg: 'rgba(8,145,178,0.12)', color: 'var(--color-cyan)' },
   Launch: { bg: 'rgba(214,41,74,0.12)', color: 'var(--color-red)' },
+}
+
+// Looping clip shown inside each "What is HATCH" icon circle in place of a flat icon.
+const WHAT_IS_HATCH_VIDEOS = {
+  Idea: ideaVideo,
+  Build: aiVideo,
+  Pitch: pitchingVideo,
+  Launch: launchVideo,
 }
 
 const AUDIENCE_IMAGES = {
@@ -259,13 +271,25 @@ export default function Home() {
           <div className="relative grid grid-cols-2 gap-3">
             {WHAT_IS_HATCH.map((w) => {
               const style = WHAT_IS_HATCH_STYLES[w.title]
+              const video = WHAT_IS_HATCH_VIDEOS[w.title]
               return (
                 <Card key={w.title} className="!p-4 text-center">
                   <div
-                    className="mx-auto mb-2 grid h-10 w-10 place-items-center rounded-full"
-                    style={{ background: style.bg, color: style.color }}
+                    className="relative mx-auto mb-2 grid h-12 w-12 place-items-center overflow-hidden rounded-full ring-2 ring-offset-2"
+                    style={{ background: style.bg, color: style.color, '--tw-ring-color': style.color, '--tw-ring-offset-color': 'var(--color-panel)' }}
                   >
-                    <Icon name={w.icon} size={19} />
+                    {video ? (
+                      <video
+                        src={video}
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        className="absolute inset-0 h-full w-full object-cover"
+                      />
+                    ) : (
+                      <Icon name={w.icon} size={19} />
+                    )}
                   </div>
                   <h3 className="mb-1 text-[15px]">{w.title}</h3>
                   <p className="text-[12.5px] leading-snug text-body">{w.desc}</p>
