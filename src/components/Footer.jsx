@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import Icon, { HatchLogo } from './Icon'
+import FooterPaths from './FooterPaths'
 
 const SOCIALS = [
   { label: 'LinkedIn', icon: 'linkedin', href: 'https://www.linkedin.com/' },
@@ -46,8 +47,9 @@ const COLUMNS = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-line pt-14 pb-8 text-sm text-muted">
-      <div className="hatch-wrap grid gap-10 md:grid-cols-[1.3fr_.7fr_.7fr_.9fr_.7fr]">
+    <footer className="relative overflow-hidden border-t border-line pt-14 pb-8 text-sm text-muted">
+      <FooterPaths />
+      <div className="hatch-wrap relative z-10 grid gap-10 md:grid-cols-[1.3fr_.7fr_.7fr_.9fr_.7fr]">
         <div>
           <Link to="/" className="flex items-center gap-2.5">
             <HatchLogo size={34} className="text-cyan" />
@@ -95,7 +97,7 @@ export default function Footer() {
         ))}
       </div>
 
-      <div className="hatch-wrap mt-11 border-t border-line pt-6 text-center text-[13px]">
+      <div className="hatch-wrap relative z-10 mt-11 border-t border-line pt-6 text-center text-[13px]">
         © 2027 HATCH™. All rights reserved.
       </div>
     </footer>
