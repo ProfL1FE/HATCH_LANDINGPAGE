@@ -1,9 +1,10 @@
 import { motion, useReducedMotion } from 'framer-motion'
 
-// Adapted from a "Background Paths" hero effect down to a subtle footer texture:
-// fewer strokes, much lower opacity (it sits behind readable footer text/links,
-// not a full-screen hero), and index-based durations instead of Math.random() so
-// re-renders don't reshuffle the animation.
+// Adapted from a "Background Paths" hero effect down to a footer texture: fewer
+// strokes, and a fixed-length dash sliding one-directionally around pathOffset
+// 0→1 (rather than animating pathLength/opacity back and forth) — offset 1 is
+// visually identical to offset 0, so the loop restart is seamless instead of
+// the jump you get from reversing direction at each keyframe.
 function FloatingPaths({ position }) {
   const prefersReducedMotion = useReducedMotion()
   const paths = Array.from({ length: 24 }, (_, i) => ({
@@ -14,13 +15,14 @@ function FloatingPaths({ position }) {
       470 - i * 6
     } ${684 - i * 5 * position} ${875 - i * 6} ${684 - i * 5 * position} ${875 - i * 6}`,
     width: 0.5 + i * 0.03,
+    length: 0.15 + (i % 5) * 0.04,
   }))
 
   return (
     <svg
-      className="absolute inset-0 h-full w-full text-ink"
+      className="absolute inset-0 h-full w-full text-white"
       viewBox="0 0 696 316"
-      preserveAspectRatio="xMidYMid slice"
+      preserveAspectRatio="none"
       fill="none"
       aria-hidden="true"
     >
@@ -30,14 +32,16 @@ function FloatingPaths({ position }) {
           d={path.d}
           stroke="currentColor"
           strokeWidth={path.width}
-          strokeOpacity={0.06 + path.id * 0.015}
-          initial={{ pathLength: 0.3, opacity: 0.45 }}
-          animate={
-            prefersReducedMotion
-              ? undefined
-              : { pathLength: 1, opacity: [0.25, 0.45, 0.25], pathOffset: [0, 1, 0] }
-          }
-          transition={{ duration: 22 + (path.id % 6) * 2.5, repeat: Infinity, ease: 'linear' }}
+          strokeLinecap="round"
+          strokeOpacity={0.18 + (path.id % 8) * 0.035}
+          initial={{ pathLength: path.length, pathOffset: 0 }}
+          animate={prefersReducedMotion ? undefined : { pathOffset: [0, 1] }}
+          transition={{
+            duration: 16 + (path.id % 6) * 3,
+            repeat: Infinity,
+            repeatType: 'loop',
+            ease: 'linear',
+          }}
         />
       ))}
     </svg>
@@ -47,8 +51,17 @@ function FloatingPaths({ position }) {
 export default function FooterPaths() {
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden">
-      <FloatingPaths position={1} />
-      <FloatingPaths position={-1} />
+      {/* The path formula sweeps diagonally through one side of its own coordinate
+          space, so a footer this wide needs a horizontally-mirrored second copy —
+          otherwise the effect only ever shows up on the left half. */}
+      <div className="absolute inset-0">
+        <FloatingPaths position={1} />
+        <FloatingPaths position={-1} />
+      </div>
+      <div className="absolute inset-0 scale-x-[-1]">
+        <FloatingPaths position={1} />
+        <FloatingPaths position={-1} />
+      </div>
     </div>
   )
 }

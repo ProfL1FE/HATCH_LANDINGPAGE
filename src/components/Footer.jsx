@@ -47,17 +47,17 @@ const COLUMNS = [
 
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden border-t border-line pt-14 pb-8 text-sm text-muted">
+    <footer className="relative overflow-hidden border-t border-white/10 bg-black pt-14 pb-8 text-sm text-white/60">
       <FooterPaths />
       <div className="hatch-wrap relative z-10 grid gap-10 md:grid-cols-[1.3fr_.7fr_.7fr_.9fr_.7fr]">
         <div>
           <Link to="/" className="flex items-center gap-2.5">
             <HatchLogo size={34} className="text-cyan" />
             <span className="leading-tight">
-              <span className="block text-[16px] font-black tracking-[1px] text-ink">
+              <span className="block text-[16px] font-black tracking-[1px] text-white">
                 HATCH<sup className="text-[8px] font-bold">™</sup> <span className="text-cyan">2027</span>
               </span>
-              <span className="block text-[8px] font-semibold uppercase tracking-[3px] text-muted">
+              <span className="block text-[8px] font-semibold uppercase tracking-[3px] text-white/50">
                 AI for Humanity
               </span>
             </span>
@@ -75,7 +75,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 aria-label={s.label}
                 title={s.label}
-                className="grid h-10 w-10 place-items-center rounded-full border border-line bg-panel text-body transition hover:bg-panel-2"
+                className="grid h-10 w-10 place-items-center rounded-full border border-white/15 bg-white/5 text-white/70 transition hover:bg-white/10"
               >
                 <Icon name={s.icon} size={17} />
               </a>
@@ -85,10 +85,10 @@ export default function Footer() {
 
         {COLUMNS.map((col) => (
           <div key={col.title}>
-            <b className="text-ink">{col.title}</b>
+            <b className="text-white">{col.title}</b>
             <p className="mt-3 flex flex-col gap-2">
               {col.links.map((l) => (
-                <Link key={l.label} to={l.to} className="hover:text-ink">
+                <Link key={l.label} to={l.to} className="hover:text-white">
                   {l.label}
                 </Link>
               ))}
@@ -97,7 +97,7 @@ export default function Footer() {
         ))}
       </div>
 
-      <div className="hatch-wrap relative z-10 mt-11 border-t border-line pt-6 text-center text-[13px]">
+      <div className="hatch-wrap relative z-10 mt-11 border-t border-white/10 pt-6 text-center text-[13px]">
         © 2027 HATCH™. All rights reserved.
       </div>
     </footer>
