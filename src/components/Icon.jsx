@@ -117,6 +117,11 @@ const PATHS = {
       <circle cx="12" cy="16.8" r="0.15" fill="currentColor" stroke="currentColor" strokeWidth="1.2" />
     </>
   ),
+  code: (
+    <>
+      <path d="M8.5 8L4.5 12l4 4M15.5 8l4 4-4 4M13.5 6.5l-3 11" />
+    </>
+  ),
   sparkles: (
     <>
       <path d="M12 3.5c.4 2.4 1 4.2 2 5.2s2.8 1.6 5.2 2c-2.4.4-4.2 1-5.2 2s-1.6 2.8-2 5.2c-.4-2.4-1-4.2-2-5.2s-2.8-1.6-5.2-2c2.4-.4 4.2-1 5.2-2s1.6-2.8 2-5.2z" />

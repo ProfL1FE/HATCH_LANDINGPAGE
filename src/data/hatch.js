@@ -19,10 +19,10 @@ export const HOME_SECTIONS = [
 ]
 
 export const WHAT_IS_HATCH = [
-  { icon: 'bulb', title: 'Idea', desc: 'Every breakthrough starts with a single idea.' },
-  { icon: 'brain', title: 'AI', desc: 'Use AI to accelerate innovation.' },
-  { icon: 'mic', title: 'Pitch', desc: 'Present your vision to industry experts.' },
-  { icon: 'rocket', title: 'Launch', desc: 'Turn your idea into a real venture.' },
+  { icon: 'bulb', title: 'Idea', desc: 'Every revolution starts with an idea.' },
+  { icon: 'code', title: 'Build', desc: 'Turn your ideas into solutions with AI and innovation.' },
+  { icon: 'mic', title: 'Pitch', desc: 'Challenge, refine, pitch to experts and industry leaders.' },
+  { icon: 'rocket', title: 'Launch', desc: 'Launch your impact to the world.' },
 ]
 
 export const AUDIENCES = [

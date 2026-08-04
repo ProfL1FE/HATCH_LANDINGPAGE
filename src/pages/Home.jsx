@@ -21,10 +21,6 @@ import founderBootcampsImage from '../assets/bootcamp.jpg'
 import industryMentorshipImage from '../assets/Industry Mentorship.jpg'
 import portfolioImage from '../assets/portfolio.jfif'
 import launchpadAccessImage from '../assets/Launchpad Access.png'
-import ideaVideo from '../assets/idea.mp4'
-import aiVideo from '../assets/ai.mp4'
-import pitchingVideo from '../assets/pitching.mp4'
-import launchVideo from '../assets/launch.mp4'
 import ideaIcon from '../assets/icons/idea.png'
 import searchIcon from '../assets/icons/search.png'
 import podcastIcon from '../assets/icons/podcast-.png'
@@ -38,7 +34,13 @@ import hatchVideo from '../assets/hatch .mp4'
 import playButtonIcon from '../assets/icons/playbutton.png'
 import joinVideo from '../assets/join.mp4'
 
-const WHAT_IS_HATCH_VIDEOS = { Idea: ideaVideo, AI: aiVideo, Pitch: pitchingVideo, Launch: launchVideo }
+// Icon circle tint per "What is HATCH" card — mirrors the poster's per-card accent (gold/violet/cyan/red).
+const WHAT_IS_HATCH_STYLES = {
+  Idea: { bg: 'rgba(180,121,15,0.12)', color: 'var(--color-gold)' },
+  Build: { bg: 'rgba(109,77,224,0.12)', color: 'var(--color-violet)' },
+  Pitch: { bg: 'rgba(8,145,178,0.12)', color: 'var(--color-cyan)' },
+  Launch: { bg: 'rgba(214,41,74,0.12)', color: 'var(--color-red)' },
+}
 
 const AUDIENCE_IMAGES = {
   'University Students': uniImage,
@@ -221,61 +223,94 @@ export default function Home() {
       </section>
 
       {/* What is HATCH */}
-      <Section id="what-is-hatch">
-        <SectionHeading title="What is HATCH?" center />
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {WHAT_IS_HATCH.map((w) => {
-            const video = WHAT_IS_HATCH_VIDEOS[w.title]
-            return video ? (
-              <Card key={w.title} className="relative min-h-[320px] overflow-hidden bg-black p-0">
-                <video
-                  src={video}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  className="absolute inset-0 h-full w-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
-                <div className="absolute inset-x-4 bottom-4">
-                  <h3 className="mb-1 text-lg font-bold text-white">{w.title}</h3>
-                  <p className="text-[13px] text-white/85">{w.desc}</p>
-                </div>
-              </Card>
-            ) : (
-              <Card key={w.title} className="text-center">
-                <div className="mx-auto mb-4 grid h-14 w-14 place-items-center rounded-full bg-gradient-to-br from-cyan/20 to-violet/20 text-cyan">
-                  <Icon name={w.icon} size={26} />
-                </div>
-                <h3 className="mb-1.5 text-lg">{w.title}</h3>
-                <p className="text-body">{w.desc}</p>
-              </Card>
-            )
-          })}
+      <section id="what-is-hatch" className="relative overflow-hidden py-10 short:py-8 xshort:py-6">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0"
+          style={{ background: 'linear-gradient(115deg, rgba(91,48,214,0.13) 0%, rgba(233,237,243,0.5) 45%, rgba(8,145,178,0.16) 100%)' }}
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-y-0 right-0 hidden w-[62%] sm:block"
+          style={{
+            backgroundImage: 'radial-gradient(circle, rgba(15,23,42,0.16) 1px, transparent 1px)',
+            backgroundSize: '18px 18px',
+            maskImage: 'linear-gradient(90deg, transparent, black 25%, black 90%, transparent), radial-gradient(ellipse at 60% 50%, black 55%, transparent 90%)',
+            maskComposite: 'intersect',
+            WebkitMaskComposite: 'source-in',
+          }}
+        />
+
+        <div className="hatch-wrap relative grid items-center gap-8 short:gap-6 lg:grid-cols-2 lg:gap-12">
+          <div>
+            <p className="mb-2 text-sm font-bold uppercase tracking-wide text-cyan">What is HATCH?</p>
+            <h2 className="m-0 mb-3 text-[clamp(28px,3.6vw,42px)] font-extrabold leading-[1.08] tracking-[-1px]">
+              A movement of ideas that <span className="text-cyan">change</span>{' '}
+              <span className="bg-gradient-to-r from-royal-purple to-violet bg-clip-text text-transparent">the world.</span>
+            </h2>
+            <p className="mb-5 max-w-[440px] text-body short:text-[15px]">
+              We bring together dreamers, thinkers and changemakers to solve real-world problems and build a better future.
+            </p>
+            <Button to="/journey" variant="primary" size="sm" className="uppercase tracking-[1px]">
+              Explore HATCH →
+            </Button>
+          </div>
+
+          <div className="relative grid grid-cols-2 gap-3">
+            {WHAT_IS_HATCH.map((w) => {
+              const style = WHAT_IS_HATCH_STYLES[w.title]
+              return (
+                <Card key={w.title} className="!p-4 text-center">
+                  <div
+                    className="mx-auto mb-2 grid h-10 w-10 place-items-center rounded-full"
+                    style={{ background: style.bg, color: style.color }}
+                  >
+                    <Icon name={w.icon} size={19} />
+                  </div>
+                  <h3 className="mb-1 text-[15px]">{w.title}</h3>
+                  <p className="text-[12.5px] leading-snug text-body">{w.desc}</p>
+                </Card>
+              )
+            })}
+          </div>
         </div>
-      </Section>
+      </section>
 
       {/* Journey Preview */}
-      <Section id="journey-preview" className="bg-panel/40">
-        <SectionHeading title="The Pathway" center />
-        <div className="relative flex snap-x snap-mandatory justify-between gap-0 overflow-x-auto pb-4 pt-2">
-          <div className="anim-line absolute left-[42px] right-[42px] top-[27px] hidden h-px bg-gradient-to-r from-cyan via-violet to-gold sm:block" />
-          {HOME_JOURNEY.map((s) => {
-            const iconImg = HOME_JOURNEY_ICONS[s.title]
-            return (
-              <div key={s.title} className="relative min-w-[92px] shrink-0 snap-start text-center">
-                <div className="relative z-10 mx-auto grid h-14 w-14 place-items-center rounded-full border border-gold/50 bg-panel text-2xl shadow-[0_0_25px_rgba(255,204,97,0.15)]">
-                  {iconImg ? <img src={iconImg} alt="" className="h-8 w-8 object-contain" /> : s.icon}
+      <section id="journey-preview" className="relative overflow-hidden py-10 short:py-7 xshort:py-5">
+        <div
+          aria-hidden="true"
+          className="absolute inset-0"
+          style={{
+            background:
+              'linear-gradient(120deg, var(--color-violet-deep) 0%, var(--color-royal-purple) 45%, var(--color-cyan-deep) 100%)',
+          }}
+        />
+        <div className="hatch-wrap relative">
+          <h2 className="m-0 mb-5 text-center text-[clamp(26px,3.4vw,40px)] font-extrabold leading-[1.05] tracking-[-1.5px] text-white">
+            The <span className="text-cyan">Pathway</span>
+          </h2>
+          <div className="relative flex snap-x snap-mandatory justify-between gap-0 overflow-x-auto pb-2 pt-2">
+            <div className="anim-line absolute left-[36px] right-[36px] top-[23px] hidden h-px bg-gradient-to-r from-cyan via-gold to-cyan sm:block" />
+            {HOME_JOURNEY.map((s) => {
+              const iconImg = HOME_JOURNEY_ICONS[s.title]
+              return (
+                <div key={s.title} className="relative min-w-[84px] shrink-0 snap-start text-center">
+                  <div className="relative z-10 mx-auto grid h-12 w-12 place-items-center rounded-full bg-white text-2xl shadow-[0_8px_24px_rgba(0,0,0,0.25)]">
+                    {iconImg ? <img src={iconImg} alt="" className="h-7 w-7 object-contain" /> : s.icon}
+                  </div>
+                  <b className="mt-2 block text-xs text-white">{s.title}</b>
                 </div>
-                <b className="mt-2.5 block text-[13px]">{s.title}</b>
-              </div>
-            )
-          })}
+              )
+            })}
+          </div>
+          <div className="mt-4 text-center">
+            <Button to="/journey" variant="secondary" size="sm" className="!border-white/40 !text-white hover:!bg-white/12">
+              See the full interactive journey
+            </Button>
+          </div>
         </div>
-        <div className="mt-4 text-center">
-          <Button to="/journey" variant="secondary">See the full interactive journey</Button>
-        </div>
-      </Section>
+      </section>
 
       {/* Built for Everyone */}
       <Section id="built-for-everyone">
