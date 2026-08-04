@@ -17,12 +17,6 @@ import petronasLogo from '../assets/partners/petronas.svg'
 import mdecLogo from '../assets/partners/mdec.svg'
 import cradleLogo from '../assets/partners/cradle.jpg'
 import maybankLogo from '../assets/partners/maybank.svg'
-import nationalRecognitionImage from '../assets/National Recognition.png'
-import aiMasterclassImage from '../assets/AI-Masterclass.webp'
-import founderBootcampsImage from '../assets/bootcamp.jpg'
-import industryMentorshipImage from '../assets/Industry Mentorship.jpg'
-import portfolioImage from '../assets/portfolio.jfif'
-import launchpadAccessImage from '../assets/Launchpad Access.png'
 import ideaVideo from '../assets/idea.mp4'
 import aiVideo from '../assets/ai.mp4'
 import pitchingVideo from '../assets/pitching.mp4'
@@ -97,34 +91,14 @@ const HOME_JOURNEY_ICONS = {
   Champion: trophyIcon,
 }
 
-// "Why Join" card panel gradients — the poster's own violet-to-teal sweep, rotated across the 6 cards.
-const WHY_JOIN_PANELS = [
-  'linear-gradient(135deg, var(--color-violet-deep), var(--color-cyan))',
-  'linear-gradient(135deg, var(--color-cyan), var(--color-royal-purple))',
-  'linear-gradient(135deg, var(--color-violet-deep), var(--color-royal-purple), var(--color-cyan))',
-]
-
-// Per-card photo for "Why Join" — every card now has one; kept as a lookup (rather than a field
-// on WHY_JOIN itself) so a future label without a photo cleanly falls back to the gradient + icon.
-const WHY_JOIN_IMAGES = {
-  'National Recognition': nationalRecognitionImage,
-  'AI Masterclasses': aiMasterclassImage,
-  'Founder Bootcamps': founderBootcampsImage,
-  'Industry Mentorship': industryMentorshipImage,
-  'Professional Portfolio': portfolioImage,
-  'Launchpad Access': launchpadAccessImage,
-}
-
-// Each source photo frames its subject differently, so the crop needs tuning per card rather than
-// one shared position — e.g. the medal's text sits low in frame, Launchpad's rocket needs the bulb
-// centered rather than the light-ray tips at the very top. Defaults to centered when unset.
-const WHY_JOIN_IMAGE_POSITIONS = {
-  'National Recognition': '50% 64%',
-  'AI Masterclasses': '50% 46%',
-  'Founder Bootcamps': '50% 50%',
-  'Industry Mentorship': '50% 42%',
-  'Professional Portfolio': '50% 46%',
-  'Launchpad Access': '50% 54%',
+// Per-card icon-circle accent for "Why Join" — mirrors the reference's varied badge colors.
+const WHY_JOIN_STYLES = {
+  'National Recognition': { bg: 'rgba(214,41,74,0.1)', color: 'var(--color-red)' },
+  'AI Masterclasses': { bg: 'rgba(8,145,178,0.1)', color: 'var(--color-cyan)' },
+  'Powerful Mentorship': { bg: 'rgba(109,77,224,0.1)', color: 'var(--color-violet)' },
+  'Industry Networking': { bg: 'rgba(21,143,82,0.1)', color: 'var(--color-green)' },
+  'Professional Portfolio': { bg: 'rgba(180,121,15,0.1)', color: 'var(--color-gold)' },
+  'Launchpad Access': { bg: 'rgba(14,127,146,0.1)', color: 'var(--color-aqua)' },
 }
 
 // Subtle ambient sparkle over the hero's right-hand "breathing room" — gold/cyan mix, low opacity, slow drift.
@@ -417,7 +391,7 @@ export default function Home() {
       </Section>
 
       {/* Why Join HATCH */}
-      <section id="why-join" className="relative overflow-hidden py-24 sm:py-28 lg:py-[140px]">
+      <section id="why-join" className="relative overflow-hidden py-16 sm:py-20">
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 opacity-70"
@@ -428,56 +402,39 @@ export default function Home() {
         />
 
         <div className="relative mx-auto w-[92vw] max-w-[1400px]">
-          <div className="hatch-on-gradient-soft mx-auto mb-14 max-w-[640px] text-center sm:mb-16">
-            <div className="mb-4 flex items-center justify-center gap-3">
-              <span className="h-px w-14 bg-gradient-to-r from-transparent to-gold/60" />
-              <span className="text-xs font-semibold uppercase text-white" style={{ letterSpacing: '0.15em', textShadow: 'none' }}>
-                Why Join
-              </span>
-              <span className="h-px w-14 bg-gradient-to-l from-transparent to-gold/60" />
-            </div>
-            <h2 className="m-0 mb-4 text-[clamp(32px,4.5vw,52px)] font-extrabold leading-[1.05] tracking-[-1.5px]">
-              Why join{' '}
-              <img src={hatchLogo} alt="HATCH" className="inline-block h-[0.78em] w-auto align-middle" />?
-            </h2>
-            <p className="mx-auto max-w-[520px] text-lg text-body">
-              We provide the tools, mentorship, and opportunities to help your ideas become{' '}
-              <span className="text-gold">real-world impact</span>.
-            </p>
-          </div>
+          <h2 className="m-0 mb-10 text-center text-[clamp(28px,3.6vw,42px)] font-extrabold leading-[1.05] tracking-[-1.5px]">
+            Why join <img src={hatchLogo} alt="HATCH" className="inline-block h-[0.78em] w-auto align-middle" />?
+          </h2>
 
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {WHY_JOIN.map((w, i) => {
-              const photo = WHY_JOIN_IMAGES[w.label]
-              const photoPosition = WHY_JOIN_IMAGE_POSITIONS[w.label] ?? '50% 50%'
-              return (
-                <div key={w.label} className="hatch-whycard">
-                  <div className="hatch-whycard-imgwrap">
-                    {photo ? (
-                      <img
-                        src={photo}
-                        alt=""
-                        className="hatch-whycard-img hatch-whycard-img--photo"
-                        style={{ objectPosition: photoPosition }}
-                      />
-                    ) : (
-                      <div className="hatch-whycard-img" style={{ background: WHY_JOIN_PANELS[i % WHY_JOIN_PANELS.length] }}>
-                        <Icon name={w.icon} size={40} />
-                      </div>
-                    )}
-                    <div className="hatch-whycard-chip">
-                      <span className="hatch-whycard-title">{w.label}</span>
+          <div className="grid gap-6 lg:grid-cols-[34%_1fr] lg:items-stretch">
+            <div className="relative min-h-[280px] overflow-hidden rounded-[26px] bg-black">
+              <video src={aiVideo} autoPlay muted loop playsInline className="absolute inset-0 h-full w-full object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-transparent" />
+              <p className="absolute inset-x-0 bottom-0 p-6 text-white">
+                We provide the tools, mentorship and opportunities to help your ideas become{' '}
+                <span className="font-bold text-cyan">real-world impact.</span>
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {WHY_JOIN.map((w) => {
+                const style = WHY_JOIN_STYLES[w.label]
+                return (
+                  <Card key={w.label} className="flex items-start gap-3">
+                    <div
+                      className="grid h-10 w-10 shrink-0 place-items-center rounded-full"
+                      style={{ background: style.bg, color: style.color }}
+                    >
+                      <Icon name={w.icon} size={19} />
                     </div>
-                  </div>
-                  <div className="hatch-whycard-content">
-                    <p className="hatch-whycard-desc">{w.desc}</p>
-                    <span className="hatch-whycard-learnmore">
-                      Learn more <span className="hatch-whycard-arrow">→</span>
-                    </span>
-                  </div>
-                </div>
-              )
-            })}
+                    <div>
+                      <h3 className="mb-1 text-[15px]">{w.label}</h3>
+                      <p className="text-[12.5px] leading-snug text-body">{w.desc}</p>
+                    </div>
+                  </Card>
+                )
+              })}
+            </div>
           </div>
         </div>
       </section>

@@ -117,6 +117,13 @@ const PATHS = {
       <circle cx="12" cy="16.8" r="0.15" fill="currentColor" stroke="currentColor" strokeWidth="1.2" />
     </>
   ),
+  document: (
+    <>
+      <path d="M7 3.5h7l4 4V20a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4.5a1 1 0 0 1 1-1z" />
+      <path d="M14 3.5V8h4.5" />
+      <path d="M8.7 12.5h6.6M8.7 15.7h6.6M8.7 18h4" />
+    </>
+  ),
   code: (
     <>
       <path d="M8.5 8L4.5 12l4 4M15.5 8l4 4-4 4M13.5 6.5l-3 11" />
