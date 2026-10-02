@@ -11,7 +11,9 @@
  * here, so if the API ever changes, this is the one place to update.
  */
 
-const JO1NID_BASE = 'https://jo1nid.onrender.com';
+// JO1NID moved to https://jo1nid-api.onrender.com; the old jo1nid.onrender.com
+// host is suspended. Overridable with VITE_JO1NID_BASE (set at build time).
+const JO1NID_BASE = (import.meta.env.VITE_JO1NID_BASE || 'https://jo1nid-api.onrender.com').replace(/\/+$/, '');
 
 async function postJSON(path, body) {
   let res;
